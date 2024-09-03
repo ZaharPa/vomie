@@ -1,12 +1,26 @@
 html, body {
-	height: 100%;
+	height: 100vh;
 	margin: 0;
 	padding: 0;
 }
 
 body {
-	background-image: url("background-image.jpg"); 
+    background: linear-gradient(135deg, #2e004f, #460065, #670075, #870076, #a10078);
+	background-size: 200% 200%;
+	animation: gradientAnimation 15s ease infinite;
 	color: white;
+}
+
+@keyframes gradientAnimation {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 .navbar{
