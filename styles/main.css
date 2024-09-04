@@ -1,14 +1,16 @@
 html, body {
 	height: 100vh;
+	width: 100vw;
 	margin: 0;
 	padding: 0;
 }
 
 body {
-    background: linear-gradient(135deg, #2e004f, #460065, #670075, #870076, #a10078);
-	background-size: 200% 200%;
+    background: linear-gradient(135deg, #2e004f, #460065, #61006E, #600053, #78005A);
+	background-size: 300% 300%;
 	animation: gradientAnimation 15s ease infinite;
 	color: white;
+	font-family: 'Kalam', sans-serif;
 }
 
 @keyframes gradientAnimation {
@@ -25,7 +27,7 @@ body {
 
 .navbar{
 	display: flex;
-	justify-content: space-between;
+	justify-content:  flex-start;
 	align-items: center;
 	background-color: black;
 	padding: 10px 20px;
@@ -35,9 +37,11 @@ body {
 	font-size: 24px;
 	font-weight: bold;
 	font-family: 'Kalam', sans-serif;
+	margin-left: 10%;
+	margin-right: 8px;
 }
 
-.menu {
+.menu, .user-menu {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -45,7 +49,7 @@ body {
 	align-items: center;
 }
 
-.menu-item {
+.menu-item, .user-menu-item {
 	position: relative;
 	margin-right: 20px;
 }
@@ -55,22 +59,21 @@ body {
 	color: white;
 	padding: 10px 20px;
 	border-radius: 20px;
-	background-color: #1a0d24;
-	font-family: 'Kalam', sans-serif;
+	background-color: #261533;
 }
 
 .menu-link:hover {
-	background-color: #444;
+	background-color: #41324C;
 }
 
 .dropdown-menu {
 	display: none;
 	position: absolute;
-	background-color: #333;
+	background-color: #361F45;
 	box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 	margin-top: 10px;
 	padding: 10px 0;
-	border-radius: 5px;
+	border-radius: 15px;
 	min-width: 160px;
 }
 
@@ -80,45 +83,80 @@ body {
 	padding: 0;
 }
 
+.user-menu-item .dropdown-menu {
+	top: 100%; 
+    left: 0;
+    margin-top: 0;
+}
+
 .dropdown-menu li a{
 	text-decoration: none;
 	color: white;
 	padding: 10px 20px;
 	display: block;
 	white-space: nowrap;
-	font-family: 'Kalam', sans-serif;
 }
 
 .dropdown-menu li a:hover{
-	background-color: #444;
+	background-color: #C4AEAD;
+	color: black;
 }
 
-.menu-item:hover .dropdown-menu {
+.menu-item:hover .dropdown-menu, .user-menu-item:hover .dropdown-menu {
 	display: block;
 }
 
 .right-section {
 	display: flex;
 	align-items: center;
+	margin-left: auto;
+	margin-right: 10px;
+}
+
+.search-container {
+	display: flex;
+	align-items: center;
+	background-color: #d3d3d3;
+	border-radius: 20px;
+	padding: 5px 10px;
+	max-width: 300px;
+}
+
+.search-input {
+	border: none;
+	background-color: transparent;
+	padding: 5px 10px;
+	outline: none;
+	flex-grow: 1;
+	font-size: 16px;
 }
 
 .search-btn {
-	background-color: #d3d3d3;
-	color: black;
+	background-color: transparent;
 	border: none;
-	padding: 8px 15px;
-	border-radius: 20px;
 	cursor: pointer;
-	font-family: 'Kalam', sans-serif;	
+	padding: 5px;
 }
 
-.search-btn:hover {
-	background-color: #bbb;
+.search-btn i {
+	color: black;
+	font-size: 16px;
+}
+
+.log-reg a {
+	text-decoration: none;
+	color: white;
+	padding: 10px 20px;
+	border-radius: 10px;
+}
+
+.log-reg a:hover {
+	background-color: #41324C;
 }
 
 .avatar {
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
-	margin-left: 20px;
+	margin-left: 20px;	
 }
