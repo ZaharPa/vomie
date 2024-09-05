@@ -1,2 +1,2 @@
 <?php
-include 'include/header_for_user.php';
+include 'include/header.php';

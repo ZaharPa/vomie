@@ -6,7 +6,7 @@ html, body {
 }
 
 body {
-    background: linear-gradient(135deg, #2e004f, #460065, #61006E, #600053, #78005A);
+    background: linear-gradient(135deg, #2e004f, #61006E, #750065);
 	background-size: 300% 300%;
 	animation: gradientAnimation 15s ease infinite;
 	color: white;
