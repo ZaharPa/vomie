@@ -7,8 +7,8 @@ html, body {
 
 body {
     background: linear-gradient(135deg, #2e004f, #61006E, #750065);
-	background-size: 200% 200%;
-	animation: gradientAnimation 15s ease infinite;
+	background-size: 150% 150%;
+	animation: gradientAnimation 10s ease infinite;
 	color: white;
 	font-family: 'Kalam', sans-serif;
 }
@@ -34,9 +34,8 @@ body {
 }
 
 .logo{
-	font-size: 24px;
+	font-size: 28px;
 	font-weight: bold;
-	font-family: 'Kalam', sans-serif;
 	margin-left: 10%;
 	margin-right: 8px;
 }
@@ -60,6 +59,7 @@ body {
 	padding: 10px 20px;
 	border-radius: 20px;
 	background-color: #261533;
+	font-size: 18px;
 }
 
 .menu-link:hover {
@@ -148,6 +148,7 @@ body {
 	color: white;
 	padding: 10px 20px;
 	border-radius: 10px;
+	font-size: 18px;
 }
 
 .log-reg a:hover {
@@ -159,4 +160,98 @@ body {
 	height: 40px;
 	border-radius: 50%;
 	margin-left: 20px;	
+}
+
+.top-label {
+	display: flex;
+	justify-content:  flex-start;
+	align-items: center;
+	padding-top: 10px;
+}
+
+.right {
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+	margin-right: 80px;
+}
+
+.right a {
+	text-decoration: none;
+	color: white;
+	font-size: 24px;
+}
+
+html:has(div.container-reg-log), body:has(.container-reg-log) {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.container-reg-log {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 95vh;
+	width: 100%;
+	max-width: 100vw;
+	overflow: hidden;
+}
+
+.reg-log {
+	background-color: rgba(0, 0, 0, 0.4);
+	padding: 30px 50px;
+	border-radius: 30px;
+	text-align: center;
+	color: white;
+	width: 600px;
+	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.reg-log h2 {
+	margin-bottom: 20px;
+	font-size: 24px;
+}
+
+.reg-log form {
+	display: flex;
+	flex-direction: column;
+}
+
+.reg-log label {
+	margin-bottom: 10px;
+	text-align: left;
+	color: white;
+	font-size: 18px;
+}
+
+.reg-log input {
+	margin-bottom: 20px;
+	padding: 10px;
+	border-radius: 20px;
+	border: none;
+	background-color: #CCC9C9;
+	color: black;
+	font-size: 16px;
+	outline: none;
+}
+
+.reg-log button {
+	padding: 5px;
+	width: 100px;
+	border-radius: 10px;
+	border: none;
+	background-color: #C4AEAD;
+	color: #252525;
+	font-size:16px;
+	cursor: pointer;
+	align-self: center;
+	font-family: 'Kalam', sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.reg-log button:hover {
+	background-color: #960082;
+	color: white;
 }
