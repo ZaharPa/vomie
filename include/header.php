@@ -46,7 +46,7 @@
         						<li><a href='#'> Movies </a></li>
         						<li><a href='#'> Movies </a></li>
         						<li><a href='#'> Movies </a></li>
-        						<li><a href='#'> Movies </a></li>
+        						<li><a href='index.php?logOut'> Exit </a></li>
         					</ul>
         				</li>
     				</ul>
