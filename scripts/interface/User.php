@@ -3,16 +3,16 @@ namespace scripts\interface;
 
 interface User
 {
-    public function set_name($link, $email);
-    public function get_name();
-    public function set_role($link, $email);
-    public function get_role();
-    public function login_user($link, $email, $password);
-    public function reg_user($link, $email, $password, $email);
-    public function change_photo($link, $path, $photoName);
-    public function set_name_image($link, $email);
-    public function change_role($link, $email);
-    public function delete_user($link, $email);
-    public function change_name($link, $email);
-    public function change_password($link, $email);
+    public function setName( $link, string $email): void;
+    public function getName(): ?string;
+    public function setRole($link, string $email): void;
+    public function get_role(): ?string;
+    public function loginUser($link, string $email, string $password): bool;
+    public function regUser($link, string $email, string $password, string $name): bool;
+    public function changeProfilePhoto($link, string $email, string $path, string $photoName): bool;
+    public function setNameImage($link, string $email): void;
+    public function changeUserRole($link, string $email): bool;
+    public function deleteUser($link, string $email) : bool;
+    public function changeUserName($link, string $email) : bool;
+    public function changeUserPassword($link, string $email) : bool;
 }

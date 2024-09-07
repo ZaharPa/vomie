@@ -5,41 +5,47 @@ use scripts\interface\User;
 
 class Viewer implements User
 {
+    private $name;
+    private $role;
+    
 
-    public function change_password($link, $email)
+    public function setName( $link, string $email): void    
     {}
 
-    public function set_name($link, $email)
+    public function getName(): ?string
     {}
 
-    public function login_user($link, $email, $password)
+    public function setRole($link, string $email): void
     {}
-
-    public function change_role($link, $email)
+    
+    public function get_role(): ?string
     {}
-
-    public function change_name($link, $email)
+    
+    public function loginUser($link, string $email, string $password): bool
     {}
+    
+ 
+    public function regUser($link, string $email, string $password, string $name): bool
+    {
 
-    public function reg_user($link, $email, $password, $email)
+    }
+    
+    public function changeProfilePhoto($link, string $email, string $path, string $photoName): bool
     {}
-
-    public function get_name()
+    
+    public function setNameImage($link, string $email): void
     {}
-
-    public function set_role($link, $email)
+    
+    public function changeUserRole($link, string $email): bool
     {}
-
-    public function set_name_image($link, $email)
+    
+    public function deleteUser($link, string $email) : bool
     {}
-
-    public function delete_user($link, $email)
+    
+    public function changeUserName($link, string $email) : bool
     {}
-
-    public function change_photo($link, $path, $photoName)
-    {}
-
-    public function get_role()
+    
+    public function changeUserPassword($link, string $email) : bool
     {}
 }
 
