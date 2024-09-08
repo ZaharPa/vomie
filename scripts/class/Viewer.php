@@ -1,6 +1,7 @@
 <?php
 namespace scripts\class;
 
+use Exception;
 use scripts\interface\User;
 
 class Viewer implements User
@@ -56,7 +57,52 @@ class Viewer implements User
     }
     
     public function loginUser($link, string $email, string $password): bool
-    {}
+    {
+        try {
+            $stmt = mysqli_prepare($link, "SELECT password FROM user WHERE email = ?");
+            if (!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            mysqli_stmt_bind_param($stmt, 's', $email);
+            mysqli_stmt_execute($stmt);
+            
+            $result = mysqli_stmt_get_result($stmt);
+            
+            if (!$result) {
+                throw new Exception("Error compiling query: " . mysqli_error($link));
+            }
+            
+            if ($result && mysqli_num_rows($result) > 0) {
+                $row = mysqli_fetch_array($result);
+                $passHash = $row['password'];
+                
+                if (password_verify($password, $passHash)) {
+                    $this->setName($link, $email);
+                    $this->setRole($link, $email);
+                    
+                    mysqli_stmt_close($stmt);
+                    
+                    return true;
+                } else {
+                    mysqli_stmt_close($stmt);
+                    
+                    return false;
+                }
+            }
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            echo '<script type="text/javascript">',
+            'showModal("An error occurred. Please try again later.");',
+            '</script>';
+            
+            if(isset($stmt)) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return false;
+        }
+    }
     
     private function hash_pass_user($password) :string
     {

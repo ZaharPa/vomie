@@ -11,12 +11,15 @@ if (isset($_GET['logOut'])){
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'main';
 
-if ($page != 'register')
+if ($page != 'register' && $page != 'login')
     include 'include/header.php';
 
 switch($page) {
     case 'register':
         include 'pages/register.php';
+        break;
+    case 'login':
+        include 'pages/login.php';
         break;
     default:
         include 'pages/main.php';
