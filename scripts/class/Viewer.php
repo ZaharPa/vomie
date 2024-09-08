@@ -102,14 +102,25 @@ class Viewer implements User
                 mysqli_stmt_close($stmt_insert);
                 return true;
             } else {
-                echo '<script language="javascript">';
-                echo 'alert("User exist with this email")';
-                echo '</scripts>';
+                echo '<script type="text/javascript">',
+                'showModal("User exist with this email");',
+                '</script>';
                 mysqli_stmt_close($stmt_check);
+                return false;
             }
-            
+
         } catch (Exception $e) {
             error_log($e->getMessage());
+            echo '<script type="text/javascript">',
+            'showModal("An error occurred. Please try again later.");',
+            '</script>';
+            
+            if ($stmt_check) {
+                mysqli_stmt_close($stmt_check);
+            }
+            if (isset($stmt_insert) && $stmt_insert) {
+                mysqli_stmt_close($stmt_insert);
+            }
             return false;
         }
     }

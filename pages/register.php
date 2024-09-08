@@ -1,32 +1,9 @@
 <?php 
 use scripts\Database;
 use scripts\class\Viewer;
-
-if (!empty($_POST)) {
-    $name = htmlspecialchars($_POST['nameUser'], ENT_QUOTES, 'UTF-8');
-    $email = filter_input(INPUT_POST, 'emailUser', FILTER_SANITIZE_EMAIL);
-    
-    if (strlen($_POST['passUser']) >= 8 && strlen($_POST['passUser']) <= 20)
-    {
-        $password = trim($_POST['passUser']);
-        $curUser = new Viewer();
-        $link = Database::getLink();
-        $curUser->regUser($link, $email, $password, $name);
-        $_SESSION['role'] = $curUser->getRole();
-        $_SESSION['name'] = $curUser->getName();
-        
-        if(isset($_SESSION['role']))
-        {
-            header("Location: index.php?page=main");
-            exit();
-        }
-    } else {
-        echo '<script language="javascript">';
-        echo 'alert("Incorrect data")';
-        echo '</script>';
-    }
-}
 ?>
+
+
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -62,5 +39,40 @@ if (!empty($_POST)) {
     		 	</form>
     		</div>
 		</div>
+		<div id="modal" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<p id="modal-text" class="modal-text"></p>
+			</div>
+		</div>
+	<script src="scripts/JavaScript/showModal.js"></script>
 	</body>
 </html>
+
+
+<?php 
+if (!empty($_POST)) {
+    $name = htmlspecialchars($_POST['nameUser'], ENT_QUOTES, 'UTF-8');
+    $email = filter_input(INPUT_POST, 'emailUser', FILTER_SANITIZE_EMAIL);
+    
+    if (strlen($_POST['passUser']) >= 8 && strlen($_POST['passUser']) <= 20)
+    {
+        $password = trim($_POST['passUser']);
+        $curUser = new Viewer();
+        $link = Database::getLink();
+        $curUser->regUser($link, $email, $password, $name);
+        $_SESSION['role'] = $curUser->getRole();
+        $_SESSION['name'] = $curUser->getName();
+        
+        if(isset($_SESSION['role']))
+        {
+            header("Location: index.php?page=main");
+            exit();
+        }
+    } else {
+        echo '<script type="text/javascript">',
+        'showModal("Password must be 8-20 lenght");',
+        '</script>';
+    }
+}
+?>
