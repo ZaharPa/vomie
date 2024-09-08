@@ -11,6 +11,9 @@ if (isset($_GET['logOut'])){
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'main';
 
+$title = 'main';
+
+
 if ($page != 'register' && $page != 'login')
     include 'include/header.php';
 
@@ -21,6 +24,10 @@ switch($page) {
     case 'login':
         include 'pages/login.php';
         break;
+    case 'add-movie':
+        include 'pages/addMovie.php';
+        break;
     default:
         include 'pages/main.php';
+        break;
 }
