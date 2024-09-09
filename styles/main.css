@@ -3,6 +3,7 @@ html, body {
 	width: 100vw;
 	margin: 0;
 	padding: 0;
+	overflow-x: hidden;
 }
 
 body {
@@ -302,6 +303,8 @@ html:has(div.container-reg-log), body:has(.container-reg-log) {
 	flex-direction: column; 
 	justify-content: center;
 	align-items: center;
+	margin-right: 70px;
+	margin-left: 50px;
 }
 
 .add-movie h2 {
@@ -335,9 +338,14 @@ html:has(div.container-reg-log), body:has(.container-reg-log) {
 	font-size: 16px;
 	outline: none;
 }
+
+.add-movie input[type="text"] {
+	max-width: 40%;
+}
+
 .add-movie textarea {
 	height: 200px;
-	width: 1000px;
+	width: 90%;
 	border: 1px solid #ccc;
 	font-size: 16px;
 	line-height: 1.5;
@@ -406,4 +414,33 @@ html:has(div.container-reg-log), body:has(.container-reg-log) {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+.genre-options {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	justify-content: center;
+}
+
+.genre-options input[type="checkbox"] {
+	display: none;
+}
+
+.genre-label {
+	display: inline-block;
+	padding: 8px 15px;
+	border-radius: 20px;
+	background-color: #6A327D;
+	color: #fff;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.genre-options input[type="checkbox"]:checked + .genre-label {
+	background-color: #9A32A5;
+}
+
+.genre-label:hover {
+	background-color: #522256;
 }
