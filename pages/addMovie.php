@@ -267,7 +267,58 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="form-group">
+			<label>Link</label>			
+			<div class="form-group">
+    			<label for="link-name-1">Name</label>
+    			<input type="text" name="link-name-1" id="link-name-1">
+    			<label for="link-1">Link</label>
+    			<input type="url" name="link-1" id="link-1">
+			</div>
+		</div>
+		<div class="form-group">
+			<button type="button" class="showMore">+</button>			
+			<div class="form-group hidden">
+			</div>
+		</div>
+		<div class="form-group hidden">
+			<button type="button" class="showMore">+</button>			
+			<div class="form-group">
+        		<label for="link-name-2">Name</label>
+    			<input type="text" name="link-name-2" id="link-name-2">
+    			<label for="link-2">Link</label>
+    			<input type="url" name="link-2" id="link-2">
+			</div>
+		</div>
+		<div class="form-group hidden">
+			<button type="button" class="showMore">+</button>			
+			<div class="form-group">
+        		<label for="link-name-3">Name</label>
+    			<input type="text" name="link-name-3" id="link-name-3">
+    			<label for="link-3">Link</label>
+    			<input type="url" name="link-3" id="link-3">
+			</div>
+		</div>
+		<div class="form-group hidden">
+			<button type="button" class="showMore">+</button>			
+			<div class="form-group">
+        		<label for="link-name-4">Name</label>
+    			<input type="text" name="link-name-4" id="link-name-4">
+    			<label for="link-4">Link</label>
+    			<input type="url" name="link-4" id="link-4">
+			</div>
+		</div>
+		<div class="form-group hidden">		
+			<div class="form-group">
+        		<label for="link-name-5">Name</label>
+    			<input type="text" name="link-name-5" id="link-name-5">
+    			<label for="link-5">Link</label>
+    			<input type="url" name="link-5" id="link-5">
+			</div>
+		</div>
+		<button class="add-movie-btn">submit</button>
 	</form>
 </div>
 <script src="scripts/JavaScript/previewPhoto.js"></script>
-<script src="scripts/JavaScript/showMoreCast.js"></script>
+<script src="scripts/JavaScript/showMore.js"></script>

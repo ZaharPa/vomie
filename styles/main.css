@@ -318,6 +318,8 @@ html:has(div.container-reg-log), body:has(.container-reg-log) {
 	display: flex;
 	align-items: center;
 	width: 100%;
+	margin-top: 15px;
+
 }
 
 .add-movie label {
@@ -329,7 +331,7 @@ html:has(div.container-reg-log), body:has(.container-reg-log) {
 .form-group input {
 	flex: 1;
 }
-.add-movie input[type="text"], .add-movie textarea {
+.add-movie input[type="text"], .add-movie textarea, .add-movie input[type="url"] {
 	padding: 10px;
 	border-radius: 25px;
 	margin-bottom: 20px;
@@ -339,8 +341,9 @@ html:has(div.container-reg-log), body:has(.container-reg-log) {
 	outline: none;
 }
 
-.add-movie input[type="text"] {
+.add-movie input[type="text"], .add-movie input[type="url"] {
 	max-width: 40%;
+	margin-right: 15px;
 }
 
 .add-movie textarea {
@@ -441,5 +444,43 @@ html:has(div.container-reg-log), body:has(.container-reg-log) {
 }
 
 .genre-label:hover {
-	background-color: #522256;
+	background-color: #522256; 
+}
+
+.showMore {
+	background-color: #C4AEAD;
+	color: #252525;
+	border: none;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	font-size: 24px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	margin-right: 10px;
+}
+
+.showMore:hover {
+	background-color: #960082;
+	color: white;
+}
+
+.add-movie-btn {
+	display: block;
+	margin: 40px auto;
+	padding: 12px;
+	width: 100px;
+	border-radius: 10px;
+	border: none;
+	background-color: #C4AEAD;
+	color: #252525;
+	font-size:24px;
+	cursor: pointer;
+	align-self: center;
+	font-weight: bold;
+}
+
+.add-movie-btn:hover {
+	background-color: #960082;
+	color: white;
 }
