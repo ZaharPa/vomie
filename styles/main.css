@@ -331,7 +331,8 @@ html:has(div.container-reg-log), body:has(.container-reg-log) {
 .form-group input {
 	flex: 1;
 }
-.add-movie input[type="text"], .add-movie textarea, .add-movie input[type="url"] {
+.add-movie input[type="text"], .add-movie textarea, .add-movie input[type="url"], 
+.add-movie input[list] {
 	padding: 10px;
 	border-radius: 25px;
 	margin-bottom: 20px;
@@ -346,6 +347,11 @@ html:has(div.container-reg-log), body:has(.container-reg-log) {
 	margin-right: 15px;
 }
 
+.add-movie input[list] {
+	max-width: 25%;
+	margin-right: 50px;	
+}
+
 .add-movie textarea {
 	height: 200px;
 	width: 90%;
@@ -357,7 +363,7 @@ html:has(div.container-reg-log), body:has(.container-reg-log) {
 	margin-top: 10px;
 }
 
-.form-group input[type="date"] {
+.form-group input[type="date"], input[type="time"] {
 	padding: 10px;
 	border-radius: 25px;
 	margin-bottom: 20px;
@@ -367,9 +373,10 @@ html:has(div.container-reg-log), body:has(.container-reg-log) {
 	box-sizing: border-box;
 	max-width: 300px;
 	flex-shrink: 0;
+	margin-right: 100px;
 }
 
-.form-group input[type="date"]:hover {
+.form-group input[type="date"]:hover, input[type="time"]:hover {
 	background-color: #F3F3F3;
 }
 
@@ -478,6 +485,7 @@ html:has(div.container-reg-log), body:has(.container-reg-log) {
 	cursor: pointer;
 	align-self: center;
 	font-weight: bold;
+	font-family: 'Kalam', sans-serif;
 }
 
 .add-movie-btn:hover {

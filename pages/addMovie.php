@@ -14,7 +14,33 @@
 		<div class="form-group">
 			<label for="release-date">Release Date</label>
 			<input type="date" name="release-date" id="release-date" required>
+		
+			<label for="duration">Duration</label>
+			<input type="time" id="duration" name="duration" step="1">
 		</div>
+		
+		
+		<div class="form-group">
+			<label for="type-option">Type</label>
+			<input list="types" id="type-option" name="type-option" />
+			<datalist id="types">
+				<option value="movie">
+				<option value="serial">
+				<option value="cartoon movie">
+				<option value="cartoon series">
+				<option value="anime">
+			</datalist>
+			
+			<label for="status-option">Status</label>
+			<input list="status" id="status-option" name="status-option" />
+			<datalist id="status">
+				<option value="in development">
+				<option value="ongoing">
+				<option value="completed">
+				<option value="canceled">
+			</datalist>
+		</div>
+		
 		
 		<div class="form-group">
     		<label>Genre</label>
@@ -60,6 +86,7 @@
     		</div>
 		</div>
 		
+		
 		<div class="form-group">
 			<label>Photo</label>			
 			<div class="upload-container">
@@ -68,12 +95,14 @@
                     <img id="preview-1" src="styles/black-plus.png" alt="Upload Image" />
                 </label>
 			</div>
+			
 			<div class="upload-container">
                 <label for="file-input-2" class="file-upload-label">
                     <input type="file" class="file-input" id="file-input-2" accept="image/*" />
                     <img id="preview-2" src="styles/black-plus.png" alt="Upload Image" />
                 </label>
 			</div>
+			
 			<div class="upload-container">
                 <label for="file-input-3" class="file-upload-label">
                     <input type="file" class="file-input" id="file-input-3" accept="image/*" />
@@ -86,30 +115,35 @@
                     <img id="preview-4" src="styles/black-plus.png" alt="Upload Image" />
                 </label>
 			</div>
+			
 			<div class="upload-container hidden">
                 <label for="file-input-5" class="file-upload-label">
                     <input type="file" class="file-input" id="file-input-5" accept="image/*" />
                     <img id="preview-5" src="styles/black-plus.png" alt="Upload Image" />
                 </label>
 			</div>
+			
 			<div class="upload-container hidden">
                 <label for="file-input-6" class="file-upload-label">
                     <input type="file" class="file-input" id="file-input-6" accept="image/*" />
                     <img id="preview-6" src="styles/black-plus.png" alt="Upload Image" />
                 </label>
 			</div>
+			
 			<div class="upload-container hidden">
                 <label for="file-input-7" class="file-upload-label">
                     <input type="file" class="file-input" id="file-input-7" accept="image/*" />
                     <img id="preview-7" src="styles/black-plus.png" alt="Upload Image" />
                 </label>
 			</div>
+			
 			<div class="upload-container hidden">
                 <label for="file-input-8" class="file-upload-label">
                     <input type="file" class="file-input" id="file-input-8" accept="image/*" />
                     <img id="preview-8" src="styles/black-plus.png" alt="Upload Image" />
                 </label>
 			</div>
+			
 			<div class="upload-container hidden">
                 <label for="file-input-9" class="file-upload-label">
                     <input type="file" class="file-input" id="file-input-9" accept="image/*" />
@@ -117,6 +151,7 @@
                 </label>
 			</div>
 		</div>
+		
 		
 		<div class="form-group">
 			<label>Cast</label>			
@@ -133,6 +168,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="form-group">
 			<button type="button" class="showMore">+</button>			
 			<div class="form-group hidden">
@@ -148,6 +184,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="form-group hidden">
 			<button type="button" class="showMore">+</button>			
 			<div class="form-group">
@@ -163,6 +200,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="form-group hidden">
 			<button type="button" class="showMore">+</button>			
 			<div class="form-group">
@@ -178,6 +216,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="form-group hidden">
 			<button type="button" class="showMore">+</button>			
 			<div class="form-group">
@@ -193,6 +232,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="form-group hidden">
 			<button type="button" class="showMore">+</button>			
 			<div class="form-group">
@@ -208,6 +248,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="form-group hidden">
 			<button type="button" class="showMore">+</button>			
 			<div class="form-group">
@@ -223,6 +264,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="form-group hidden">
 			<button type="button" class="showMore">+</button>			
 			<div class="form-group">
@@ -238,6 +280,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="form-group hidden">
 			<button type="button" class="showMore">+</button>			
 			<div class="form-group">
@@ -253,6 +296,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="form-group hidden">
 			<div class="form-group">
         		<label for="nameCast-10">Name</label>
@@ -268,6 +312,7 @@
 			</div>
 		</div>
 		
+		
 		<div class="form-group">
 			<label>Link</label>			
 			<div class="form-group">
@@ -277,11 +322,13 @@
     			<input type="url" name="link-1" id="link-1">
 			</div>
 		</div>
+		
 		<div class="form-group">
 			<button type="button" class="showMore">+</button>			
 			<div class="form-group hidden">
 			</div>
 		</div>
+		
 		<div class="form-group hidden">
 			<button type="button" class="showMore">+</button>			
 			<div class="form-group">
@@ -291,6 +338,7 @@
     			<input type="url" name="link-2" id="link-2">
 			</div>
 		</div>
+		
 		<div class="form-group hidden">
 			<button type="button" class="showMore">+</button>			
 			<div class="form-group">
@@ -300,6 +348,7 @@
     			<input type="url" name="link-3" id="link-3">
 			</div>
 		</div>
+		
 		<div class="form-group hidden">
 			<button type="button" class="showMore">+</button>			
 			<div class="form-group">
@@ -309,6 +358,7 @@
     			<input type="url" name="link-4" id="link-4">
 			</div>
 		</div>
+		
 		<div class="form-group hidden">		
 			<div class="form-group">
         		<label for="link-name-5">Name</label>
@@ -317,6 +367,7 @@
     			<input type="url" name="link-5" id="link-5">
 			</div>
 		</div>
+		
 		<button class="add-movie-btn">submit</button>
 	</form>
 </div>
