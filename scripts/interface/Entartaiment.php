@@ -23,9 +23,6 @@ interface Entartaiment
     public function editLink($link, $id_link, $id_movie, $link_movie);
     public function deleteLink($link, $id_link);
     
-    public function setIdMovie($link);
-    public function getIdMovie($link);
-    
     public function viewsAllMovie($link);
     public function viewOneMovie($link, $id);
 }
