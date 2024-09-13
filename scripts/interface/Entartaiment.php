@@ -23,8 +23,8 @@ interface Entartaiment
     public function editLink($link, $id_link, $id_movie, $link_movie) : bool;
     public function deleteLink($link, $id_link) : bool;
     
-    public function setIdMovie($link, $id) : void;
-    public function getIdMovie($link) : ?string;
+    public function setIdMovie($id) : void;
+    public function getIdMovie() : ?string;
     
     public function viewsAllMovie($link) : array;
     public function viewOneMovie($link, $id) : object;

@@ -6,8 +6,10 @@ use scripts\interface\Entartaiment;
 
 class Movie implements Entartaiment
 {
+    private $id;
 
-    public function addMovie($link, $name, $date, $description, $status, $type, $duration)
+    
+    public function addMovie($link, $name, $date, $description, $status, $type, $duration) : bool
     {
         try {
             $query = "INSERT INTO (name, date, description, status, type, duration) VALUES (?, ?, ?, ?, ?, ?)";
@@ -22,9 +24,13 @@ class Movie implements Entartaiment
             
             if ($result === false) {
                 throw new Exception("Error " . mysqli_stmt_error($stmt));
-            } 
+            } else {
+               $this->setIdMovie(mysqli_insert_id($link));
+            }
             
             mysqli_stmt_close($stmt);
+            return true;
+            
         } catch (Exception $e) {
             error_log($e->getMessage());
             echo '<script type="text/javascript">',
@@ -81,6 +87,16 @@ class Movie implements Entartaiment
     
     public function deleteLink($link, $id_link)
     {}
+    
+    public function setIdMovie($id) : void
+    {
+       $this->id = $id;
+    }
+    
+    public function getIdMovie() : ?string
+    {
+        return $this->id;
+    }
     
     public function viewsAllMovie($link)
     {}
