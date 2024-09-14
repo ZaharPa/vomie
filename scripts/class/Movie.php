@@ -32,12 +32,12 @@ class Movie implements Entartaiment
             return true;
             
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log($e->getMessage() . " Query: " . $query);
             echo '<script type="text/javascript">',
-            'showModal("An error occurred. Please try again later.");',
+            'showModal("An error occurred with movie. Please try again later.");',
             '</script>';
             
-            if(isset($stmt)) {
+            if (isset($stmt) && $stmt !== false) {
                 mysqli_stmt_close($stmt);
             }
             
@@ -46,10 +46,10 @@ class Movie implements Entartaiment
         
     }
     
-    public function editMovie($link, $id, $name, $date, $description, $status, $type, $duration)
+    public function editMovie($link, $id, $name, $date, $description, $status, $type, $duration) : bool
     {}
     
-    public function deleteMovie($link, $id)
+    public function deleteMovie($link, $id) : bool
     {}
 
     public function addGenre($link, $id_movie, $genre) : bool
@@ -57,7 +57,7 @@ class Movie implements Entartaiment
         try {
             $query = "INSERT INTO genre_movie(id_movie, genre) VALUES (?, ?)";
             $stmt = mysqli_prepare($link, $query);
-            
+
             if(!$stmt) {
                 throw new Exception("Error prepare query: " . mysqli_error($link));
             }
@@ -76,12 +76,12 @@ class Movie implements Entartaiment
             
             return true;
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log($e->getMessage() . " Query: " . $query);
             echo '<script type="text/javascript">',
-                'showModal("An error occured. Please try again later.");',
-                '</script>';
+            'showModal("An error occurred with genre. Please try again later.");',
+            '</script>';
             
-            if (isset($stmt)) {
+            if (isset($stmt) && $stmt !== false) {
                 mysqli_stmt_close($stmt);
             }
             
@@ -89,23 +89,23 @@ class Movie implements Entartaiment
         }
     }
     
-    public function editGenre($link, $id_genre, $id_movie, $genre)
+    public function editGenre($link, $id_genre, $id_movie, $genre): bool
     {}
     
-    public function deleteGenre($link, $id_genre)
+    public function deleteGenre($link, $id_genre) : bool
     {}
     
-    public function addPhoto($link, $id_movie, $photo) : bool
+    public function addPhoto($link, $id_movie, $path, $photo) : bool
     {
         try {
-            $query = "INSERT INTO photo_movie(id_movie, photo) VALUES (?, ?)";
+            $query = "INSERT INTO photo_movie(id_movie, path, photo) VALUES (?, ?, ?)";
             $stmt = mysqli_prepare($link, $query);
             
             if(!$stmt) {
                 throw new Exception("Error prepare query: " . mysqli_error($link));
             }
             
-            if(!mysqli_stmt_bind_param($stmt, 'is', $id_movie, $photo)) {
+            if(!mysqli_stmt_bind_param($stmt, 'iss', $id_movie, $path, $photo)) {
                 throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
             }
             
@@ -119,12 +119,12 @@ class Movie implements Entartaiment
             
             return true;
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log($e->getMessage() . " Query: " . $query);
             echo '<script type="text/javascript">',
-            'showModal("An error occured. Please try again later.");',
+            'showModal("An error occurred with photo. Please try again later.");',
             '</script>';
             
-            if (isset($stmt)) {
+            if (isset($stmt) && $stmt !== false) {
                 mysqli_stmt_close($stmt);
             }
             
@@ -132,17 +132,17 @@ class Movie implements Entartaiment
         }
     }
     
-    public function editPhoto($link, $id_photo, $id_movie, $path, $photo)
+    public function editPhoto($link, $id_photo, $id_movie, $path, $photo) : bool
     {}
     
-    public function deletePhoto($link, $id_photo)
+    public function deletePhoto($link, $id_photo) : bool
     {}
     
-    public function addCast($link, $id_movie, $name, $role, $photo = null) : bool
+    public function addCast($link, $id_movie, $name, $role, $path = null, $photo = null) : bool
     {
         try {
             if ($photo != null)
-                $query = "INSERT INTO cast_movie(id_movie, name, role, photo) VALUES (?, ?, ?, ?)";
+                $query = "INSERT INTO cast_movie(id_movie, name, role, path, photo) VALUES (?, ?, ?, ?, ?)";
             else 
                 $query = "INSERT INTO cast_movie(id_movie, name, role) VALUES (?, ?, ?)";    
             
@@ -153,7 +153,7 @@ class Movie implements Entartaiment
             }
             
             if ($photo != null) {
-                if(!mysqli_stmt_bind_param($stmt, 'isss', $id_movie, $name, $role, $photo)) 
+                if(!mysqli_stmt_bind_param($stmt, 'issss', $id_movie, $name, $role, $path, $photo)) 
                     throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
             } else {
                 if(!mysqli_stmt_bind_param($stmt, 'iss', $id_movie, $name, $role))
@@ -170,12 +170,12 @@ class Movie implements Entartaiment
             
             return true;
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log($e->getMessage() . " Query: " . $query);
             echo '<script type="text/javascript">',
-            'showModal("An error occured. Please try again later.");',
+            'showModal("An error occurred with cast. Please try again later.");',
             '</script>';
             
-            if (isset($stmt)) {
+            if (isset($stmt) && $stmt !== false) {
                 mysqli_stmt_close($stmt);
             }
             
@@ -183,10 +183,10 @@ class Movie implements Entartaiment
         }
     }
     
-    public function editCast($link, $id_cast, $id_movie, $name, $role, $path, $photo)
+    public function editCast($link, $id_cast, $id_movie, $name, $role, $path, $photo) : bool
     {}
     
-    public function deleteCast($link, $id_cast)
+    public function deleteCast($link, $id_cast) : bool
     {}
     
     public function addLink($link, $id_movie, $name, $link_movie) : bool
@@ -213,12 +213,12 @@ class Movie implements Entartaiment
             
             return true;
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            error_log($e->getMessage() . " Query: " . $query);
             echo '<script type="text/javascript">',
-            'showModal("An error occured. Please try again later.");',
+            'showModal("An error occurred with link. Please try again later.");',
             '</script>';
             
-            if (isset($stmt)) {
+            if (isset($stmt) && $stmt !== false) {
                 mysqli_stmt_close($stmt);
             }
             
@@ -226,10 +226,10 @@ class Movie implements Entartaiment
         }
     }
     
-    public function editLink($link, $id_link, $id_movie, $link_movie)
+    public function editLink($link, $id_link, $id_movie, $link_movie) : bool
     {}
     
-    public function deleteLink($link, $id_link)
+    public function deleteLink($link, $id_link) : bool
     {}
     
     public function setIdMovie($id) : void
@@ -242,10 +242,10 @@ class Movie implements Entartaiment
         return $this->id;
     }
     
-    public function viewsAllMovie($link)
+    public function viewsAllMovie($link) : array
     {}
     
-    public function viewOneMovie($link, $id)
+    public function viewOneMovie($link, $id) : object
     {}
     
 }

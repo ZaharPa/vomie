@@ -11,11 +11,11 @@ interface Entartaiment
     public function editGenre($link, $id_genre, $id_movie, $genre) : bool;
     public function deleteGenre($link, $id_genre) : bool;
     
-    public function addPhoto($link, $id_movie, $photo) : bool;
+    public function addPhoto($link, $id_movie, $path, $photo) : bool;
     public function editPhoto($link, $id_photo, $id_movie, $path, $photo) : bool;
     public function deletePhoto($link, $id_photo) : bool;
     
-    public function addCast($link, $id_movie, $name, $role, $photo = null) : bool;
+    public function addCast($link, $id_movie, $name, $role, $path = null, $photo = null) : bool;
     public function editCast($link, $id_cast, $id_movie, $name, $role, $path, $photo) : bool;
     public function deleteCast($link, $id_cast) : bool;
     
