@@ -487,6 +487,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin')
                         $curMovie->addLink($link, $id_movie, $nameLink[$i], $linkMovie[$i]);
                 }
             }
+            
+            header('Location: index.php?page=main');
+            exit();
         } else {
             echo '<script type="text/javascript">',
             'showModal("Incorrect data");',

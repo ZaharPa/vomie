@@ -21,8 +21,9 @@
     					<ul class="dropdown-menu">
     						<li><a href='#'> Movies </a></li>
     						<li><a href='#'> Movies </a></li>
-    						<li><a href='#'> Movies </a></li>
-    						<li><a href='#'> Movies </a></li>
+    						<?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') { ?>
+    						<li><a href='index.php?page=add-movie'> Add Movie </a></li>
+    						<?php }?>
     					</ul>
     				</li>
     			</ul>
@@ -43,9 +44,7 @@
         				<li class="user-menu-item">
         					<img src="avatar.jpg" alt="User Avatar" class="avatar">
         					<ul class="dropdown-menu">
-        						<li><a href='#'> Movies </a></li>
-        						<li><a href='#'> Movies </a></li>
-        						<li><a href='#'> Movies </a></li>
+        						<li><a href='#'> My profile </a></li>
         						<li><a href='index.php?logOut'> Exit </a></li>
         					</ul>
         				</li>
