@@ -492,3 +492,126 @@ html:has(div.container-reg-log), body:has(.container-reg-log) {
 	background-color: #960082;
 	color: white;
 }
+
+.views-all .container {
+	width: 100%;
+	max-width: 900px;
+	margin: 0 auto;
+}
+
+.views-all .search-bar input {
+	width: 100%;
+	padding: 10px;
+	border-radius: 5px;
+	border: none;	
+}
+
+.views-all .filters {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.views-all .filter-section {
+	background-color: #2A253A;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+.views-all .filter-toggle {
+	background: none;
+	border: none;
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	width: 100%;
+	text-align: left;
+	cursor: pointer;
+}
+
+.views-all .filter-options {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+.views-all .filter-option {
+	background-color: #4E3254;
+	padding: 5px 10px;
+	border-radius: 15px;
+	color: white;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+.views-all .filter-option:hover {
+	background-color: #7A4C6D;
+}
+
+.views-all .filter-select {
+	width: 100%;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: #4E3254;
+	color: white;
+	border: none;
+	margin-top: 10px;
+}
+
+.views-all .year-slider {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+.views-all .year-slider input[type="number"] {
+	background-color: #4E3254;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	width: 60px;
+	text-align: center;
+	font-size: 14px;
+	padding: 5px;
+}
+
+#slider {
+	width: 100%;
+	margin: 0 10px;
+}
+
+.views-all .anime-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap: 20px;
+}
+
+.views-all .anime-card {
+	background-color: #3A263B;
+	border-radius: 10px;
+	padding: 10px;
+	text-align: center;
+}
+
+.views-all .anime-card img {
+	width: 100%;
+	border-radius: 10px;
+}
+
+.views-all .pagination {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.views-all .pagination button {
+	padding: 10px;
+	background-color: #3B263A;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	margin: 0 5px;
+}

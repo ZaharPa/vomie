@@ -19,7 +19,7 @@
     				<li class="menu-item">
     					<a href="#" class="menu-link">home</a>
     					<ul class="dropdown-menu">
-    						<li><a href='#'> Movies </a></li>
+    						<li><a href='index.php?page=view-all'> View all movies </a></li>
     						<li><a href='#'> Movies </a></li>
     						<?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') { ?>
     						<li><a href='index.php?page=add-movie'> Add Movie </a></li>
