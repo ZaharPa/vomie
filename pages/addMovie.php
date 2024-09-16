@@ -2,6 +2,8 @@
 use scripts\class\Movie;
 use scripts\Database;
 
+ob_start();
+
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') 
 {
 ?>
@@ -96,7 +98,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin')
     			<label>Photo</label>			
     			<div class="upload-container">
                     <label for="file-input-1" class="file-upload-label">
-                        <input type="file" class="file-input" name="photos[]" id="file-input-1" accept="image/*" />
+                        <input type="file" class="file-input" name="photos[]" id="file-input-1" accept="image/*" required />
                         <img id="preview-1" src="styles/black-plus.png" alt="Upload Image" />
                     </label>
     			</div>
@@ -497,4 +499,5 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin')
         }
     }
 }
-?>
+
+ob_end_flush();

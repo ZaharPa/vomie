@@ -41,7 +41,7 @@ class Movie implements Entartaiment
                 mysqli_stmt_close($stmt);
             }
             
-            return false;
+            return false; 
         }
         
     }
@@ -243,10 +243,69 @@ class Movie implements Entartaiment
     }
     
     public function viewsAllMovie($link) : array
-    {}
+    {
+        try {
+            $query = "SELECT * FROM movie ORDER BY id_movie DESC, views DESC";
+            $result = mysqli_query($link, $query);
+            
+            if (!$result)
+                throw new Exception("Error " . mysqli_error($link));
+            
+            $movies = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            
+            mysqli_free_result($result);
+            
+            return $movies;
+        } catch (Exception $e){
+            error_log($e->getMessage() . "Query: " .$query);
+            
+            return [];
+        }
+    }
     
     public function viewOneMovie($link, $id) : object
     {}
+    
+    public function mainPhotoMovie($link, $id_movie) : array
+    {
+        try {
+            $query = "SELECT * FROM photo_movie WHERE id_movie = ? ORDER BY id_photo ASC LIMIT 1";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if (!$stmt) {
+                throw new Exception("Error preparing query: " . mysqli_error($link));
+            }
+            
+            if (!mysqli_stmt_bind_param($stmt, 'i', $id_movie)) {
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_execute($stmt);
+            
+            if ($result === false) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            $resultSet = mysqli_stmt_get_result($stmt);
+            if ($resultSet === false) {
+                throw new Exception("Error getting result set: " . mysqli_error($link));
+            }
+            
+            $photoMovie = mysqli_fetch_all($resultSet, MYSQLI_ASSOC);
+            
+            mysqli_stmt_close($stmt);
+            
+            return $photoMovie;
+        } catch (Exception $e) {
+            error_log($e->getMessage() . " Query: " . $query);
+            
+            if (isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return [];
+        }
+    }
     
 }
 

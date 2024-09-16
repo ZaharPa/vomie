@@ -1,6 +1,14 @@
 <?php
+    use scripts\Database;
+    use scripts\class\Movie;
+
+    $link = Database::getLink();
+    $curMovie = new Movie();
+    
+    $movies = $curMovie->viewsAllMovie($link);
+    
     $itemPerPage = 24;
-    $totalItems = count(12);
+    $totalItems = count($movies);
     $totalPages = ceil($totalItems / $itemPerPage);
     
     $number = isset($_GET['number']) ? (int)$_GET['number'] : 1;
@@ -58,10 +66,13 @@
  	</div>
  	
  	<div class="movie-list">
- 		<?php  for ($i = $startIndex; $i < $endIndex; $i++) {?>
+ 		<?php  for ($i = $startIndex; $i < $endIndex; $i++) {
+ 		    $photoMovie = $curMovie->mainPhotoMovie($link, $movies[$i]['id_movie']); 
+ 		    $imgSrc = $photoMovie['path'] . $photoMovie['photo'];
+ 		    var_dump($photoMovie);?>
      		<div class="movie-card">
-     			<img src='<?=$moviePhoto[$i]['path']?><?=$moviePhoto[$i]['photo']?>' alt="Name movie">
-     			<p><?=$movies[$i]['name']?></p>
+     			<img src='<?= $imgSrc?>' alt="Name movie">
+     			<p><?=htmlspecialchars($movies[$i]['name'])?></p>
      		</div>
      	<?php }?>
      </div>
