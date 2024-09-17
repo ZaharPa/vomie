@@ -6,6 +6,7 @@
     $curMovie = new Movie();
     
     $movies = $curMovie->viewsAllMovie($link);
+    $photoMovie = $curMovie->viewPhotosMovie($link);
     
     $itemPerPage = 24;
     $totalItems = count($movies);
@@ -66,12 +67,15 @@
  	</div>
  	
  	<div class="movie-list">
- 		<?php  for ($i = $startIndex; $i < $endIndex; $i++) {
- 		    $photoMovie = $curMovie->mainPhotoMovie($link, $movies[$i]['id_movie']); 
- 		    $imgSrc = $photoMovie['path'] . $photoMovie['photo'];
- 		    var_dump($photoMovie);?>
+ 		<?php  for ($i = $startIndex; $i < $endIndex; $i++) { 
+ 		    for($x = 0; $x < count($photoMovie); $x++) {
+ 		        if($photoMovie[$x]['id_movie'] === $movies[$i]['id_movie']) {
+ 		             $imgSrc = $photoMovie[$x]['path'] . $photoMovie[$x]['photo'];
+ 		             break;
+ 		        }
+ 		    }?>
      		<div class="movie-card">
-     			<img src='<?= $imgSrc?>' alt="Name movie">
+     			<img src='<?=$imgSrc?>' alt="Name movie">
      			<p><?=htmlspecialchars($movies[$i]['name'])?></p>
      		</div>
      	<?php }?>
