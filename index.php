@@ -11,8 +11,7 @@ if (isset($_GET['logOut'])){
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'main';
 
-$title = 'main';
-
+$title = $page;
 
 if ($page != 'register' && $page != 'login')
     include 'include/header.php';
