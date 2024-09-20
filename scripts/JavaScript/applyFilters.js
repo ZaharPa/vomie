@@ -24,5 +24,11 @@ function applyFliters() {
 }
 
 function displayMovies(movies) {
-
+	fetch('viewAllMovies.php', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'aplication/json',
+		},
+		body: JSON.stringify({movies: movies})
+	}) 
 }
