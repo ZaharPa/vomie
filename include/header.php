@@ -12,9 +12,10 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap">		
     	<?php if ($title === 'view-all') {?>
-        	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
     	<?php }?>
 	</head>
 	<body>
@@ -47,7 +48,7 @@
 				<?php } else {?>	
     				<ul class="user-menu">
         				<li class="user-menu-item">
-        					<img src="avatar.jpg" alt="User Avatar" class="avatar">
+        					<img src="#" alt="User Avatar" class="avatar">
         					<ul class="dropdown-menu">
         						<li><a href='#'> My profile </a></li>
         						<li><a href='index.php?logOut'> Exit </a></li>

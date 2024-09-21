@@ -6,6 +6,7 @@
     $curMovie = new Movie();
     
     $movies = $curMovie->viewsAllMovie($link);
+    
     $photoMovie = $curMovie->viewPhotosMovie($link);
     
     $itemPerPage = 24;
@@ -64,13 +65,13 @@
      		</div>
      		
      		<div class="filter-section">
-     			<button class="filter-toggle">Status</button>
+     			<button class="filter-toggle">Type</button>
      			<div class="filter-options">
-     				<span class="filter-option" data-status="movie">movie</span>
-     				<span class="filter-option" data-status="serial">serial</span>
-     				<span class="filter-option" data-status="cartoon movie">cartoon movie</span>
-     				<span class="filter-option" data-status="cartoon serials">cartoon series</span>
-     				<span class="filter-option" data-status="anime">anime</span>
+     				<span class="filter-option" data-type="movie">movie</span>
+     				<span class="filter-option" data-type="serial">serial</span>
+     				<span class="filter-option" data-type="cartoon movie">cartoon movie</span>
+     				<span class="filter-option" data-type="cartoon serials">cartoon series</span>
+     				<span class="filter-option" data-type="anime">anime</span>
      			</div>
      		</div>
      		
@@ -84,6 +85,10 @@
      				</div>
      			</div>
      		</div>
+     		
+     		<div class="filter-section">
+     			<button id="clear-filters">Clear</button>
+     		</div>
      	</div>
      	
      	<div class="pagination">
@@ -95,6 +100,9 @@
         </div>
  	</div>
 </div>
+<script>	
+	const moviePhoto = <?= json_encode($photoMovie)?>
+</script>
+<script src="scripts/JavaScript/applyFilters.js"></script>
 <script src="scripts/JavaScript/slider.js"></script>
 <script src="scripts/JavaScript/filterOptions.js"></script>
-<script src="scripts/JavaScript/applyFilter.js"></script>
