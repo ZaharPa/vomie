@@ -23,7 +23,7 @@
 <div class="views-all">
  	<div class="container">
  		<div class="search-bar">
- 			<input type="text" placeholder="Input here name movie">
+ 			<input type="text" id="search-input" placeholder="Input here name movie">
  		</div>
  	</div>
  	
@@ -106,3 +106,4 @@
 <script src="scripts/JavaScript/applyFilters.js"></script>
 <script src="scripts/JavaScript/slider.js"></script>
 <script src="scripts/JavaScript/filterOptions.js"></script>
+<script src="scripts/JavaScript/searchInput.js"></script>
