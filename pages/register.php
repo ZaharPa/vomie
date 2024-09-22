@@ -15,6 +15,7 @@ use scripts\class\Viewer;
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="pragma" content="no-cache">
 		<link rel="stylesheet" href="styles/main.css" />
+		<link rel="stylesheet" href="styles/log-reg.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap">		
 	</head>

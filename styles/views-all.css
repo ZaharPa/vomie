@@ -1,0 +1,209 @@
+.views-all {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 40px;
+}
+
+.views-all .movie-section {
+	display: grid;
+	grid-template-columns: 4fr 1fr;
+	gap: 40px;
+	margin-left: 10px;
+	margin-right: 50px;
+}
+
+.views-all .container {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.views-all .search-bar input {
+	margin-top: 45px;
+	width: 100%;
+	padding: 15px;
+	border-radius: 10px;
+	border: 1px solid #ccc;	
+	background-color: #d3d3d3;
+	color: black;
+	font-size: 16px;
+	margin-bottom: 20px;
+	transition: background-color 0.3 ease;
+}
+
+.views-all .search-bar input::placeholder {
+	color: #AA99AB;
+}
+
+.views-all .search-bar input:focus {
+	background-color: #E3C3DF;
+    outline: none;
+}
+
+.views-all #search-results {
+	margin-top: 10px;
+}
+
+.views-all .movie-item {
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+
+.views-all .filters {
+	display: flex;
+	background-color: rgba(0, 0, 0, 0.2);
+	flex-direction: column;
+	gap: 20px;
+	padding: 20px;
+	border-radius: 15px;
+	height: max-content;
+	color: white;
+}
+
+.views-all .filter-section {
+	margin-bottom: 10px;
+	background-color: #200029;
+	padding: 20px;
+}
+
+.views-all .filter-toggle {
+	background-color: #200029;
+	border: none;
+	color: white;
+	font-size: 16px;
+	padding: 10px;
+	font-weight: bold;
+	width: 100%;
+	text-align: left;
+	border-radius: 10px;
+}
+
+
+.views-all .filter-options {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+.views-all .filter-option {
+	background-color: #611B70;
+	padding: 5px 10px;
+	border-radius: 20px;
+	color: white;
+	cursor: pointer;
+	font-size: 14px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	transition: background-color 0.3s ease;
+}
+
+.views-all .filter-option:hover {
+	background-color: #7C3668;
+}
+
+.views-all .filter-option.active {
+    background-color: #7C3668;
+}
+
+.views-all .year-slider {
+	position: relative;
+	padding: 10px 0;
+}
+
+.views-all #slider {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.views-all .year-values {
+	display: flex;
+	justify-content: space-between;
+}
+
+.views-all .year-values input {
+	width: 70px;
+	background-color: #4E3254;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 14px;
+	padding: 5px;
+	margin: 5px;
+}
+
+.views-all .ui-slider-range {
+	background: #4E3254;
+}
+
+.views-all .ui-slider-handle {
+	background: #6A4A78;
+	border: 1px solid #FFF;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+}
+
+.views-all .filter-section #clear-filters {
+	display: block;
+	margin: 20px auto;
+	padding: 8px;
+	width: 100px;
+	border-radius: 10px;
+	border: none;
+	background-color: #C4AEAD;
+	color: #252525;
+	font-size:18px;
+	cursor: pointer;
+	align-self: center;
+	font-weight: bold;
+}
+
+.views-all .filter-section #clear-filters:hover {
+	background-color: #960082;
+	color: white;
+}
+
+.views-all .movie-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+	gap: 30px;
+}
+
+.views-all .movie-card {
+	border-radius: 15px;
+	padding: 15px;
+	text-align: center;
+	position: relative;
+}
+
+.views-all .movie-card img {
+	width: 100%;
+	border-radius: 10px;
+	transition: transform 0.3s ease;
+}
+
+.views-all .movie-card img:hover {
+	transform: scale(1.05);
+}
+
+.views-all .pagination {
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+}
+
+.views-all .pagination a {
+	padding: 10px 20px;
+	background-color: #6A4A78;
+	border: 1px solid #9C6A9F;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	margin: 0 5px;
+	transition: background-color 0.3s ease;
+}
+
+.views-all .pagination a:hover {
+	background-color: #9C6A9F;
+}
