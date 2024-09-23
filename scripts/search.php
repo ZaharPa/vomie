@@ -10,8 +10,12 @@ $link = Database::getLink();
 
 if (isset($_GET['query'])) {
     $query =  $link->real_escape_string($_GET['query']);
+   
+    if ($_GET['limit'] === 'true')
+        $sql = "SELECT id_movie, name, YEAR(date) as date FROM movie WHERE name LIKE '%$query%' LIMIT 5";
+    else
+        $sql = "SELECT id_movie, name, YEAR(date) as date FROM movie WHERE name LIKE '%$query%'";
     
-    $sql = "SELECT id_movie, name, YEAR(date) as date FROM movie WHERE name LIKE '%$query%'";
     $result = $link->query($sql);
     
     $searchMovies = array();

@@ -388,8 +388,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin')
 		
     <script src="scripts/JavaScript/previewPhoto.js"></script>
     <script src="scripts/JavaScript/showMore.js"></script>
-</body>
-</html>
 
 
 <?php

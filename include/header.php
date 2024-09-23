@@ -40,11 +40,13 @@
     			</ul>
 			<div class="right-section">
 				<div class="search-container">
-					<input type="text" placeholder="Search" class="search-input">
-					<button class="search-btn">
+					<input type="text" placeholder="Search" id="search-input-header" class="search-input-header">
+					<button id="search-btn" class="search-btn">
 						<i class="fas fa-search"></i>
 					</button>
 				</div>
+				<div id="search-results" class="search-results"></div>
+				
 				<?php if (!isset($_SESSION['role'])) {?>
     				<div class="log-reg">
     					<a href="index.php?page=login">Login</a>
@@ -63,3 +65,4 @@
 				<?php }?>
 			</div>
 		</nav>
+				

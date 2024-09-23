@@ -33,3 +33,6 @@ switch($page) {
         include 'pages/main.php';
         break;
 }
+
+if ($page != 'register' && $page != 'login')
+    include 'include/footer.php';

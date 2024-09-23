@@ -95,7 +95,7 @@
 	max-width: 300px;
 }
 
-.search-input {
+.search-input-header {
 	border: none;
 	background-color: transparent;
 	padding: 5px 10px;
@@ -114,6 +114,18 @@
 .search-btn i {
 	color: black;
 	font-size: 16px;
+}
+
+.search-results {
+	margin-top: 20px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	max-height: 250px;
+	overflow-y: auto;
+}
+
+.search-results .movie-item {
+    margin-bottom: 10px;
 }
 
 .avatar {
