@@ -39,15 +39,19 @@ function displayMovies(movies) {
 		           break;
 		       }
 		   }
-		   
+		
+		const link = document.createElement('a');
+		link.href = `index.php?page=movieDetail&id=${movie.id_movie}`;
+		
 		const img = document.createElement('img');
 		img.src = imgSrc;
 		img.alt = movie.name;
+		link.appendChild(img);
 		      
 		const p = document.createElement('p');
 		p.textContent = movie.name;
 		
-		movieCard.appendChild(img);
+		movieCard.appendChild(link);
 		movieCard.appendChild(p);
 		
 		movieList.appendChild(movieCard);

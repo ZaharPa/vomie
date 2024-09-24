@@ -29,6 +29,9 @@ switch($page) {
     case 'view-all':
         include 'pages/viewAllMovies.php';
         break;
+    case 'movieDetail':
+        include 'pages/movieDetail.php';
+        break;
     default:
         include 'pages/main.php';
         break;
