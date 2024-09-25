@@ -38,7 +38,7 @@
      		        }
      		    }?>
          		<div class="movie-card">
-         			<a href="index.php?pages=movieDetail&id=<?=$movies[$i]['id_movie']?>">
+         			<a href="index.php?page=movieDetail&id=<?=$movies[$i]['id_movie']?>">
          				<img src='<?=$imgSrc?>' alt="Name movie">
          			</a>
          			<p><?=htmlspecialchars($movies[$i]['name'])?></p>
