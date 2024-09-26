@@ -325,5 +325,221 @@ class Movie implements Entartaiment
         }
     }
     
+    public function viewAddInfoForMovie($link, $id_movie) : array
+    {
+        try {
+            $query = "SELECT gm.genre, lm.link, pm.path AS movie_path, pm.photo AS movie_photo, cm.path AS cast_path, cm.photo AS cast_photo 
+                      FROM genre_movie gm
+                      INNER JOIN link_movie lm ON gm.id_movie = lm.id_movie
+                      INNER JOIN photo_movie pm ON gm.id_movie = pm.id_movie
+                      INNER JOIN cast_movie cm ON gm.id_movie = cm.id_movie
+                      WHERE gm.id_movie = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if(!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if(!mysqli_stmt_bind_param($stmt, 'i', $id_movie)) {
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_get_result($stmt);
+            
+            if (!$result) {
+                throw new Exception("Помилка отримання результату: " . mysqli_stmt_error($stmt));
+            }
+            
+            $movieAddInfo = [];
+            
+            while ($row = mysqli_fetch_assoc($result)) {
+                $movieAddInfo[] = $row;
+            }
+            
+            mysqli_stmt_close($stmt);
+            
+            return $movieAddInfo;            
+        } catch(Exception $e) {
+            error_log($e->getMessage() . "Query" . $query);
+            
+            if (isset($stmt) && $stmt !== false)
+                mysqli_stmt_close($stmt);
+            
+            return [];
+        }
+    }
+    
+    public function viewGenreForMovie($link, $id_movie) : array 
+    {
+        try {
+            $query = "SELECT genre FROM genre_movie  WHERE id_movie = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if(!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if(!mysqli_stmt_bind_param($stmt, 'i', $id_movie)) {
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_get_result($stmt);
+            
+            if (!$result) {
+                throw new Exception("Помилка отримання результату: " . mysqli_stmt_error($stmt));
+            }
+            
+            $movieGenre = [];
+            
+            while ($row = mysqli_fetch_assoc($result)) {
+                $movieGenre[] = $row;
+            }
+            
+            mysqli_stmt_close($stmt);
+            
+            return $movieGenre;
+        } catch(Exception $e) {
+            error_log($e->getMessage() . "Query" . $query);
+            
+            if (isset($stmt) && $stmt !== false)
+                mysqli_stmt_close($stmt);
+                
+                return [];
+        }
+    }
+    
+    public function viewLinkForMovie($link, $id_movie) : array
+    {
+        try {
+            $query = "SELECT name, link FROM link_movie WHERE id_movie = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if(!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if(!mysqli_stmt_bind_param($stmt, 'i', $id_movie)) {
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_get_result($stmt);
+            
+            if (!$result) {
+                throw new Exception("Помилка отримання результату: " . mysqli_stmt_error($stmt));
+            }
+            
+            $movielink = [];
+            
+            while ($row = mysqli_fetch_assoc($result)) {
+                $movielink[] = $row;
+            }
+            
+            mysqli_stmt_close($stmt);
+            
+            return $movielink;
+        } catch(Exception $e) {
+            error_log($e->getMessage() . "Query" . $query);
+            
+            if (isset($stmt) && $stmt !== false)
+                mysqli_stmt_close($stmt);
+                
+                return [];
+        }
+    }
+    public function viewPhotoForMovie($link, $id_movie) : array
+    {
+        try {
+            $query = "SELECT path, photo FROM photo_movie  WHERE id_movie = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if(!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if(!mysqli_stmt_bind_param($stmt, 'i', $id_movie)) {
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_get_result($stmt);
+            
+            if (!$result) {
+                throw new Exception("Помилка отримання результату: " . mysqli_stmt_error($stmt));
+            }
+            
+            $moviePhoto = [];
+            
+            while ($row = mysqli_fetch_assoc($result)) {
+                $moviePhoto[] = $row;
+            }
+            
+            mysqli_stmt_close($stmt);
+            
+            return $moviePhoto;
+        } catch(Exception $e) {
+            error_log($e->getMessage() . "Query" . $query);
+            
+            if (isset($stmt) && $stmt !== false)
+                mysqli_stmt_close($stmt);
+                
+                return [];
+        }
+    }
+    public function viewCastForMovie($link, $id_movie) : array
+    {
+        try {
+            $query = "SELECT name, role, path, photo FROM cast_movie  WHERE id_movie = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if(!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if(!mysqli_stmt_bind_param($stmt, 'i', $id_movie)) {
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_get_result($stmt);
+            
+            if (!$result) {
+                throw new Exception("Помилка отримання результату: " . mysqli_stmt_error($stmt));
+            }
+            
+            $movieCast = [];
+            
+            while ($row = mysqli_fetch_assoc($result)) {
+                $movieCast[] = $row;
+            }
+            
+            mysqli_stmt_close($stmt);
+            
+            return $movieCast;
+        } catch(Exception $e) {
+            error_log($e->getMessage() . "Query" . $query);
+            
+            if (isset($stmt) && $stmt !== false)
+                mysqli_stmt_close($stmt);
+                
+                return [];
+        }
+    }
 }
-

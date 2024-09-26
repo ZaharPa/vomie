@@ -27,6 +27,12 @@ interface Entartaiment
     public function getIdMovie() : ?string;
     
     public function viewsAllMovie($link) : array;
-    public function viewOneMovie($link, $id) : array;
     public function viewPhotosMovie($link) : array;
+    
+    public function viewOneMovie($link, $id) : array;
+    public function viewAddInfoForMovie($link, $id_movie) : array;
+    public function viewGenreForMovie($link, $id) : array;
+    public function viewLinkForMovie($link, $id) : array;
+    public function viewPhotoForMovie($link, $id) : array;
+    public function viewCastForMovie($link, $id) : array;
 }
