@@ -10,43 +10,63 @@ if (isset($_GET['id'])) {
 
     if (isset($movie['id_movie'])) {
         $movieAddInfo = $curMovie->viewAddInfoForMovie($link, $id);
-        $movieGenre = $curMovie->viewGenreForMovie($link, $id);
-        echo 'genre - ';
-        var_dump($movieGenre);
-        echo "<hr>";
+        $movieGenre = $curMovie->viewGenreForMovie($link, $id);;
         $movieLink = $curMovie->viewLinkForMovie($link, $id);
-        echo 'link - ';
-        var_dump($movieLink);
-        echo "<hr>";
-        $moviePhoto = $curMovie->viewPhotoForMovie($link, $id);
-        echo 'photo - ';
-        var_dump($moviePhoto);
-        echo "<hr>";
+        $moviePhoto = $curMovie->viewPhotoForMovie($link, $id);;
         $movieCast = $curMovie->viewCastForMovie($link, $id);
-        echo 'cast - ';
-        var_dump($movieCast);
-        echo "<hr>";
-        foreach ($movieAddInfo as $movi) {
-            echo "Genre: " . $movi['genre'] . "<br>";
-            echo "Link: " . $movi['link'] . "<br>";
-            echo "Photo path: " . $movi['movie_path'] . "<br>";
-            echo "Movie photo: " . $movi['movie_photo'] . "<br>";
-            echo "Cast path: " . $movi['cast_path'] . "<br>";
-            echo "Cast photo: " . $movi['cast_photo'] . "<br>";
-            echo "<hr>";
-        }
+        $firstPhoto = $moviePhoto[0];
+        $imgSrc = $firstPhoto['path'] . $firstPhoto['photo'];
 ?>
 
 
-<div class="movie-view">
-<?=$movie['id_movie']?>
-<?=$movie['name']?>
-<?=$movie['date']?>
-<?=$movie['description']?>
-<?=$movie['status']?>
-<?=$movie['type']?>
-
-</div>
+    <div class="movie-view">
+    	<div class="movie-header">
+    		<img src="<?=$imgSrc?>" class="poster">
+    		<div class="movie-info">
+    			<h1><?=$movie['name']?></h1>
+    				<p>
+    			<?=$movie['date'] . ' '?>
+    			<?=$movie['duration']?>
+    			</p>
+    			<p class="genre">
+    				<?php foreach ($movieGenre as $genre) {
+    				    echo $genre["genre"] . " ";
+    				} ?>
+    			</p> 
+    			<p><?=$movie['status'] . ' '?>
+    			<?=$movie['type']?></p>
+    			<p class="description">
+    			<?=$movie['description']?>
+    			</p>
+    		
+    		</div>
+    	</div>
+    	
+    	<div class="photos-movie">
+    		<?php foreach ($moviePhoto as $photo) {
+    		    $imgSrc = $photo['path'] . $photo['photo'];
+    			?>
+    			<img src="<?=$imgSrc?>" class="photos">
+    		<?php }?>
+    	</div>
+    	
+    	<div class="cast-movie">
+    		<?php foreach ($movieCast as $cast) {
+    		    $imgSrc = $cast['path'] . $cast['photo'];
+    			?>
+    			<div class="caster">
+    				<img src="<?=$imgSrc?>" class="photos">
+    				<p><?=$cast['name']?></p>
+    			</div>
+    		<?php }?>
+    	</div>
+    	
+    	<div class="link">
+    		<?php foreach ($movieLink as $link) {?>
+    			<p><?='Name: ' . $link['name']. ' Title: ' . $link['link']?></p>
+    		<?php }?>
+    	</div>
+    </div>
 <?php 
     }
 }
