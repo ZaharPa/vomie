@@ -19,54 +19,68 @@ if (isset($_GET['id'])) {
 ?>
 
 
-    <div class="movie-view">
-    	<div class="movie-header">
-    		<img src="<?=$imgSrc?>" class="poster">
-    		<div class="movie-info">
-    			<h1><?=$movie['name']?></h1>
-    				<p>
-    			<?=$movie['date'] . ' '?>
-    			<?=$movie['duration']?>
-    			</p>
-    			<p class="genre">
-    				<?php foreach ($movieGenre as $genre) {
-    				    echo $genre["genre"] . " ";
-    				} ?>
-    			</p> 
-    			<p><?=$movie['status'] . ' '?>
-    			<?=$movie['type']?></p>
-    			<p class="description">
-    			<?=$movie['description']?>
-    			</p>
-    		
-    		</div>
-    	</div>
-    	
-    	<div class="photos-movie">
-    		<?php foreach ($moviePhoto as $photo) {
-    		    $imgSrc = $photo['path'] . $photo['photo'];
-    			?>
-    			<img src="<?=$imgSrc?>" class="photos">
-    		<?php }?>
-    	</div>
-    	
-    	<div class="cast-movie">
-    		<?php foreach ($movieCast as $cast) {
-    		    $imgSrc = $cast['path'] . $cast['photo'];
-    			?>
-    			<div class="caster">
-    				<img src="<?=$imgSrc?>" class="photos">
-    				<p><?=$cast['name']?></p>
-    			</div>
-    		<?php }?>
-    	</div>
-    	
-    	<div class="link">
-    		<?php foreach ($movieLink as $link) {?>
-    			<p><?='Name: ' . $link['name']. ' Title: ' . $link['link']?></p>
-    		<?php }?>
-    	</div>
-    </div>
+        <div class="movie-view">
+            <div class="left-column">
+                <img src="<?=$imgSrc?>" class="poster">
+                <div class="movie-details">
+                    <p><strong>Status:</strong> <?=$movie['status']?></p>
+                    <p><strong>Type:</strong> <?=$movie['type']?></p>
+                    <p><strong>Date release:</strong> <?=$movie['date']?></p>
+                    <p><strong>Duration:</strong> <?=$movie['duration']?></p>
+                </div>
+            </div>
+            
+            <div class="right-column">
+                <div class="movie-header">
+                    <h1 class="movie-title"><?=$movie['name']?></h1>
+                    <p class="genre">
+                        <?php foreach ($movieGenre as $genre) {
+                            echo $genre["genre"] . " ";
+                        } ?>
+                    </p> 
+                    <p class="description"><?=$movie['description']?></p>
+                </div>
+        
+                <div class="link-section">
+                    <h3>Link:</h3>
+                    <div class="links">
+                        <?php foreach ($movieLink as $link) { ?>
+                            <a href="<?=$link['link']?>" target="_blank"><?=$link['name']?></a>
+                        <?php } ?>
+                    </div>
+                </div>
+        
+                <div class="bottom-section">
+                    <div class="photos-section">
+                        <h3>Photos: </h3>
+                        <div class="photo-movie">
+                            <?php foreach ($moviePhoto as $photo) {
+                                $imgSrc = $photo['path'] . $photo['photo'];
+                            ?>
+                                <img src="<?=$imgSrc?>" class="photos">
+                            <?php } ?>
+                        </div>
+                    </div>
+                
+                    <div class="cast-section">
+                        <h3>Cast:</h3>
+                        <div class="cast-movie">
+                            <?php foreach ($movieCast as $cast) {
+                                $imgSrc = $cast['path'] . $cast['photo'];
+                            ?>
+                                <div class="caster">
+                                    <img src="<?=$imgSrc?>" class="photos">
+                                    <p><?=$cast['name']?></p>
+                                    <p><?=$cast['role']?></p> 
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 <?php 
     }
 }

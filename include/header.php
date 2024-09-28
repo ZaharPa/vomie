@@ -13,6 +13,9 @@
 		<?php if ($title === 'add-movie') {?>
 			<link rel="stylesheet" href="styles/add-movie.css" />
 		<?php }?>
+		<?php if ($title === 'movieDetail') {?>
+			<link rel="stylesheet" href="styles/view-detail.css" />
+		<?php }?>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap">		
     	<?php if ($title === 'view-all') {?>
