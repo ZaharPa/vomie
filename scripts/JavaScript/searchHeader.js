@@ -28,8 +28,11 @@ function fetchResults(query) {
 }
 
 function searchResult(data) {
+	const searchInput = document.getElementById('search-input-header');
 	const resultDiv = document.getElementById('search-results');
 	resultDiv.innerHTML = '';
+	resultDiv.style.display = 'block';
+	console.log('blick');
 	
 	if(data.length > 0) {
 		data.forEach(movie => {
@@ -41,4 +44,10 @@ function searchResult(data) {
 	} else {
 		resultDiv.innerHTML = 'No result found';
 	}
+	
+	searchInput.addEventListener('keyup', function() {
+		if (searchInput.value.trim() === '') {
+			resultDiv.style.display = 'none';
+		}
+	});
 }
