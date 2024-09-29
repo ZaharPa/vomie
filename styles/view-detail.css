@@ -79,6 +79,7 @@
 	height: 250px;
 	object-fit: cover;
 	border-radius: 5px;
+	cursor: pointer;
 }
 
 .movie-view .cast-section {
@@ -124,9 +125,44 @@
     transition: background-color 0.3s ease;
 }
 
-.bottom-section {
+.movie-view .bottom-section {
 	grid-column: 1 / 3;
 	grid-row: 2 / 3;
 	display: flex;
 	flex-direction: column;
+}
+
+.photo-modal {
+	display: none;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	z-index: 101;
+	left: 0;
+	top: 0;
+	overflow: auto;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+.photo-content {
+	margin: auto;
+	display: block;
+}
+
+.photo-close {
+	position: absolute;
+	top: 20px;
+	right: 35px;
+	color: white;
+	font-size: 40px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.photo-close:hover, .photo-close:focus{
+	color: #BE0000;
+	text-decoration: none;
+	cursor: pointer;
 }

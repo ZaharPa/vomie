@@ -57,7 +57,7 @@ if (isset($_GET['id'])) {
                             <?php foreach ($moviePhoto as $photo) {
                                 $imgSrc = $photo['path'] . $photo['photo'];
                             ?>
-                                <img src="<?=$imgSrc?>" class="photos">
+                                <img src="<?=$imgSrc?>" class="photos" onclick="openModal('<?=$imgSrc?>')">
                             <?php } ?>
                         </div>
                     </div>
@@ -79,7 +79,13 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
         </div>
-
+        
+        <div id="photoModal" class="photo-modal">
+        	<span class="photo-close" onclick="closeModal()">&times;</span>
+        	<img class="photo-content" id="modalImage">
+        </div>
+		
+		<script src="scripts/JavaScript/photoModal.js"></script>
 
 <?php 
     }
