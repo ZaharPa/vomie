@@ -1,8 +1,9 @@
 <?php
+use scripts\Database;
+
 require 'vendor/autoload.php';
 
 session_start();
-
 
 if (isset($_GET['logOut'])){
     session_destroy();
@@ -39,3 +40,5 @@ switch($page) {
 
 if ($page != 'register' && $page != 'login')
     include 'include/footer.php';
+
+Database::close();

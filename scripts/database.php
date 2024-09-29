@@ -26,6 +26,14 @@ class Database {
     {
         return self::$link;
     }
+    
+    public static function close()
+    {
+        if(self::$link !== null) {
+            mysqli_close(self::$link);
+            self::$link = null;
+        }
+    }
 }
 
 Database::connect();
