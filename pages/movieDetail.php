@@ -16,9 +16,29 @@ if (isset($_GET['id'])) {
         $movieCast = $curMovie->viewCastForMovie($link, $id);
         $firstPhoto = $moviePhoto[0];
         $imgSrc = $firstPhoto['path'] . $firstPhoto['photo'];
+        
+        if(isset($_GET['action'])) {
+            if ($_GET['action'] === 'delete') {
+                $curMovie->deleteMovie($link, $id);
+                if (!empty($movieGenre))
+                    $curMovie->deleteGenre($link, $id);
+                
+                if (!empty($movieLink))
+                    $curMovie->deleteLink($link, $id);
+                
+                if (!empty($moviePhoto))
+                    $curMovie->deletePhoto($link, $id);
+                
+                if (!empty($movieCast))
+                    $curMovie->deleteCast($link, $id);
+                
+                header('Location: index.php');
+                exit();
+            }
+        }
 ?>
 
-
+	
         <div class="movie-view">
             <div class="left-column">
                 <img src="<?=$imgSrc?>" class="poster">
@@ -28,6 +48,14 @@ if (isset($_GET['id'])) {
                     <p><strong>Date release:</strong> <?=$movie['date']?></p>
                     <p><strong>Duration:</strong> <?=$movie['duration']?></p>
                 </div>
+                
+               	<?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'){?>
+               		<p class="link-edit">
+               			<a href="#">Edit Movie</a>
+               			<br>
+               			<a href="index.php?page=movieDetail&id=<?=$id?>&action=delete">Delete Movie</a>
+               		</p>
+               	<?php }?>
             </div>
             
             <div class="right-column">

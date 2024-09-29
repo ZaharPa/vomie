@@ -8,20 +8,20 @@ interface Entartaiment
     public function deleteMovie($link, $id) : bool;
     
     public function addGenre($link, $id_movie, $genre) : bool;
-    public function editGenre($link, $id_genre, $id_movie, $genre) : bool;
-    public function deleteGenre($link, $id_genre) : bool;
+    public function editGenre($link, $id_movie, $id_genre, $genre) : bool;
+    public function deleteGenre($link, $id_movie) : bool;
     
     public function addPhoto($link, $id_movie, $path, $photo) : bool;
-    public function editPhoto($link, $id_photo, $id_movie, $path, $photo) : bool;
-    public function deletePhoto($link, $id_photo) : bool;
+    public function editPhoto($link, $id_movie, $id_photo, $path, $photo) : bool;
+    public function deletePhoto($link, $id_movie) : bool;
     
     public function addCast($link, $id_movie, $name, $role, $path = null, $photo = null) : bool;
-    public function editCast($link, $id_cast, $id_movie, $name, $role, $path, $photo) : bool;
-    public function deleteCast($link, $id_cast) : bool;
+    public function editCast($link, $id_movie, $id_cast, $name, $role, $path, $photo) : bool;
+    public function deleteCast($link, $id_movie) : bool;
     
     public function addLink($link, $id_movie, $name, $link_movie) : bool;
-    public function editLink($link, $id_link, $id_movie, $link_movie) : bool;
-    public function deleteLink($link, $id_link) : bool;
+    public function editLink($link, $id_movie, $id_link, $link_movie) : bool;
+    public function deleteLink($link, $id_movie) : bool;
     
     public function setIdMovie($id) : void;
     public function getIdMovie() : ?string;

@@ -161,8 +161,15 @@
 	cursor: pointer;
 }
 
-.photo-close:hover, .photo-close:focus{
+.photo-close:hover, .photo-close:focus {
 	color: #BE0000;
 	text-decoration: none;
 	cursor: pointer;
+}
+
+.link-edit a {
+	color: #EC6A6A;
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: bold;
 }

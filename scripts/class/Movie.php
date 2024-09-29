@@ -50,7 +50,41 @@ class Movie implements Entartaiment
     {}
     
     public function deleteMovie($link, $id) : bool
-    {}
+    {
+        try {
+            $id = (int)$id;
+            
+            $query = "DELETE FROM movie WHERE id_movie = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if (!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if (!mysqli_stmt_bind_param($stmt, 'i', $id)) {
+                throw new Exception("Error prepare parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_execute($stmt);
+            
+            if (!$result) {
+                throw new Exception("Error executing statement: " . mysqli_stmt_error($stmt));
+            }
+            
+            mysqli_stmt_close($stmt);
+            
+            return true;
+            
+        } catch (Exception $e) {
+            error_log($e->getMessage() . "Query: " . $query);
+            
+            if(isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return false;
+        } 
+    }
 
     public function addGenre($link, $id_movie, $genre) : bool
     {
@@ -89,11 +123,45 @@ class Movie implements Entartaiment
         }
     }
     
-    public function editGenre($link, $id_genre, $id_movie, $genre): bool
+    public function editGenre($link, $id_movie, $id_genre, $genre): bool
     {}
     
-    public function deleteGenre($link, $id_genre) : bool
-    {}
+    public function deleteGenre($link, $id_movie) : bool
+    {
+        try {
+            $id_movie = (int)$id_movie;
+            
+            $query = "DELETE FROM genre_movie WHERE id_movie = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if (!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if (!mysqli_stmt_bind_param($stmt, 'i', $id_movie)) {
+                throw new Exception("Error prepare parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_execute($stmt);
+            
+            if (!$result) {
+                throw new Exception("Error executing statement: " . mysqli_stmt_error($stmt));
+            }
+            
+            mysqli_stmt_close($stmt);
+            
+            return true;
+            
+        } catch (Exception $e) {
+            error_log($e->getMessage() . "Query: " . $query);
+            
+            if(isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return false;
+        } 
+    }
     
     public function addPhoto($link, $id_movie, $path, $photo) : bool
     {
@@ -132,11 +200,45 @@ class Movie implements Entartaiment
         }
     }
     
-    public function editPhoto($link, $id_photo, $id_movie, $path, $photo) : bool
+    public function editPhoto($link, $id_movie, $id_photo, $path, $photo) : bool
     {}
     
-    public function deletePhoto($link, $id_photo) : bool
-    {}
+    public function deletePhoto($link, $id_movie) : bool
+    {
+        try {
+            $id_movie = (int)$id_movie;
+            
+            $query = "DELETE FROM photo_movie WHERE id_movie = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if (!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if (!mysqli_stmt_bind_param($stmt, 'i', $id_movie)) {
+                throw new Exception("Error prepare parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_execute($stmt);
+            
+            if (!$result) {
+                throw new Exception("Error executing statement: " . mysqli_stmt_error($stmt));
+            }
+            
+            mysqli_stmt_close($stmt);
+            
+            return true;
+            
+        } catch (Exception $e) {
+            error_log($e->getMessage() . "Query: " . $query);
+            
+            if(isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return false;
+        } 
+    }
     
     public function addCast($link, $id_movie, $name, $role, $path = null, $photo = null) : bool
     {
@@ -183,11 +285,45 @@ class Movie implements Entartaiment
         }
     }
     
-    public function editCast($link, $id_cast, $id_movie, $name, $role, $path, $photo) : bool
+    public function editCast($link, $id_movie, $id_cast, $name, $role, $path, $photo) : bool
     {}
     
-    public function deleteCast($link, $id_cast) : bool
-    {}
+    public function deleteCast($link, $id_movie) : bool
+    {
+        try {
+            $id_movie = (int)$id_movie;
+            
+            $query = "DELETE FROM cast_movie WHERE id_movie = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if (!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if (!mysqli_stmt_bind_param($stmt, 'i', $id_movie)) {
+                throw new Exception("Error prepare parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_execute($stmt);
+            
+            if (!$result) {
+                throw new Exception("Error executing statement: " . mysqli_stmt_error($stmt));
+            }
+            
+            mysqli_stmt_close($stmt);
+            
+            return true;
+            
+        } catch (Exception $e) {
+            error_log($e->getMessage() . "Query: " . $query);
+            
+            if(isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return false;
+        } 
+    }
     
     public function addLink($link, $id_movie, $name, $link_movie) : bool
     {
@@ -226,11 +362,45 @@ class Movie implements Entartaiment
         }
     }
     
-    public function editLink($link, $id_link, $id_movie, $link_movie) : bool
+    public function editLink($link, $id_movie, $id_link, $link_movie) : bool
     {}
     
-    public function deleteLink($link, $id_link) : bool
-    {}
+    public function deleteLink($link, $id_movie) : bool
+    {
+        try {
+            $id_movie = (int)$id_movie;
+            
+            $query = "DELETE FROM link_movie WHERE id_movie = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if (!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if (!mysqli_stmt_bind_param($stmt, 'i', $id_movie)) {
+                throw new Exception("Error prepare parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_execute($stmt);
+            
+            if (!$result) {
+                throw new Exception("Error executing statement: " . mysqli_stmt_error($stmt));
+            }
+            
+            mysqli_stmt_close($stmt);
+            
+            return true;
+            
+        } catch (Exception $e) {
+            error_log($e->getMessage() . "Query: " . $query);
+            
+            if(isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return false;
+        } 
+    }
     
     public function setIdMovie($id) : void
     {
