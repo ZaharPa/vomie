@@ -33,6 +33,9 @@ switch($page) {
     case 'movieDetail':
         include 'pages/movieDetail.php';
         break;
+    case 'edit-movie':
+        include 'pages/editMovie.php';
+        break;
     default:
         include 'pages/main.php';
         break;

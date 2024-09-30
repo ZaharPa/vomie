@@ -51,7 +51,7 @@ if (isset($_GET['id'])) {
                 
                	<?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'){?>
                		<p class="link-edit">
-               			<a href="#">Edit Movie</a>
+               			<a href="index.php?page=edit-movie&id=<?=$id?>">Edit Movie</a>
                			<br>
                			<a href="index.php?page=movieDetail&id=<?=$id?>&action=delete">Delete Movie</a>
                		</p>

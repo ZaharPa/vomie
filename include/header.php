@@ -13,6 +13,9 @@
 		<?php if ($title === 'add-movie') {?>
 			<link rel="stylesheet" href="styles/add-movie.css" />
 		<?php }?>
+		<?php if ($title === 'edit-movie') {?>
+			<link rel="stylesheet" href="styles/add-movie.css" />
+		<?php }?>
 		<?php if ($title === 'movieDetail') {?>
 			<link rel="stylesheet" href="styles/view-detail.css" />
 		<?php }?>
