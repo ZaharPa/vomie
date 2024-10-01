@@ -82,12 +82,18 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         		<div class="form-group">
         			<label>Photo</label>		
         			<?php 
-        			for ($i = 0; $i <= 2; $i++) {
+        			$hidden = false;
+        			for ($i = 0; $i < 10; $i++) {
         			    if (!empty($moviePhoto[$i])) {
         			        $imgSrc = $moviePhoto[$i]['path'] . $moviePhoto[$i]['photo'];
         			    } else $imgSrc = '';
+        			    
+        			    if ($hidden === true) {
         				?>
-            			<div class="upload-container">
+        					<div class="upload-container hidden">
+						<?php } else {?>
+            				<div class="upload-container">
+            			<?php }?>
                             <label for="file-input-<?=$i?>" class="file-upload-label">
                                 <input type="file" class="file-input" name="photos[]" id="file-input-<?=$i?>" accept="image/*" required />
                                 <img id="preview-<?=$i?>"  alt="Upload Image" 
@@ -98,225 +104,76 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                					<?php }?> />
                             </label>
             			</div>
-        			<?php }?>
-        			
-        			<div class="upload-container">
-                        <label for="file-input-2" class="file-upload-label">
-                            <input type="file" class="file-input" name="photos[]" id="file-input-2" accept="image/*" />
-                            <img id="preview-2" src="styles/black-plus.png" alt="Upload Image" />
-                        </label>
-        			</div>
-        			
-        			<div class="upload-container">
-                        <label for="file-input-3" class="file-upload-label">
-                            <input type="file" class="file-input" name="photos[]" id="file-input-3" accept="image/*" />
-                            <img id="preview-3" src="styles/black-plus.png" alt="Upload Image" />
-                        </label>
-        			</div>
-        			<div class="upload-container hidden">
-                        <label for="file-input-4" class="file-upload-label">
-                            <input type="file" class="file-input" name="photos[]" id="file-input-4" accept="image/*" />
-                            <img id="preview-4" src="styles/black-plus.png" alt="Upload Image" />
-                        </label>
-        			</div>
-        			
-        			<div class="upload-container hidden">
-                        <label for="file-input-5" class="file-upload-label">
-                            <input type="file" class="file-input" name="photos[]" id="file-input-5" accept="image/*" />
-                            <img id="preview-5" src="styles/black-plus.png" alt="Upload Image" />
-                        </label>
-        			</div>
-        			
-        			<div class="upload-container hidden">
-                        <label for="file-input-6" class="file-upload-label">
-                            <input type="file" class="file-input" name="photos[]" id="file-input-6" accept="image/*" />
-                            <img id="preview-6" src="styles/black-plus.png" alt="Upload Image" />
-                        </label>
-        			</div>
-        			
-        			<div class="upload-container hidden">
-                        <label for="file-input-7" class="file-upload-label">
-                            <input type="file" class="file-input" name="photos[]" id="file-input-7" accept="image/*" />
-                            <img id="preview-7" src="styles/black-plus.png" alt="Upload Image" />
-                        </label>
-        			</div>
-        			
-        			<div class="upload-container hidden">
-                        <label for="file-input-8" class="file-upload-label">
-                            <input type="file" class="file-input" name="photos[]" id="file-input-8" accept="image/*" />
-                            <img id="preview-8" src="styles/black-plus.png" alt="Upload Image" />
-                        </label>
-        			</div>
-        			
-        			<div class="upload-container hidden">
-                        <label for="file-input-9" class="file-upload-label">
-                            <input type="file" class="file-input" name="photos[]" id="file-input-9" accept="image/*" />
-                            <img id="preview-9" src="styles/black-plus.png" alt="Upload Image" />
-                        </label>
-        			</div>
+        			<?php 
+        			     if (empty($imgSrc) && $i > 2 && $hidden === false) {
+        			            $hidden = true;
+        			    }
+        			}
+        			?>
         		</div>
         		
         		
         		<div class="form-group">
-        			<label>Cast</label>			
-        			<div class="form-group">
-            			<label for="nameCast-1">Name</label>
-            			<input type="text" name="nameCast[]" id="nameCast-1">
-            			<label for="roleCast-1">Role</label>
-            			<input type="text" name="roleCast[]" id="roleCast-1">
-            			<div class="upload-container cast-photo">
-                        	<label for="file-input-cast-1" class="file-upload-label">
-                       	    	<input type="file" class="file-input" name="photosCast[]" id="file-input-cast-1" accept="image/*" />
-                         	  	<img id="preview-cast-1" src="styles/black-plus.png" alt="Upload Image" />
-                        </label>
-        				</div>
-        			</div>
+        			<label>Cast</label>	
+        			<?php 
+        			$hidden = false;
+        			$button = false;
+        			for ($i = 0; $i < 10; $i++) {
+        			    if (!empty($movieCast[$i])) {
+        			        $imgSrc = $movieCast[$i]['path'] . $movieCast[$i]['photo'];
+        			        $name = $movieCast[$i]['name'];
+        			        $role = $movieCast[$i]['role'];
+        			    } else {
+        			        $imgSrc = '';
+        			        $name = '';
+        			        $role = '';
+        			    }
+        			    
+        			    ?> 
+        			    <div class="form-group">
+        			    	<?php 
+        			if ($hidden === true && $button === false) {
+        			             $button = true;
+        			    ?>
+            			        <button type="button" class="showMore">+</button>
+              			<?php }?>
+            			    <?php
+            			    if ($hidden === true) {
+                            ?> 
+            			        <div class="form-group hidden">
+              			<?php }?>	
+              				<div class="form-group">	
+                				<label for="nameCast-<?=$i+1?>">Name</label>
+                    			<input type="text" name="nameCast[]" value="<?=$name?>" id="nameCast-<?=$i+1?>">
+                    			<label for="roleCast-<?=$i+1?>">Role</label>
+                    			<input type="text" name="roleCast[]" value="<?=$role?>" id="roleCast-<?=$i+1?>">
+                    			<div class="upload-container cast-photo">
+                                	<label for="file-input-cast-<?=$i+1?>" class="file-upload-label">
+                               	   		<input type="file" class="file-input" name="photosCast[]" id="file-input-cast-<?=$i+1?>" accept="image/*" />
+                              	   	  	<img id="preview-cast-<?=$i+1?>" alt="Upload Image"
+                              	   	  	 <?php if (!empty($imgSrc)) { ?>
+               						src="<?=$imgSrc?>"
+               					<?php } else {?>
+               						src="styles/black-plus.png"
+               					<?php }?> />
+                             	   	</label>
+                				</div>
+                			</div>
+            				<?php
+            			    if ($hidden === true) {
+                            ?> 
+            			       </div>
+              			<?php }?>
+            			</div>
+        		
+              		<?php 
+        			if (empty($name) && $i > 0 && $hidden === false) {
+        			            $hidden = true;
+        			    }
+        			}
+        			?>
         		</div>
-        		
-        		<div class="form-group">
-        			<button type="button" class="showMore">+</button>			
-        			<div class="form-group hidden">
-                		<label for="nameCast-2">Name</label>
-                		<input type="text" name="nameCast[]" id="nameCast-2">
-                		<label for="roleCast-2">Role</label>
-                		<input type="text" name="roleCast[]" id="roleCast-2">
-                		<div class="upload-container cast-photo">
-                            <label for="file-input-cast-2" class="file-upload-label">
-                           	    <input type="file" class="file-input" name="photosCast[]" id="file-input-cast-2" accept="image/*" />
-                             	<img id="preview-cast-2" src="styles/black-plus.png" alt="Upload Image" />
-                           </label>
-        				</div>
-        			</div>
-        		</div>
-        		
-        		<div class="form-group hidden">
-        			<button type="button" class="showMore">+</button>			
-        			<div class="form-group">
-                		<label for="nameCast-3">Name</label>
-                		<input type="text" name="nameCast[]" id="nameCast-3">
-                		<label for="roleCast-3">Role</label>
-                		<input type="text" name="roleCast[]" id="roleCast-3">
-                		<div class="upload-container cast-photo">
-                            <label for="file-input-cast-3" class="file-upload-label">
-                           	    <input type="file" class="file-input" name="photosCast[]" id="file-input-cast-3" accept="image/*" />
-                             	<img id="preview-cast-3" src="styles/black-plus.png" alt="Upload Image" />
-                           </label>
-        				</div>
-        			</div>
-        		</div>
-        		
-        		<div class="form-group hidden">
-        			<button type="button" class="showMore">+</button>			
-        			<div class="form-group">
-                		<label for="nameCast-4">Name</label>
-                		<input type="text" name="nameCast[]" id="nameCast-4">
-                		<label for="roleCast-4">Role</label>
-                		<input type="text" name="roleCast[]" id="roleCast-4">
-                		<div class="upload-container cast-photo">
-                            <label for="file-input-cast-4" class="file-upload-label">
-                           	    <input type="file" class="file-input" name="photosCast[]" id="file-input-cast-4" accept="image/*" />
-                             	<img id="preview-cast-4" src="styles/black-plus.png" alt="Upload Image" />
-                           </label>
-        				</div>
-        			</div>
-        		</div>
-        		
-        		<div class="form-group hidden">
-        			<button type="button" class="showMore">+</button>			
-        			<div class="form-group">
-                		<label for="nameCast-5">Name</label>
-                		<input type="text" name="nameCast[]" id="nameCast-5">
-                		<label for="roleCast-5">Role</label>
-                		<input type="text" name="roleCast[]" id="roleCast-5">
-                		<div class="upload-container cast-photo">
-                            <label for="file-input-cast-5" class="file-upload-label">
-                           	    <input type="file" class="file-input" name="photosCast[]" id="file-input-cast-5" accept="image/*" />
-                             	<img id="preview-cast-5" src="styles/black-plus.png" alt="Upload Image" />
-                           </label>
-        				</div>
-        			</div>
-        		</div>
-        		
-        		<div class="form-group hidden">
-        			<button type="button" class="showMore">+</button>			
-        			<div class="form-group">
-                		<label for="nameCast-6">Name</label>
-                		<input type="text" name="nameCast[]" id="nameCast-6">
-                		<label for="roleCast-6">Role</label>
-                		<input type="text" name="roleCast[]" id="roleCast-6">
-                		<div class="upload-container cast-photo">
-                            <label for="file-input-cast-6" class="file-upload-label">
-                           	    <input type="file" class="file-input" name="photosCast[]" id="file-input-cast-6" accept="image/*" />
-                             	<img id="preview-cast-6" src="styles/black-plus.png" alt="Upload Image" />
-                           </label>
-        				</div>
-        			</div>
-        		</div>
-        		
-        		<div class="form-group hidden">
-        			<button type="button" class="showMore">+</button>			
-        			<div class="form-group">
-                		<label for="nameCast-7">Name</label>
-                		<input type="text" name="nameCast[]" id="nameCast-7">
-                		<label for="roleCast-7">Role</label>
-                		<input type="text" name="roleCast[]" id="roleCast-7">
-                		<div class="upload-container cast-photo">
-                            <label for="file-input-cast-7" class="file-upload-label">
-                           	    <input type="file" class="file-input" name="photosCast[]" id="file-input-cast-7" accept="image/*" />
-                             	<img id="preview-cast-7" src="styles/black-plus.png" alt="Upload Image" />
-                           </label>
-        				</div>
-        			</div>
-        		</div>
-        		
-        		<div class="form-group hidden">
-        			<button type="button" class="showMore">+</button>			
-        			<div class="form-group">
-                		<label for="nameCast-8">Name</label>
-                		<input type="text" name="nameCast[]" id="nameCast-8">
-                		<label for="roleCast-8">Role</label>
-                		<input type="text" name="roleCast[]" id="roleCast-8">
-                		<div class="upload-container cast-photo">
-                            <label for="file-input-cast-8" class="file-upload-label">
-                           	    <input type="file" class="file-input" name="photosCast[]" id="file-input-cast-8" accept="image/*" />
-                             	<img id="preview-cast-8" src="styles/black-plus.png" alt="Upload Image" />
-                           </label>
-        				</div>
-        			</div>
-        		</div>
-        		
-        		<div class="form-group hidden">
-        			<button type="button" class="showMore">+</button>			
-        			<div class="form-group">
-                		<label for="nameCast-9">Name</label>
-                		<input type="text" name="nameCast[]" id="nameCast-9">
-                		<label for="roleCast-9">Role</label>
-                		<input type="text" name="roleCast[]" id="roleCast-9">
-                		<div class="upload-container cast-photo">
-                            <label for="file-input-cast-9" class="file-upload-label">
-                           	    <input type="file" class="file-input" name="photosCast[]" id="file-input-cast-9" accept="image/*" />
-                             	<img id="preview-cast-9" src="styles/black-plus.png" alt="Upload Image" />
-                           </label>
-        				</div>
-        			</div>
-        		</div>
-        		
-        		<div class="form-group hidden">
-        			<div class="form-group">
-                		<label for="nameCast-10">Name</label>
-                		<input type="text" name="nameCast[]" id="nameCast-10">
-                		<label for="roleCast-10">Role</label>
-                		<input type="text" name="roleCast[]" id="roleCast-10">
-                		<div class="upload-container cast-photo">
-                            <label for="file-input-cast-10" class="file-upload-label">
-                           	    <input type="file" class="file-input" name="photosCast[]" id="file-input-cast-10" accept="image/*" />
-                             	<img id="preview-cast-10" src="styles/black-plus.png" alt="Upload Image" />
-                           </label>
-        				</div>
-        			</div>
-        		</div>
-        		
-        		
+
         		<div class="form-group">
         			<label>Link</label>			
         			<div class="form-group">
