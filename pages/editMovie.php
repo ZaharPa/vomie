@@ -117,7 +117,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         			<label>Cast</label>	
         			<?php 
         			$hidden = false;
-        			$button = false;
         			for ($i = 0; $i < 10; $i++) {
         			    if (!empty($movieCast[$i])) {
         			        $imgSrc = $movieCast[$i]['path'] . $movieCast[$i]['photo'];
@@ -128,21 +127,25 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         			        $name = '';
         			        $role = '';
         			    }
-        			    
-        			    ?> 
-        			    <div class="form-group">
-        			    	<?php 
-        			if ($hidden === true && $button === false) {
-        			             $button = true;
+        			    if ($i > 0 && $hidden === false) {
+        			        
         			    ?>
-            			        <button type="button" class="showMore">+</button>
-              			<?php }?>
-            			    <?php
-            			    if ($hidden === true) {
+            			        <div class="form-group">
+    								<button type="button" class="showMore">+</button>			
+    								<div class="form-group hidden">
+    								
+              			<?php }
+            			    elseif ($i > 0 && $hidden === true) {
                             ?> 
             			        <div class="form-group hidden">
-              			<?php }?>	
-              				<div class="form-group">	
+    								<button type="button" class="showMore">+</button>			
+    								<div class="form-group">
+               			<?php } elseif ($i === 9) {?>	
+    						<div class="form-group hidden">
+    							<div class="form-group">
+              			<?php } elseif ($i === 0) {?>	
+              				<div class="form-group">
+              				<?php }?>r	
                 				<label for="nameCast-<?=$i+1?>">Name</label>
                     			<input type="text" name="nameCast[]" value="<?=$name?>" id="nameCast-<?=$i+1?>">
                     			<label for="roleCast-<?=$i+1?>">Role</label>
@@ -159,11 +162,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                              	   	</label>
                 				</div>
                 			</div>
-            				<?php
-            			    if ($hidden === true) {
-                            ?> 
-            			       </div>
-              			<?php }?>
             			</div>
         		
               		<?php 
@@ -172,62 +170,49 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         			    }
         			}
         			?>
-        		</div>
-
-        		<div class="form-group">
-        			<label>Link</label>			
-        			<div class="form-group">
-            			<label for="link-name-1">Name</label>
-            			<input type="text" name="nameLink[]" id="link-name-1">
-            			<label for="link-1">Link</label>
-            			<input type="url" name="linkMovie[]" id="link-1">
-        			</div>
-        		</div>
-        		
-        		<div class="form-group">
-        			<button type="button" class="showMore">+</button>			
-        			<div class="form-group hidden">
-        			</div>
-        		</div>
-        		
-        		<div class="form-group hidden">
-        			<button type="button" class="showMore">+</button>			
-        			<div class="form-group">
-                		<label for="link-name-2">Name</label>
-            			<input type="text" name="nameLink[]" id="link-name-2">
-            			<label for="link-2">Link</label>
-            			<input type="url" name="linkMovie[]" id="link-2">
-        			</div>
-        		</div>
-        		
-        		<div class="form-group hidden">
-        			<button type="button" class="showMore">+</button>			
-        			<div class="form-group">
-                		<label for="link-name-3">Name</label>
-            			<input type="text" name="nameLink[]" id="link-name-3">
-            			<label for="link-3">Link</label>
-            			<input type="url" name="linkMovie[]" id="link-3">
-        			</div>
-        		</div>
-        		
-        		<div class="form-group hidden">
-        			<button type="button" class="showMore">+</button>			
-        			<div class="form-group">
-                		<label for="link-name-4">Name</label>
-            			<input type="text" name="nameLink[]" id="link-name-4">
-            			<label for="link-4">Link</label>
-            			<input type="url" name="linkMovie[]" id="link-4">
-        			</div>
-        		</div>
-        		
-        		<div class="form-group hidden">		
-        			<div class="form-group">
-                		<label for="link-name-5">Name</label>
-            			<input type="text" name="nameLink[]" id="link-name-5">
-            			<label for="link-5">Link</label>
-            			<input type="url" name="linkMovie[]" id="link-5">
-        			</div>
-        		</div>
+        			        		
+				<div class="form-group">
+        			<label>Link</label>	
+        			<?php 
+        			$hidden = false;
+        			for ($i = 0; $i < 5; $i++) {
+        			    if (!empty($movieLink[$i])) {
+        			        $name = $movieLink[$i]['name'];
+        			        $url = $movieLink[$i]['link'];
+        			    } else {
+        			        $name = '';
+        			        $url = '';
+        			    }
+        			    if ($hidden === true) {
+        			        
+        			    ?>
+            			        <div class="form-group hidden">
+    								<button type="button" class="showMore">+</button>			
+    								<div class="form-group">
+    										
+    					<?php }?>
+                				<div class="form-group">
+                        			<label for="link-name-<?=$i+1?>">Name</label>
+                        			<input type="text" name="nameLink[]" id="link-name-<?=$i+1?>" value="<?=$name?>">
+                        			<label for="link-<?=$i+1?>">Link</label>
+                        			<input type="url" name="linkMovie[]" id="link-<?=$i+1?>" value="<?=$url?>">
+                    			</div>
+                    		</div>
+        		  	
+              		<?php
+              		if ($hidden = false) {
+              		?>
+              		<div class="form-group">
+                        			<button type="button" class="showMore">+</button>			
+                        			<div class="form-group hidden">
+                        			</div>
+                        		</div>
+                      <?php echo 1;  }
+                      if (empty($url) && $i > 0 && $hidden === true) {
+                          $hidden = false;
+        			    }
+        			}
+        			?>
         		
         		<button class="add-movie-btn">submit</button>
         	</form>
