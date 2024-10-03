@@ -13,6 +13,110 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         $movieLink = $curMovie->viewLinkForMovie($link, $id);
         $moviePhoto = $curMovie->viewPhotoForMovie($link, $id);;
         $movieCast = $curMovie->viewCastForMovie($link, $id);
+        
+        if (!empty($_POST)) {
+            $titleMovie = htmlspecialchars($_POST['title'], ENT_QUOTES, 'UTF-8');
+            $descriptionMovie = htmlspecialchars($_POST['description'], ENT_QUOTES, 'UTF-8');
+            $dateMovie = htmlspecialchars($_POST['release-date'], ENT_QUOTES, 'UTF-8');
+            $durationMovie = htmlspecialchars($_POST['duration'], ENT_QUOTES, 'UTF-8');
+            $typeMovie = htmlspecialchars($_POST['type-option'], ENT_QUOTES, 'UTF-8');
+            $statusMovie = htmlspecialchars($_POST['status-option'], ENT_QUOTES, 'UTF-8');
+                
+            if ($curMovie->editMovie($link, $id, $titleMovie, $dateMovie, $descriptionMovie, 
+                $statusMovie, $typeMovie, $durationMovie) === true) {
+          
+                if (isset($_POST['genres'])) {
+                    $selectedGenres = $_POST['genres'];
+                    if (!empty($selectedGenres)) {
+                        foreach ($selectedGenres as $genre)
+                            $curMovie->editGenre($link, $id, $id_genre, $genre);
+                    }
+                }
+                
+                if (isset($_FILES['photos'])) { 
+                    
+                    $totalFiles = count($_FILES['photos']['name']);
+                
+                    for ($i = 0; $i < $totalFiles; $i++) {
+                        if($_FILES && $_FILES["photos"]["error"][$i] == UPLOAD_ERR_OK) {
+                            $fileMime = mime_content_type($_FILES["photos"]["tmp_name"][$i]);
+                            $allowedMime = ['image/jpeg', 'image/png'];
+                            
+                            if(in_array($fileMime, $allowedMime)) {
+                                $fileExtension = ($fileMime === 'image/jpeg') ? 'jpg' : 'png';
+                                $newFileName = $id_movie . '_' . $titleMovie  . '_' . $i . '.' . $fileExtension;
+                                $path = 'images/moviePhoto/';
+                                
+                                if ($curMovie->editPhoto($link, $id_movie, $path, $newFileName) === true) {
+                                    move_uploaded_file($_FILES["photos"]["tmp_name"][$i], $path . $newFileName);
+                                } else {
+                                    echo '<script type="text/javascript">',
+                                    'showModal("Incorrect data photo");',
+                                    '</script>';
+                                }
+                            } else {
+                                echo '<script type="text/javascript">',
+                                'showModal("Incorrect type file");',
+                                '</script>';
+                            }
+                        }
+                    }
+                }
+                
+                if (!empty(array_filter($_POST['nameCast'])) && !empty(array_filter($_POST['roleCast']))) {
+                    $nameCast = $_POST['nameCast'];
+                    $roleCast = $_POST['roleCast'];
+                    $totalCast = count($nameCast);
+                    
+                    for ($i = 0; $i < $totalCast; $i++) {
+                        if (!empty($_POST['nameCast'][$i]) && !empty($_POST['roleCast'][$i])) {
+                            if($_FILES && $_FILES["photosCast"]["error"][$i] == UPLOAD_ERR_OK) {
+                                $fileMime = mime_content_type($_FILES["photosCast"]["tmp_name"][$i]);
+                                $allowedMime = ['image/jpeg', 'image/png'];
+                                
+                                if(in_array($fileMime, $allowedMime)) {
+                                    $fileExtension = ($fileMime === 'image/jpeg') ? 'jpg' : 'png';
+                                    $newFileName = $id_movie . '_' . $nameCast[$i]  . '_' . $i . '.' . $fileExtension;
+                                    $path = 'images/castPhoto/';
+                                    
+                                    if ($curMovie->editCast($link, $id_movie, $nameCast[$i], $roleCast[$i], $path, $newFileName) === true) {
+                                        move_uploaded_file($_FILES["photosCast"]["tmp_name"][$i], $path . $newFileName);
+                                    } else {
+                                        echo '<script type="text/javascript">',
+                                        'showModal("Incorrect data photo");',
+                                        '</script>';
+                                    }
+                                } else {
+                                    echo '<script type="text/javascript">',
+                                    'showModal("Incorrect type file");',
+                                    '</script>';
+                                }
+                            } else {
+                                $curMovie->editCast($link, $id_movie, $nameCast[$i], $roleCast[$i]);
+                            }
+                        }
+                    }
+                }
+                
+                if (!empty(array_filter($_POST['nameLink'])) && !empty(array_filter($_POST['linkMovie']))) {
+                    $nameLink = $_POST['nameLink'];
+                    $linkMovie = $_POST['linkMovie'];
+                    $totalLink = count($nameLink);
+                    
+                    for ($i = 0; $i < $totalLink; $i++) {
+                        if (!empty($_POST['nameLink'][$i]) && !empty($_POST['linkMovie'][$i]))
+                            $curMovie->editLink($link, $id_movie, $nameLink[$i], $linkMovie[$i]);
+                    }
+                }
+                
+                header('Location: index.php?page=main');
+                exit();
+        } else {
+            echo '<script type="text/javascript">',
+            'showModal("Incorrect data");',
+            '</script>';
+        }
+    }
 ?>
 
 		<div class="add-movie">
