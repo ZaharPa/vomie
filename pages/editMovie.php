@@ -64,7 +64,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                 		    'horror', 'drama', 'science', 'comedy', 'action', 'documentary',
                 		    'fantasy', 'musical', 'sports', 'romance', 'thriller', 'spy', 'crime'
                 		];
-                		var_dump($moviePhoto[1]);
                 		$selectedGenres = array_map(function($genre) {
                 		    return $genre['genre'];
                 		}, $movieGenre);
@@ -145,7 +144,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
     							<div class="form-group">
               			<?php } elseif ($i === 0) {?>	
               				<div class="form-group">
-              				<?php }?>r	
+              				<?php }?>	
                 				<label for="nameCast-<?=$i+1?>">Name</label>
                     			<input type="text" name="nameCast[]" value="<?=$name?>" id="nameCast-<?=$i+1?>">
                     			<label for="roleCast-<?=$i+1?>">Role</label>
@@ -173,7 +172,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         			        		
 				<div class="form-group">
         			<label>Link</label>	
-        			<?php 
+        			<?php
         			$hidden = false;
         			for ($i = 0; $i < 5; $i++) {
         			    if (!empty($movieLink[$i])) {
@@ -183,14 +182,16 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         			        $name = '';
         			        $url = '';
         			    }
+
+        			    if (empty($url) && $i > 0 && $hidden === false) {
+        			        $hidden = true;
+        			    }
         			    if ($hidden === true) {
         			        
         			    ?>
             			        <div class="form-group hidden">
-    								<button type="button" class="showMore">+</button>			
-    								<div class="form-group">
-    										
-    					<?php }?>
+    								<button type="button" class="showMore">+</button>					
+    					<?php }?> 
                 				<div class="form-group">
                         			<label for="link-name-<?=$i+1?>">Name</label>
                         			<input type="text" name="nameLink[]" id="link-name-<?=$i+1?>" value="<?=$name?>">
@@ -200,17 +201,15 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                     		</div>
         		  	
               		<?php
-              		if ($hidden = false) {
+              		if ($hidden === false) {
               		?>
               		<div class="form-group">
                         			<button type="button" class="showMore">+</button>			
                         			<div class="form-group hidden">
                         			</div>
-                        		</div>
-                      <?php echo 1;  }
-                      if (empty($url) && $i > 0 && $hidden === true) {
-                          $hidden = false;
-        			    }
+                        			</div>
+                      <?php 
+              		    }
         			}
         			?>
         		
