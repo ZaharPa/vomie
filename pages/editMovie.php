@@ -28,11 +28,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                 if (isset($_POST['genres'])) {
                     $selectedGenres = $_POST['genres'];
                     if (!empty($selectedGenres)) {
-                        foreach ($selectedGenres as $genre)
-                            $curMovie->editGenre($link, $id, $id_genre, $genre);
+                        $curMovie->editGenre($link, $id, $selectedGenres);
                     }
                 }
-                
+                /*
                 if (isset($_FILES['photos'])) { 
                     
                     $totalFiles = count($_FILES['photos']['name']);
@@ -76,7 +75,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                                 
                                 if(in_array($fileMime, $allowedMime)) {
                                     $fileExtension = ($fileMime === 'image/jpeg') ? 'jpg' : 'png';
-                                    $newFileName = $id_movie . '_' . $nameCast[$i]  . '_' . $i . '.' . $fileExtension;
+                                    $newFileName = $id . '_' . $nameCast[$i]  . '_' . $i . '.' . $fileExtension;
                                     $path = 'images/castPhoto/';
                                     
                                     if ($curMovie->editCast($link, $id_movie, $nameCast[$i], $roleCast[$i], $path, $newFileName) === true) {
@@ -109,8 +108,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                     }
                 }
                 
-                header('Location: index.php?page=main');
+                header('Location: index.php?page=view-all');
                 exit();
+                */
+                
         } else {
             echo '<script type="text/javascript">',
             'showModal("Incorrect data");',
@@ -198,7 +199,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
             				<div class="upload-container">
             			<?php }?>
                             <label for="file-input-<?=$i?>" class="file-upload-label">
-                                <input type="file" class="file-input" name="photos[]" id="file-input-<?=$i?>" accept="image/*" required />
+                                <input type="file" class="file-input" name="photos[]" id="file-input-<?=$i?>" accept="image/*"  />
                                 <img id="preview-<?=$i?>"  alt="Upload Image" 
                                 <?php if (!empty($imgSrc)) { ?>
                						src="<?=$imgSrc?>"

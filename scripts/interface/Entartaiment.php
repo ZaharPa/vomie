@@ -8,7 +8,7 @@ interface Entartaiment
     public function deleteMovie($link, $id) : bool;
     
     public function addGenre($link, $id_movie, $genre) : bool;
-    public function editGenre($link, $id_movie, $id_genre, $genre) : bool;
+    public function editGenre($link, $id_movie, $genre) : bool;
     public function deleteGenre($link, $id_movie) : bool;
     
     public function addPhoto($link, $id_movie, $path, $photo) : bool;

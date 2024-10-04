@@ -47,7 +47,46 @@ class Movie implements Entartaiment
     }
     
     public function editMovie($link, $id, $name, $date, $description, $status, $type, $duration) : bool
-    {}
+    {
+        try {
+            $id_movie = (int)$id;
+            
+            $query = "UPDATE movie SET name = ?, date = ?, description = ?, 
+                    status = ?, type = ?, duration = ? WHERE id_movie = ?";
+           
+            $stmt = mysqli_prepare($link, $query);
+            
+            if ($stmt === false) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if (!mysqli_stmt_bind_param($stmt, 'ssssssi', $name, $date, $description, $status, $type, $duration, $id_movie)) {
+                throw new Exception("Error prepare parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_execute($stmt);
+            
+            if ($result === false) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            mysqli_stmt_close($stmt);
+            
+            return true;
+        } catch (Exception $e) {
+            error_log($e->getMessage() . " Query: " . $query);
+            
+            echo '<script type="type/javascript">',
+                'showModal("An error occurred with movie. Please try again later.");',
+                '</script>';
+            
+            if(isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return false;
+        }
+    }
     
     public function deleteMovie($link, $id) : bool
     {
@@ -123,8 +162,86 @@ class Movie implements Entartaiment
         }
     }
     
-    public function editGenre($link, $id_movie, $id_genre, $genre): bool
-    {}
+    public function editGenre($link, $id_movie, $genre): bool
+    {
+        $link->begin_transaction();
+        
+        try {
+            $existing_genres = [];
+            $select_query = "SELECT genre FROM genre_movie WHERE id_movie = ?";
+            $stmt = mysqli_prepare($link, $select_query);
+            
+            if(!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if(!mysqli_stmt_bind_param($stmt, 'i', $id_movie)) {
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Error executing statement: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_get_result($stmt);
+            
+            if (!$result) {
+                throw new Exception("Error result: " . mysqli_stmt_error($stmt));
+            }
+
+            
+            while ($row = mysqli_fetch_assoc($result)) {
+                $existing_genres[] = $row['genre'];
+            }
+            mysqli_stmt_close($stmt);
+            
+            $genres_to_add = array_diff($genre, $existing_genres);
+            $genres_to_remove = array_diff($existing_genres, $genre);          
+            
+            if (!empty($genres_to_remove)) {
+                $delete_query = "DELETE FROM genre_movie WHERE id_movie = ? AND genre = ?";
+                $stmt = mysqli_prepare($link, $delete_query);
+                
+                if (!$stmt) {
+                    throw new Exception("Error prepare query: " . mysqli_error($link));
+                }
+                
+                foreach($genres_to_remove as $genre_to_remove) {
+                    if (!mysqli_stmt_bind_param($stmt, 'is', $id_movie, $genre_to_remove)) {
+                        throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+                    }
+                    
+                    if (!mysqli_stmt_execute($stmt)) {
+                        throw new Exception("Error executing statement: " . mysqli_stmt_error($stmt));
+                    }
+                }
+                
+                mysqli_stmt_close($stmt);
+            }
+            
+            if (!empty($genres_to_add)) {
+                foreach($genres_to_add as $genre_to_add) {
+                    $this->addGenre($link, $id_movie, $genre_to_add);
+                }
+            }
+            
+            $link->commit();
+            
+            return true;
+        } catch (Exception $e) {
+            error_log($e->getMessage() . " Edit genre ");
+            echo '<script type="text/javascript">',
+            'showModal("An error occurred with genre. Please try again later.");',
+            '</script>';
+            
+            if(isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            $link->rollback();
+            return false;
+        }
+    }
     
     public function deleteGenre($link, $id_movie) : bool
     {
@@ -521,7 +638,7 @@ class Movie implements Entartaiment
             $result = mysqli_stmt_get_result($stmt);
             
             if (!$result) {
-                throw new Exception("Помилка отримання результату: " . mysqli_stmt_error($stmt));
+                throw new Exception("Error result: " . mysqli_stmt_error($stmt));
             }
             
             $movieAddInfo = [];
@@ -564,7 +681,7 @@ class Movie implements Entartaiment
             $result = mysqli_stmt_get_result($stmt);
             
             if (!$result) {
-                throw new Exception("Помилка отримання результату: " . mysqli_stmt_error($stmt));
+                throw new Exception("ПError result: " . mysqli_stmt_error($stmt));
             }
             
             $movieGenre = [];
@@ -607,7 +724,7 @@ class Movie implements Entartaiment
             $result = mysqli_stmt_get_result($stmt);
             
             if (!$result) {
-                throw new Exception("Помилка отримання результату: " . mysqli_stmt_error($stmt));
+                throw new Exception("Error result: " . mysqli_stmt_error($stmt));
             }
             
             $movielink = [];
@@ -649,7 +766,7 @@ class Movie implements Entartaiment
             $result = mysqli_stmt_get_result($stmt);
             
             if (!$result) {
-                throw new Exception("Помилка отримання результату: " . mysqli_stmt_error($stmt));
+                throw new Exception("Error result: " . mysqli_stmt_error($stmt));
             }
             
             $moviePhoto = [];
@@ -691,7 +808,7 @@ class Movie implements Entartaiment
             $result = mysqli_stmt_get_result($stmt);
             
             if (!$result) {
-                throw new Exception("Помилка отримання результату: " . mysqli_stmt_error($stmt));
+                throw new Exception("Error result: " . mysqli_stmt_error($stmt));
             }
             
             $movieCast = [];
