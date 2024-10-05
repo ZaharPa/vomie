@@ -317,8 +317,57 @@ class Movie implements Entartaiment
         }
     }
     
-    public function editPhoto($link, $id_movie, $id_photo, $path, $photo) : bool
-    {}
+    public function editPhoto($link, $id_movie, $photos, $titleMovie) : bool
+    {
+        $link->begin_transaction();
+        
+        try {
+            $path = 'images/moviePhoto/';
+            
+            if (!empty($photos['photo'])) {
+                $this->deletePhoto($link, $id_movie);
+                foreach ($photos['photo'] as $photo) {
+                    if (file_exists($path . $photo['name'])) {
+                        unlink($path . $photo['name']);
+                    }
+                }
+            }
+            
+            $totalFiles = count($photos['photo']);
+            
+            for ($i = 0; $i < $totalFiles; $i++) {
+                if ($photos["error"][$i] == UPLOAD_ERR_OK) {
+                    $fileMime = mime_content_type($photos["tmp_name"][$i]);
+                    $allowedMime = ['image/jpeg', 'image/png'];
+                    
+                    if(in_array($fileMime, $allowedMime)) {
+                        $fileExtension = ($fileMime === 'image/jpeg') ? 'jpg' : 'png';
+                        $newFileName = $i . '_' . $titleMovie  . '_' . $i . '.' . $fileExtension;                      
+                        
+                        if (move_uploaded_file($photos["tmp_name"][$i], $path . $newFileName)) {
+                            $this->addPhoto($link, $id_movie, $path, $newFileName);
+                        } else {
+                            throw new Exception("Failed to upload the file");
+                        }
+                    } else {
+                        throw new Exception("invalid file type");
+                    }
+                }
+            }
+            
+            $link->commit();
+            return true;
+        } catch (Exception $e) {
+            error_log($e->getMessage() . " Edit photo");
+            
+            echo '<script type="text/javascript">',
+            'showModal("An error occurred with photo. Please try again later.");',
+            '</script>';
+            
+            $link->rollback();
+            return false;
+        }
+    }
     
     public function deletePhoto($link, $id_movie) : bool
     {

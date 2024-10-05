@@ -12,7 +12,7 @@ interface Entartaiment
     public function deleteGenre($link, $id_movie) : bool;
     
     public function addPhoto($link, $id_movie, $path, $photo) : bool;
-    public function editPhoto($link, $id_movie, $id_photo, $path, $photo) : bool;
+    public function editPhoto($link, $id_movie, $photos, $titleMovie) : bool;
     public function deletePhoto($link, $id_movie) : bool;
     
     public function addCast($link, $id_movie, $name, $role, $path = null, $photo = null) : bool;

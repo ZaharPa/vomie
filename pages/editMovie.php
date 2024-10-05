@@ -31,37 +31,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                         $curMovie->editGenre($link, $id, $selectedGenres);
                     }
                 }
+                
+                if (isset($_FILES['photos'])) {
+                    var_dump($movie);
+                    $curMovie->editPhoto($link, $id, $_FILES['photos'], $titleMovie);
+                } else var_dump($_FILES);
                 /*
-                if (isset($_FILES['photos'])) { 
-                    
-                    $totalFiles = count($_FILES['photos']['name']);
-                
-                    for ($i = 0; $i < $totalFiles; $i++) {
-                        if($_FILES && $_FILES["photos"]["error"][$i] == UPLOAD_ERR_OK) {
-                            $fileMime = mime_content_type($_FILES["photos"]["tmp_name"][$i]);
-                            $allowedMime = ['image/jpeg', 'image/png'];
-                            
-                            if(in_array($fileMime, $allowedMime)) {
-                                $fileExtension = ($fileMime === 'image/jpeg') ? 'jpg' : 'png';
-                                $newFileName = $id_movie . '_' . $titleMovie  . '_' . $i . '.' . $fileExtension;
-                                $path = 'images/moviePhoto/';
-                                
-                                if ($curMovie->editPhoto($link, $id_movie, $path, $newFileName) === true) {
-                                    move_uploaded_file($_FILES["photos"]["tmp_name"][$i], $path . $newFileName);
-                                } else {
-                                    echo '<script type="text/javascript">',
-                                    'showModal("Incorrect data photo");',
-                                    '</script>';
-                                }
-                            } else {
-                                echo '<script type="text/javascript">',
-                                'showModal("Incorrect type file");',
-                                '</script>';
-                            }
-                        }
-                    }
-                }
-                
                 if (!empty(array_filter($_POST['nameCast'])) && !empty(array_filter($_POST['roleCast']))) {
                     $nameCast = $_POST['nameCast'];
                     $roleCast = $_POST['roleCast'];
