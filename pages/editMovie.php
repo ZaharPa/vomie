@@ -33,9 +33,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                 }
                 
                 if (isset($_FILES['photos'])) {
-                    var_dump($movie);
-                    $curMovie->editPhoto($link, $id, $_FILES['photos'], $titleMovie);
-                } else var_dump($_FILES);
+                  $curMovie->editPhoto($link, $id, $_FILES['photos'], $titleMovie);
+                } else {
+                    var_dump($_FILES['photos']);
+                }
                 /*
                 if (!empty(array_filter($_POST['nameCast'])) && !empty(array_filter($_POST['roleCast']))) {
                     $nameCast = $_POST['nameCast'];
@@ -97,7 +98,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
 
 		<div class="add-movie">
 			<h2>EDIT ENTERTAIMENT</h2>
-			<form method="post" enctype="multpart/form-data" action="index.php?page=edit-movie&id=<?=$id?>">
+			<form method="post" enctype="multipart/form-data" action="index.php?page=edit-movie&id=<?=$id?>">
         		<div class="form-group">
             		<label for="title">Title</label>
             		<input type="text" value="<?=$movie['name']?>" name="title" id="title" required>
@@ -159,37 +160,35 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         		
         		
         		<div class="form-group">
-        			<label>Photo</label>		
-        			<?php 
-        			$hidden = false;
-        			for ($i = 0; $i < 10; $i++) {
-        			    if (!empty($moviePhoto[$i])) {
-        			        $imgSrc = $moviePhoto[$i]['path'] . $moviePhoto[$i]['photo'];
-        			    } else $imgSrc = '';
-        			    
-        			    if ($hidden === true) {
-        				?>
-        					<div class="upload-container hidden">
-						<?php } else {?>
-            				<div class="upload-container">
-            			<?php }?>
-                            <label for="file-input-<?=$i?>" class="file-upload-label">
-                                <input type="file" class="file-input" name="photos[]" id="file-input-<?=$i?>" accept="image/*"  />
-                                <img id="preview-<?=$i?>"  alt="Upload Image" 
-                                <?php if (!empty($imgSrc)) { ?>
-               						src="<?=$imgSrc?>"
-               					<?php } else {?>
-               						src="styles/black-plus.png"
-               					<?php }?> />
-                            </label>
-            			</div>
-        			<?php 
-        			     if (empty($imgSrc) && $i > 2 && $hidden === false) {
-        			            $hidden = true;
-        			    }
-        			}
-        			?>
-        		</div>
+                    <label>Photo</label>        
+                    <?php 
+                    $hidden = false;
+                    for ($i = 0; $i < 10; $i++) {
+                        $imgSrc = !empty($moviePhoto[$i]['path']) ? $moviePhoto[$i]['path'] . $moviePhoto[$i]['photo'] : '';
+                        
+                        if ($hidden === true) {
+                    ?>
+                        <div class="upload-container hidden">
+                    <?php } else { ?>
+                        <div class="upload-container">
+                    <?php } ?>
+                        <label for="file-input-<?=$i?>" class="file-upload-label">
+                            <input type="file" class="file-input" name="photos[]" id="file-input-<?=$i?>" accept="image/*" />
+                            <img id="preview-<?=$i?>" alt="Upload Image" 
+                            src="<?=!empty($imgSrc) ? $imgSrc : 'styles/black-plus.png' ?>" />
+                        </label>
+                        <?php if (!empty($imgSrc)) { ?>
+                            <input type="hidden" name="existing_photos[]" value="<?= $moviePhoto[$i]['photo'] ?>">
+                            <button type="button" class="btn btn-danger" onclick="deletePhoto(<?=$i?>)">&times;</button>
+                            <input type="hidden" name="delete_photos[<?=$i?>]" id="delete-photo-<?=$i?>" value="">
+                        <?php } ?>
+                        </div>
+                    <?php 
+                        if (empty($imgSrc) && $i > 2 && $hidden === false) {
+                            $hidden = true;
+                        }
+                    } ?>
+                </div>
         		
         		
         		<div class="form-group">
@@ -304,6 +303,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
     			</div>
     	</div>
     	
+    	<script>
+            function deletePhoto(index) {
+                document.getElementById('delete-photo-' + index).value = '1';  // Позначаємо фото для видалення
+                document.getElementById('preview-' + index).style.display = 'none';  // Ховаємо прев'ю
+            }
+        </script>
     	<script src="scripts/JavaScript/previewPhoto.js"></script>
         <script src="scripts/JavaScript/showMore.js"></script>
 <?php 

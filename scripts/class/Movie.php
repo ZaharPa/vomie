@@ -322,35 +322,64 @@ class Movie implements Entartaiment
         $link->begin_transaction();
         
         try {
-            $path = 'images/moviePhoto/';
+            $existing_photos = $this->viewPhotosMovie($link);
+            $delete_photos = isset($_POST['delete_photos']) ? $_POST['delete_photos'] : [];
             
-            if (!empty($photos['photo'])) {
-                $this->deletePhoto($link, $id_movie);
-                foreach ($photos['photo'] as $photo) {
-                    if (file_exists($path . $photo['name'])) {
-                        unlink($path . $photo['name']);
+            foreach ($existing_photos as $i => $photo) {
+                if (isset($delete_photos[$i]) && $delete_photos[$i] === '1') {
+                    $delete_query = "DELETE FROM photo_movie WHERE id_movie = ? AND photo = ?";
+                    $stmt = mysqli_prepare($link, $delete_query);
+                    
+                    if (!$stmt) {
+                        throw new Exception("Error prepare query: " . mysqli_error($link));
+                    }
+                    
+                    if (! mysqli_stmt_bind_param($stmt, 'is', $id_movie, $photo['photo'])) {
+                        throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+                    }
+                   var_dump($delete_photos);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_close($stmt);
+                    
+                    $path = 'images/moviePhoto/' . $photo['photo'];
+                    if (file_exists($path)) {
+                        unlink($path);
                     }
                 }
             }
             
-            $totalFiles = count($photos['photo']);
-            
+            $totalFiles = count($photos['name']);
             for ($i = 0; $i < $totalFiles; $i++) {
                 if ($photos["error"][$i] == UPLOAD_ERR_OK) {
                     $fileMime = mime_content_type($photos["tmp_name"][$i]);
                     $allowedMime = ['image/jpeg', 'image/png'];
                     
-                    if(in_array($fileMime, $allowedMime)) {
+                    if (in_array($fileMime, $allowedMime)) {
                         $fileExtension = ($fileMime === 'image/jpeg') ? 'jpg' : 'png';
-                        $newFileName = $i . '_' . $titleMovie  . '_' . $i . '.' . $fileExtension;                      
+                        $newFileName = $id . '_' . $titleMovie  . '_' . $i . '.' . $fileExtension;
+                        $path = 'images/moviePhoto/';
                         
-                        if (move_uploaded_file($photos["tmp_name"][$i], $path . $newFileName)) {
-                            $this->addPhoto($link, $id_movie, $path, $newFileName);
-                        } else {
-                            throw new Exception("Failed to upload the file");
+                        if (in_array($newFileName, array_column($existing_photos, 'photo'))) {
+                            $delete_query = "DELETE FROM photo_movie WHERE id_movie = ? AND photo = ?";
+                            $stmt = mysqli_prepare($link, $delete_query);
+                            
+                            if (!$stmt) {
+                                throw new Exception("Error prepare query: " . mysqli_error($link));
+                            }
+                            
+                            mysqli_stmt_bind_param($stmt, 'is', $id_movie, $newFileName);
+                            mysqli_stmt_execute($stmt);
+                            mysqli_stmt_close($stmt);
+                            
+                            if (file_exists($path . $newFileName)) {
+                                unlink($path . $newFileName);
+                            }
                         }
+                        
+                        $this->addPhoto($link, $id_movie, $path, $newFileName);
+                        move_uploaded_file($photos["tmp_name"][$i], $path . $newFileName);
                     } else {
-                        throw new Exception("invalid file type");
+                        throw new Exception("Invalid file type");
                     }
                 }
             }
@@ -359,15 +388,11 @@ class Movie implements Entartaiment
             return true;
         } catch (Exception $e) {
             error_log($e->getMessage() . " Edit photo");
-            
-            echo '<script type="text/javascript">',
-            'showModal("An error occurred with photo. Please try again later.");',
-            '</script>';
-            
             $link->rollback();
             return false;
         }
     }
+    
     
     public function deletePhoto($link, $id_movie) : bool
     {
