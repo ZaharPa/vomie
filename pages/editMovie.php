@@ -28,7 +28,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                 if (isset($_POST['genres'])) {
                     $selectedGenres = $_POST['genres'];
                     if (!empty($selectedGenres)) {
-                        $curMovie->editGenre($link, $id, $selectedGenres);
+                        var_dump($_POST['delete_photos']); var_dump($_POST['existing_photos']);//    $curMovie->editGenre($link, $id, $selectedGenres);
                     }
                 }
                 
@@ -178,10 +178,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                             src="<?=!empty($imgSrc) ? $imgSrc : 'styles/black-plus.png' ?>" />
                         </label>
                         <?php if (!empty($imgSrc)) { ?>
-                            <input type="hidden" name="existing_photos[]" value="<?= $moviePhoto[$i]['photo'] ?>">
                             <button type="button" class="btn btn-danger" onclick="deletePhoto(<?=$i?>)">&times;</button>
-                            <input type="hidden" name="delete_photos[<?=$i?>]" id="delete-photo-<?=$i?>" value="">
-                        <?php } ?>
+							<input type="hidden" name="existing_photos[]" value="<?= $moviePhoto[$i]['photo'] ?>">
+							<input type="hidden" name="delete_photos[<?=$i?>]" id="delete-photo-<?=$i?>" value="<?= $moviePhoto[$i]['photo'] ?>">                      	
+							<?php } ?>
                         </div>
                     <?php 
                         if (empty($imgSrc) && $i > 2 && $hidden === false) {
@@ -305,8 +305,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
     	
     	<script>
             function deletePhoto(index) {
-                document.getElementById('delete-photo-' + index).value = '1';  // Позначаємо фото для видалення
-                document.getElementById('preview-' + index).style.display = 'none';  // Ховаємо прев'ю
+                   var photoName = document.querySelector('input[name="existing_photos[]"]').value; 
+                   document.getElementById('delete-photo-' + index).value = photoName;  
+                   document.getElementById('preview-' + index).style.display = 'none';  
             }
         </script>
     	<script src="scripts/JavaScript/previewPhoto.js"></script>

@@ -322,9 +322,9 @@ class Movie implements Entartaiment
         $link->begin_transaction();
         
         try {
-            $existing_photos = $this->viewPhotosMovie($link);
+            $existing_photos = isset($_POST['existing_photos']) ? $_POST['existing_photos'] : [];
             $delete_photos = isset($_POST['delete_photos']) ? $_POST['delete_photos'] : [];
-            
+
             foreach ($existing_photos as $i => $photo) {
                 if (isset($delete_photos[$i]) && $delete_photos[$i] === '1') {
                     $delete_query = "DELETE FROM photo_movie WHERE id_movie = ? AND photo = ?";
@@ -333,7 +333,7 @@ class Movie implements Entartaiment
                     if (!$stmt) {
                         throw new Exception("Error prepare query: " . mysqli_error($link));
                     }
-                    
+
                     if (! mysqli_stmt_bind_param($stmt, 'is', $id_movie, $photo['photo'])) {
                         throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
                     }
@@ -343,7 +343,8 @@ class Movie implements Entartaiment
                     
                     $path = 'images/moviePhoto/' . $photo['photo'];
                     if (file_exists($path)) {
-                        unlink($path);
+                     //   unlink($path);
+                     var_dump($path);   
                     }
                 }
             }
