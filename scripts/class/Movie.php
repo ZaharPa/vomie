@@ -331,20 +331,19 @@ class Movie implements Entartaiment
                     $stmt = mysqli_prepare($link, $delete_query);
                     
                     if (!$stmt) {
-                        throw new Exception("Error prepare query: " . mysqli_error($link));
+                        throw new Exception("Error preparing query: " . mysqli_error($link));
                     }
-
-                    if (! mysqli_stmt_bind_param($stmt, 'is', $id_movie, $photo['photo'])) {
+                    var_dump($photo);
+                    if (!mysqli_stmt_bind_param($stmt, 'is', $id_movie, $photo)) {
                         throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
                     }
-                   var_dump($delete_photos);
+                    
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
                     
-                    $path = 'images/moviePhoto/' . $photo['photo'];
+                    $path = 'images/moviePhoto/' . $photo;
                     if (file_exists($path)) {
-                     //   unlink($path);
-                     var_dump($path);   
+                        unlink($path);
                     }
                 }
             }
