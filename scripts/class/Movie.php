@@ -333,7 +333,7 @@ class Movie implements Entartaiment
                     if (!$stmt) {
                         throw new Exception("Error preparing query: " . mysqli_error($link));
                     }
-                    var_dump($photo);
+                    
                     if (!mysqli_stmt_bind_param($stmt, 'is', $id_movie, $photo)) {
                         throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
                     }
@@ -356,7 +356,7 @@ class Movie implements Entartaiment
                     
                     if (in_array($fileMime, $allowedMime)) {
                         $fileExtension = ($fileMime === 'image/jpeg') ? 'jpg' : 'png';
-                        $newFileName = $id . '_' . $titleMovie  . '_' . $i . '.' . $fileExtension;
+                        $newFileName = $id_movie . '_' . $titleMovie  . '_' . $i . '.' . $fileExtension;
                         $path = 'images/moviePhoto/';
                         
                         if (in_array($newFileName, array_column($existing_photos, 'photo'))) {
@@ -553,8 +553,42 @@ class Movie implements Entartaiment
         }
     }
     
-    public function editLink($link, $id_movie, $id_link, $link_movie) : bool
-    {}
+    public function editLink($link, $id_link, $name, $link_movie) : bool
+    {
+        try {
+            $id_link = (int)$id_link;
+            
+            $query = "UPDATE link_movie SET name = ?, link = ? WHERE id_link = ?";
+            
+            $stmt = mysqli_prepare($link, $query);
+            
+            if ($stmt === false) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if (!mysqli_stmt_bind_param($stmt, 'ssssssi', $name, $link_movie, $id_link)) {
+                throw new Exception("Error prepare parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_execute($stmt);
+            
+            if ($result === false) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            mysqli_stmt_close($stmt);
+            
+            return true;
+        } catch(Exception $e) {
+            error_log($e->getMessage() . "Query edit link: " . $query);
+            
+            if(isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return false;
+        }
+    }
     
     public function deleteLink($link, $id_movie) : bool
     {

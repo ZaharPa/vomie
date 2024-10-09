@@ -72,7 +72,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                         }
                     }
                 }
-                
+                */
                 if (!empty(array_filter($_POST['nameLink'])) && !empty(array_filter($_POST['linkMovie']))) {
                     $nameLink = $_POST['nameLink'];
                     $linkMovie = $_POST['linkMovie'];
@@ -80,10 +80,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                     
                     for ($i = 0; $i < $totalLink; $i++) {
                         if (!empty($_POST['nameLink'][$i]) && !empty($_POST['linkMovie'][$i]))
-                            $curMovie->editLink($link, $id_movie, $nameLink[$i], $linkMovie[$i]);
+                            $curMovie->editLink($link, $i, $nameLink[$i], $linkMovie[$i]);
                     }
                 }
-                
+                /*
                 header('Location: index.php?page=view-all');
                 exit();
                 */

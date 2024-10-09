@@ -20,7 +20,7 @@ interface Entartaiment
     public function deleteCast($link, $id_movie) : bool;
     
     public function addLink($link, $id_movie, $name, $link_movie) : bool;
-    public function editLink($link, $id_movie, $id_link, $link_movie) : bool;
+    public function editLink($link, $id_link, $name, $link_movie) : bool;
     public function deleteLink($link, $id_movie) : bool;
     
     public function setIdMovie($id) : void;
