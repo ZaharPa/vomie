@@ -554,31 +554,58 @@ class Movie implements Entartaiment
     }
     
     public function editLink($link, $id_link, $name, $link_movie) : bool
-    {
+    {                 
         try {
-            $id_link = (int)$id_link;
+            $delete_link = isset ($_POST['delete_link']) ? $_POST['delete_link'] : [];
             
-            $query = "UPDATE link_movie SET name = ?, link = ? WHERE id_link = ?";
-            
-            $stmt = mysqli_prepare($link, $query);
-            
-            if ($stmt === false) {
-                throw new Exception("Error prepare query: " . mysqli_error($link));
+            if (!empty($delete_link)) {
+                foreach ($delete_link as $i => $link_delete) {
+                    if (!empty($link_delete) && $delete_link[$i] === '1') {
+                        $delete_query = "DELETE FROM link_movie WHERE id_movie = ? AND id_link = ?";
+                        $stmt = mysqli_prepare($link, $delete_query);
+                        
+                        if (!$stmt) {
+                            throw new Exception("Error preparing query: " . mysqli_error($link));
+                        }
+                        var_dump($delete_link);
+                        if (!mysqli_stmt_bind_param($stmt, 'ii', $_GET['id'], $link_delete)) {
+                            throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+                        }
+                        
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_close($stmt);
+                        
+                    }
+                }
             }
-            
-            if (!mysqli_stmt_bind_param($stmt, 'ssssssi', $name, $link_movie, $id_link)) {
-                throw new Exception("Error prepare parameters: " . mysqli_stmt_error($stmt));
+            if (!empty($id_link)) {
+                $id_link = (int)$id_link;
+                
+                $query = "UPDATE link_movie SET name = ?, link = ? WHERE id_link = ?";
+    
+                $stmt = mysqli_prepare($link, $query);
+                
+                if ($stmt === false) {
+                    throw new Exception("Error prepare query: " . mysqli_error($link));
+                }
+                
+                if (!mysqli_stmt_bind_param($stmt, 'ssi', $name, $link_movie, $id_link)) {
+                    throw new Exception("Error prepare parameters: " . mysqli_stmt_error($stmt));
+                }
+                
+                $result = mysqli_stmt_execute($stmt);
+                
+                if ($result === false) {
+                    throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+                }
+    
+                mysqli_stmt_close($stmt);
+                
+                return true;
+            } else {
+                $this->addLink($link, $_GET['id'], $name, $link_movie);
+                return true;
             }
-            
-            $result = mysqli_stmt_execute($stmt);
-            
-            if ($result === false) {
-                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
-            }
-            
-            mysqli_stmt_close($stmt);
-            
-            return true;
         } catch(Exception $e) {
             error_log($e->getMessage() . "Query edit link: " . $query);
             
@@ -814,7 +841,7 @@ class Movie implements Entartaiment
     public function viewLinkForMovie($link, $id_movie) : array
     {
         try {
-            $query = "SELECT name, link FROM link_movie WHERE id_movie = ?";
+            $query = "SELECT id_link, name, link FROM link_movie WHERE id_movie = ?";
             $stmt = mysqli_prepare($link, $query);
             
             if(!$stmt) {
@@ -898,7 +925,7 @@ class Movie implements Entartaiment
     public function viewCastForMovie($link, $id_movie) : array
     {
         try {
-            $query = "SELECT name, role, path, photo FROM cast_movie  WHERE id_movie = ?";
+            $query = "SELECT id_cast, name, role, path, photo FROM cast_movie  WHERE id_movie = ?";
             $stmt = mysqli_prepare($link, $query);
             
             if(!$stmt) {

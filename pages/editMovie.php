@@ -34,9 +34,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                 
                 if (isset($_FILES['photos'])) {
                     $curMovie->editPhoto($link, $id, $_FILES['photos'], $titleMovie);
-                } else {
-                    var_dump($_FILES['photos']);
-                }
+                } 
                 /*
                 if (!empty(array_filter($_POST['nameCast'])) && !empty(array_filter($_POST['roleCast']))) {
                     $nameCast = $_POST['nameCast'];
@@ -76,11 +74,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                 if (!empty(array_filter($_POST['nameLink'])) && !empty(array_filter($_POST['linkMovie']))) {
                     $nameLink = $_POST['nameLink'];
                     $linkMovie = $_POST['linkMovie'];
+                    $idLink = $_POST['idLink'];
                     $totalLink = count($nameLink);
                     
                     for ($i = 0; $i < $totalLink; $i++) {
                         if (!empty($_POST['nameLink'][$i]) && !empty($_POST['linkMovie'][$i]))
-                            $curMovie->editLink($link, $i, $nameLink[$i], $linkMovie[$i]);
+                            $curMovie->editLink($link, $idLink[$i], $nameLink[$i], $linkMovie[$i]);
                     }
                 }
                 /*
@@ -257,9 +256,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         			    if (!empty($movieLink[$i])) {
         			        $name = $movieLink[$i]['name'];
         			        $url = $movieLink[$i]['link'];
+        			        $id_link = $movieLink[$i]['id_link'];
         			    } else {
         			        $name = '';
         			        $url = '';
+        			        $id_link = '';
         			    }
 
         			    if (empty($url) && $i > 0 && $hidden === false) {
@@ -276,17 +277,21 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                         			<input type="text" name="nameLink[]" id="link-name-<?=$i+1?>" value="<?=$name?>">
                         			<label for="link-<?=$i+1?>">Link</label>
                         			<input type="url" name="linkMovie[]" id="link-<?=$i+1?>" value="<?=$url?>">
+                        			<input type="hidden" name="idLink[]" id="id-link-<?=$i+1?>" value="<?=$id_link?>">
                     			</div>
                     		</div>
-        		  	
-              		<?php
+        		  	<?php if (!empty($url)) {?>
+        		  		<button type="button" class="btn btn-danger" onclick="deleteLink(<?=$i?>)">&times;</button>
+                        <input type="hidden" name="delete_link[<?=$i?>]" id="delete-link-<?=$i?>" value="">       	
+              		<?php }
               		if ($hidden === false) {
               		?>
-              		<div class="form-group">
-                        			<button type="button" class="showMore">+</button>			
-                        			<div class="form-group hidden">
-                        			</div>
-                        			</div>
+              		<div>
+              			<div class="form-group">
+                        	<button type="button" class="showMore">+</button>			
+                        	<div class="form-group hidden">
+                        	</div>
+                        </div>
                       <?php 
               		    }
         			}
@@ -307,6 +312,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
             function deletePhoto(index) {
                 document.getElementById('delete-photo-' + index).value = '1';  
                 document.getElementById('preview-' + index).style.display = 'none'; 
+            }
+            function deleteLink(index) {
+                document.getElementById('delete-link-' + index).value = '1';  
             }
         </script>
     	<script src="scripts/JavaScript/previewPhoto.js"></script>
