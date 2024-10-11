@@ -35,42 +35,52 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                 if (isset($_FILES['photos'])) {
                     $curMovie->editPhoto($link, $id, $_FILES['photos'], $titleMovie);
                 } 
-                /*
+              
                 if (!empty(array_filter($_POST['nameCast'])) && !empty(array_filter($_POST['roleCast']))) {
                     $nameCast = $_POST['nameCast'];
                     $roleCast = $_POST['roleCast'];
+                    $idCast = $_POST['idCast'];
                     $totalCast = count($nameCast);
                     
                     for ($i = 0; $i < $totalCast; $i++) {
-                        if (!empty($_POST['nameCast'][$i]) && !empty($_POST['roleCast'][$i])) {
-                            if($_FILES && $_FILES["photosCast"]["error"][$i] == UPLOAD_ERR_OK) {
+                        if (empty($idCast[$i])) {
+                            if (!empty($_POST['nameCast'][$i]) && !empty($_POST['roleCast'][$i])) {
+                                if (!empty($_POST['nameCast'][$i]) && !empty($_POST['roleCast'][$i])) {
+                                    if($_FILES && $_FILES["photosCast"]["error"][$i] == UPLOAD_ERR_OK) {
+                                        $fileMime = mime_content_type($_FILES["photosCast"]["tmp_name"][$i]);
+                                        $allowedMime = ['image/jpeg', 'image/png'];
+                                        
+                                        if(in_array($fileMime, $allowedMime)) {
+                                            $fileExtension = ($fileMime === 'image/jpeg') ? 'jpg' : 'png';
+                                            $newFileName = $id . '_' . $nameCast[$i]  . '_' . $i . '.' . $fileExtension;
+                                            $path = 'images/castPhoto/';
+                                            
+                                            if ($curMovie->addCast($link, $id, $nameCast[$i], $roleCast[$i], $path, $newFileName) === true) {
+                                                move_uploaded_file($_FILES["photosCast"]["tmp_name"][$i], $path . $newFileName);
+                                            }   
+                                        } 
+                                    }
+                                }
+                            }
+                        } else {
+                            $existingPhoto = isset($_POST['ex_photo_staff'][$idCast[$i]]) ? $_POST['ex_photo_staff'][$idCast[$i]] : '';
+                            if ($_FILES && $_FILES["photosCast"]["error"][$i] == UPLOAD_ERR_OK) {
                                 $fileMime = mime_content_type($_FILES["photosCast"]["tmp_name"][$i]);
                                 $allowedMime = ['image/jpeg', 'image/png'];
                                 
-                                if(in_array($fileMime, $allowedMime)) {
+                                if (in_array($fileMime, $allowedMime)) {
                                     $fileExtension = ($fileMime === 'image/jpeg') ? 'jpg' : 'png';
-                                    $newFileName = $id . '_' . $nameCast[$i]  . '_' . $i . '.' . $fileExtension;
+                                    $newFileName = $existingPhoto;  
                                     $path = 'images/castPhoto/';
                                     
-                                    if ($curMovie->editCast($link, $id_movie, $nameCast[$i], $roleCast[$i], $path, $newFileName) === true) {
-                                        move_uploaded_file($_FILES["photosCast"]["tmp_name"][$i], $path . $newFileName);
-                                    } else {
-                                        echo '<script type="text/javascript">',
-                                        'showModal("Incorrect data photo");',
-                                        '</script>';
-                                    }
-                                } else {
-                                    echo '<script type="text/javascript">',
-                                    'showModal("Incorrect type file");',
-                                    '</script>';
+                                    move_uploaded_file($_FILES["photosCast"]["tmp_name"][$i], $path . $newFileName);
                                 }
-                            } else {
-                                $curMovie->editCast($link, $id_movie, $nameCast[$i], $roleCast[$i]);
                             }
+                            $curMovie->editCast($link, $id, $idCast[$i], $nameCast[$i], $roleCast[$i], $photo);
                         }
                     }
                 }
-                */
+                
                 if (!empty(array_filter($_POST['nameLink'])) && !empty(array_filter($_POST['linkMovie']))) {
                     $nameLink = $_POST['nameLink'];
                     $linkMovie = $_POST['linkMovie'];
@@ -199,10 +209,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         			        $imgSrc = $movieCast[$i]['path'] . $movieCast[$i]['photo'];
         			        $name = $movieCast[$i]['name'];
         			        $role = $movieCast[$i]['role'];
+        			        $id_cast = $movieCast[$i]['id_cast_staff'];
         			    } else {
         			        $imgSrc = '';
         			        $name = '';
         			        $role = '';
+        			        $id_cast = '';
         			    }
         			    if ($i > 0 && $hidden === false) {
         			        
@@ -223,20 +235,26 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
               			<?php } elseif ($i === 0) {?>	
               				<div class="form-group">
               				<?php }?>	
-                				<label for="nameCast-<?=$i+1?>">Name</label>
-                    			<input type="text" name="nameCast[]" value="<?=$name?>" id="nameCast-<?=$i+1?>">
-                    			<label for="roleCast-<?=$i+1?>">Role</label>
-                    			<input type="text" name="roleCast[]" value="<?=$role?>" id="roleCast-<?=$i+1?>">
+                				<label for="nameCast-<?=$i?>">Name</label>
+                    			<input type="text" name="nameCast[]" value="<?=$name?>" id="nameCast-<?=$i?>">
+                    			<label for="roleCast-<?=$i?>">Role</label>
+                    			<input type="text" name="roleCast[]" value="<?=$role?>" id="roleCast-<?=$i?>">
+                    			<input type="hidden" name="idCast[]" id="id-link-<?=$i+1?>" value="<?=$id_cast?>">
                     			<div class="upload-container cast-photo">
-                                	<label for="file-input-cast-<?=$i+1?>" class="file-upload-label">
-                               	   		<input type="file" class="file-input" name="photosCast[]" id="file-input-cast-<?=$i+1?>" accept="image/*" />
-                              	   	  	<img id="preview-cast-<?=$i+1?>" alt="Upload Image"
+                                	<label for="file-input-cast-<?=$i?>" class="file-upload-label">
+                               	   		<input type="file" class="file-input" name="photosCast[]" id="file-input-cast-<?=$i?>" accept="image/*" />
+                              	   	  	<img id="preview-cast-<?=$i?>" alt="Upload Image"
                               	   	  	 <?php if (!empty($imgSrc)) { ?>
                						src="<?=$imgSrc?>"
                					<?php } else {?>
                						src="styles/black-plus.png"
                					<?php }?> />
                              	   	</label>
+                             	   	<?php if (!empty($name)) {?>
+                             	   		<button class="btn btn-danger" onclick="deleteCast<?=$id_cast?>">&times;</button>
+                             	   		<input type="hidden" name="delete_cast<?=$id_cast?>" id="delete-cast-<?=$id_cast?>" value=''>
+										<input type="hidden" name="ex_photo_staff[<?=$id_cast?>]" value="<?=$movieCast[$i]['photo']?>">
+                             	   	<?php }?>
                 				</div>
                 			</div>
             			</div>
@@ -281,8 +299,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                     			</div>
                     		</div>
         		  	<?php if (!empty($url)) {?>
-        		  		<button type="button" class="btn btn-danger" onclick="deleteLink(<?=$i?>)">&times;</button>
-                        <input type="hidden" name="delete_link[<?=$i?>]" id="delete-link-<?=$i?>" value="">       	
+        		  		<button type="button" class="btn btn-danger" onclick="deleteLink(<?=$id_link?>)">&times;</button>
+                        <input type="hidden" name="delete_link[<?=$id_link?>]" id="delete-link-<?=$id_link?>" value="">     
               		<?php }
               		if ($hidden === false) {
               		?>
@@ -315,6 +333,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
             }
             function deleteLink(index) {
                 document.getElementById('delete-link-' + index).value = '1';  
+            }
+            function deleteCast(index) {
+            	document.getElementById('delete-cast-' + index).value = '1';
             }
         </script>
     	<script src="scripts/JavaScript/previewPhoto.js"></script>

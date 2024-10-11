@@ -16,7 +16,7 @@ interface Entartaiment
     public function deletePhoto($link, $id_movie) : bool;
     
     public function addCast($link, $id_movie, $name, $role, $path = null, $photo = null) : bool;
-    public function editCast($link, $id_movie, $id_cast, $name, $role, $path, $photo) : bool;
+    public function editCast($link, $id_movie, $id_cast, $name, $role, $photo) : bool;
     public function deleteCast($link, $id_movie) : bool;
     
     public function addLink($link, $id_movie, $name, $link_movie) : bool;

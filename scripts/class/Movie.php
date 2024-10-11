@@ -476,8 +476,70 @@ class Movie implements Entartaiment
         }
     }
     
-    public function editCast($link, $id_movie, $id_cast, $name, $role, $path, $photo) : bool
-    {}
+    public function editCast($link, $id_movie, $id_cast, $name, $role, $photo) : bool
+    {
+        try {
+            $delete_cast = isset($_POST['delete_photos']) ? $_POST['delete_photos'] : [];
+            
+            if (!empty($delete_cast)) {
+                foreach ($delete_cast as $id => $cast) {
+                    if (isset($cast) && $cast === '1') {
+                        $delete_query = "DELETE FROM cast_movie WHERE id_movie = ? AND id_cast_staff = ?";
+                        $stmt = mysqli_prepare($link, $delete_query);
+                        
+                        if (!$stmt) {
+                            throw new Exception("Error preparing query: " . mysqli_error($link));
+                        }
+                        if (!mysqli_stmt_bind_param($stmt, 'ii', $_GET['id'], $id)) {
+                            throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+                        }
+                        
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_close($stmt);
+                        
+                        $path = 'images/castPhoto/';
+                        
+                        if (file_exists($path . $photo)) {
+                            unlink($path . $photo);
+                        }
+                    }
+                }
+            }
+            
+            $id_cast = (int)$id_cast;
+            
+            $query = "UPDATE cast_movie SET name = ?, role = ? WHERE id_cast_staff = ?";
+                
+            $stmt = mysqli_prepare($link, $query);
+                
+            if ($stmt === false) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if (!mysqli_stmt_bind_param($stmt, 'ssi', $name, $role, $id_cast)) {
+                throw new Exception("Error prepare parameters: " . mysqli_stmt_error($stmt));
+            }
+                
+            $result = mysqli_stmt_execute($stmt);
+                
+            if ($result === false) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+                
+            mysqli_stmt_close($stmt);
+             
+            return true;
+            
+        } catch (Exception $e) {
+            error_log($e->getMessage() . " Query edit Cast");
+            
+            if (isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return false;
+        }
+    }
     
     public function deleteCast($link, $id_movie) : bool
     {
@@ -559,16 +621,17 @@ class Movie implements Entartaiment
             $delete_link = isset ($_POST['delete_link']) ? $_POST['delete_link'] : [];
             
             if (!empty($delete_link)) {
-                foreach ($delete_link as $i => $link_delete) {
-                    if (!empty($link_delete) && $delete_link[$i] === '1') {
+                foreach ($delete_link as $id => $link_delete) {
+                    if (isset($link_delete) && $link_delete === '1') {
+                        var_dump($_POST['delete_link']);
                         $delete_query = "DELETE FROM link_movie WHERE id_movie = ? AND id_link = ?";
                         $stmt = mysqli_prepare($link, $delete_query);
                         
                         if (!$stmt) {
                             throw new Exception("Error preparing query: " . mysqli_error($link));
                         }
-                        var_dump($delete_link);
-                        if (!mysqli_stmt_bind_param($stmt, 'ii', $_GET['id'], $link_delete)) {
+
+                        if (!mysqli_stmt_bind_param($stmt, 'ii', $_GET['id'], $id)) {
                             throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
                         }
                         
@@ -925,13 +988,12 @@ class Movie implements Entartaiment
     public function viewCastForMovie($link, $id_movie) : array
     {
         try {
-            $query = "SELECT id_cast, name, role, path, photo FROM cast_movie  WHERE id_movie = ?";
+            $query = "SELECT id_cast_staff, name, role, path, photo FROM cast_movie  WHERE id_movie = ?";
             $stmt = mysqli_prepare($link, $query);
             
             if(!$stmt) {
                 throw new Exception("Error prepare query: " . mysqli_error($link));
             }
-            
             if(!mysqli_stmt_bind_param($stmt, 'i', $id_movie)) {
                 throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
             }
