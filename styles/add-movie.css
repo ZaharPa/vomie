@@ -91,6 +91,7 @@
 	background-color: #5B3A78;
 	border-radius: 15px;
 	margin-right: 50px;
+	position: relative;
 }
 
 .file-upload-label {
@@ -188,6 +189,37 @@
 .add-movie-btn:hover {
 	background-color: #960082;
 	color: white;
+}
+
+.delete-prop-btn {
+	background-color: rgba(255, 77, 77, 0.6);
+	color: white;
+	padding: 3px 12px;
+	font-size: 30px;
+	border-radius: 50px;
+	cursor: pointer;
+	opacity: 0.8;
+}
+
+.delete-prop-btn:hover {
+	background-color: rgba(255, 77, 77, 1);
+	opacity: 1;
+	transform: scale(1.05);
+}
+
+.delete-prop-btn:active {
+	background-color: red;
+}
+
+.delete-prop-btn:focus {
+	background-color: rgba(65, 101, 65, 0.6);
+	color: black;
+}
+
+.photo-btn {
+    position: absolute; 
+    top: 5px; 
+    right: 5px; 
 }
 
 .hidden {

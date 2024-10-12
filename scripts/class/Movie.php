@@ -479,9 +479,10 @@ class Movie implements Entartaiment
     public function editCast($link, $id_movie, $id_cast, $name, $role, $photo) : bool
     {
         try {
-            $delete_cast = isset($_POST['delete_photos']) ? $_POST['delete_photos'] : [];
+            $delete_cast = isset($_POST['delete_cast']) ? $_POST['delete_cast'] : [];
             
             if (!empty($delete_cast)) {
+                var_dump($delete_cast);
                 foreach ($delete_cast as $id => $cast) {
                     if (isset($cast) && $cast === '1') {
                         $delete_query = "DELETE FROM cast_movie WHERE id_movie = ? AND id_cast_staff = ?";

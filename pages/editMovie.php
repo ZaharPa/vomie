@@ -41,7 +41,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                     $roleCast = $_POST['roleCast'];
                     $idCast = $_POST['idCast'];
                     $totalCast = count($nameCast);
-                    
+
                     for ($i = 0; $i < $totalCast; $i++) {
                         if (empty($idCast[$i])) {
                             if (!empty($_POST['nameCast'][$i]) && !empty($_POST['roleCast'][$i])) {
@@ -76,7 +76,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                                     move_uploaded_file($_FILES["photosCast"]["tmp_name"][$i], $path . $newFileName);
                                 }
                             }
-                            $curMovie->editCast($link, $id, $idCast[$i], $nameCast[$i], $roleCast[$i], $photo);
+                            $curMovie->editCast($link, $id, $idCast[$i], $nameCast[$i], $roleCast[$i], $existingPhoto);
                         }
                     }
                 }
@@ -92,10 +92,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                             $curMovie->editLink($link, $idLink[$i], $nameLink[$i], $linkMovie[$i]);
                     }
                 }
-                /*
-                header('Location: index.php?page=view-all');
+                
+                header('Location: index.php?page=movieDetail&id=' . $id);
                 exit();
-                */
+                
                 
         } else {
             echo '<script type="text/javascript">',
@@ -188,7 +188,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                         </label>
                         <?php if (!empty($imgSrc)) { ?>
                            <input type="hidden" name="existing_photos[]" value="<?= $moviePhoto[$i]['photo'] ?>">
-                            <button type="button" class="btn btn-danger" onclick="deletePhoto(<?=$i?>)">&times;</button>
+                            <button type="button" class="delete-prop-btn photo-btn" onclick="deletePhoto(<?=$i?>)">&times;</button>
                             <input type="hidden" name="delete_photos[<?=$i?>]" id="delete-photo-<?=$i?>" value="">       	
 							<?php } ?>
                         </div>
@@ -221,7 +221,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         			    ?>
             			        <div class="form-group">
     								<button type="button" class="showMore">+</button>			
-    								<div class="form-group hidden">
+    								<div class="form-group ">
     								
               			<?php }
             			    elseif ($i > 0 && $hidden === true) {
@@ -229,10 +229,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
             			        <div class="form-group hidden">
     								<button type="button" class="showMore">+</button>			
     								<div class="form-group">
-               			<?php } elseif ($i === 9) {?>	
-    						<div class="form-group hidden">
-    							<div class="form-group">
-              			<?php } elseif ($i === 0) {?>	
+               			<?php } elseif ($i === 0) {?>	
               				<div class="form-group">
               				<?php }?>	
                 				<label for="nameCast-<?=$i?>">Name</label>
@@ -250,12 +247,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                						src="styles/black-plus.png"
                					<?php }?> />
                              	   	</label>
-                             	   	<?php if (!empty($name)) {?>
-                             	   		<button class="btn btn-danger" onclick="deleteCast<?=$id_cast?>">&times;</button>
-                             	   		<input type="hidden" name="delete_cast<?=$id_cast?>" id="delete-cast-<?=$id_cast?>" value=''>
+                				</div>
+                					<?php if (!empty($name)) {?>
+                    		  			<button type="button" class="delete-prop-btn" onclick="deleteCast(<?=$id_cast?>)">&times;</button>
+                             	   		<input type="hidden" name="delete_cast[<?=$id_cast?>]" id="delete-cast-<?=$id_cast?>" value=''>                             	   		
 										<input type="hidden" name="ex_photo_staff[<?=$id_cast?>]" value="<?=$movieCast[$i]['photo']?>">
                              	   	<?php }?>
-                				</div>
                 			</div>
             			</div>
         		
@@ -297,11 +294,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                         			<input type="url" name="linkMovie[]" id="link-<?=$i+1?>" value="<?=$url?>">
                         			<input type="hidden" name="idLink[]" id="id-link-<?=$i+1?>" value="<?=$id_link?>">
                     			</div>
+                    			<?php if (!empty($url)) {?>
+                    		  		<button type="button" class="delete-prop-btn" onclick="deleteLink(<?=$id_link?>)">&times;</button>
+                                    <input type="hidden" name="delete_link[<?=$id_link?>]" id="delete-link-<?=$id_link?>" value="">     
+                          		<?php } ?>
                     		</div>
-        		  	<?php if (!empty($url)) {?>
-        		  		<button type="button" class="btn btn-danger" onclick="deleteLink(<?=$id_link?>)">&times;</button>
-                        <input type="hidden" name="delete_link[<?=$id_link?>]" id="delete-link-<?=$id_link?>" value="">     
-              		<?php }
+        		  	<?php
               		if ($hidden === false) {
               		?>
               		<div>
@@ -326,18 +324,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
     			</div>
     	</div>
     	
-    	<script>
-            function deletePhoto(index) {
-                document.getElementById('delete-photo-' + index).value = '1';  
-                document.getElementById('preview-' + index).style.display = 'none'; 
-            }
-            function deleteLink(index) {
-                document.getElementById('delete-link-' + index).value = '1';  
-            }
-            function deleteCast(index) {
-            	document.getElementById('delete-cast-' + index).value = '1';
-            }
-        </script>
+    	<script src="scripts/JavaScript/deleteProperty.js"></script>
     	<script src="scripts/JavaScript/previewPhoto.js"></script>
         <script src="scripts/JavaScript/showMore.js"></script>
 <?php 
