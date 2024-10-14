@@ -42,6 +42,19 @@ if (isset($_GET['id'])) {
         <div class="movie-view">
             <div class="left-column">
                 <img src="<?=$imgSrc?>" class="poster">
+                <?php if (isset($_SESSION['role'])) {?>
+                	<div class="custom-dropdown">
+						<div class="selected-option" id="selected-option">Select status</div>
+						<div class="dropdown-list" id="dropdown-list">
+							<div class="dropdown-item" data-value="Watching">Watching</div>
+							<div class="dropdown-item" data-value="Completed">Completed</div>
+							<div class="dropdown-item" data-value="Postponed">Postponed</div>
+							<div class="dropdown-item" data-value="Abonded">Abonded</div>
+							<div class="dropdown-item" data-value="Delete">Delete</div>
+						</div> 
+                	</div>
+                <?php }?>
+                
                 <div class="movie-details">
                     <p><strong>Status:</strong> <?=$movie['status']?></p>
                     <p><strong>Type:</strong> <?=$movie['type']?></p>
@@ -114,7 +127,7 @@ if (isset($_GET['id'])) {
         </div>
 		
 		<script src="scripts/JavaScript/photoModal.js"></script>
-
+		<script src="scripts/JavaScript/dropdownList.js"></script>
 <?php 
     }
 }
