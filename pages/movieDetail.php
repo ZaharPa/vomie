@@ -4,6 +4,7 @@ use scripts\class\Movie;
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
+    $id_user = $_SESSION['id_user'];
     $link = Database::getLink();
     $curMovie = new Movie();
     $movie = $curMovie->viewOneMovie($link, $id);
@@ -53,10 +54,16 @@ if (isset($_GET['id'])) {
 							<div class="dropdown-item" data-value="Delete">Delete</div>
 						</div> 
                 	</div>
+                	
+                	<form id="statusForm" method="post">
+                		<input type="hidden" name="id_movie" value="<?=$id?>">
+                		<input type="hidden" name="id_user" value="<?=$id_user?>">
+                		<input type="hidden" name="status" id="status">
+                	</form>
                 <?php }?>
                 
                 <div class="movie-details">
-                    <p><strong>Status:</strong> <?=$movie['status']?></p>
+                    <p><strong>Status movie:</strong> <?=$movie['status']?></p>
                     <p><strong>Type:</strong> <?=$movie['type']?></p>
                     <p><strong>Date release:</strong> <?=$movie['date']?></p>
                     <p><strong>Duration:</strong> <?=$movie['duration']?></p>

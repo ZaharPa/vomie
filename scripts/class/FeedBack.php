@@ -26,6 +26,9 @@ class FeedBack implements FeedBackInter
     public function viewAverageRate($link, $id_movie) : float
     {}
     
+    public function viewStatus($link, $id_movie, $id_user) : array
+    {   }
+    
     public function viewComment($link, $id_movie) : array
     {}
 

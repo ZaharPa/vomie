@@ -13,6 +13,8 @@ interface FeedBackInter
     
     public function viewRate($link, int $id_movie, int $id_user) : array;
     public function viewAverageRate($link, int $id_movie) : float;
+    
+    public function viewStatus($link, int $id_movie, $id_user) : array;
     public function viewComment($link, int $id_movie) : array;
     
     public function addComment($link, int $id_movie, int $id_user, string $comment) : bool;
