@@ -60,6 +60,8 @@ if (!empty($_POST)) {
     {
         $_SESSION['role'] = $curUser->getRole();
         $_SESSION['name'] = $curUser->getName();
+        $_SESSION['id_user'] = $curUser->getId();
+        
         header("Location: index.php?page=main");
         close();
         exit();

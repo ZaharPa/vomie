@@ -8,6 +8,7 @@ class Viewer implements User
 {
     private $name;
     private $role;
+    private $id;
     
 
     public function setName( $link, string $email): void    
@@ -32,7 +33,30 @@ class Viewer implements User
     {
         return $this->name;
     }
-
+    
+    public function setId( $link, string $email): void
+    {
+        $query = "SELECT id_user FROM user WHERE email = ?";
+        $stmt = mysqli_prepare($link, $query);
+        
+        mysqli_stmt_bind_param($stmt, 's', $email);
+        mysqli_stmt_execute($stmt);
+        
+        $result = mysqli_stmt_get_result($stmt);
+        $row = mysqli_fetch_array($result);
+        
+        if ($row)
+            $this->id = $row['id_user'];
+            else $this->id = null;
+            
+            mysqli_stmt_close($stmt);
+    }
+    
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+    
     public function setRole($link, string $email): void
     {
         $query = "SELECT role FROM user WHERE email = ?";
@@ -79,6 +103,7 @@ class Viewer implements User
                 
                 if (password_verify($password, $passHash)) {
                     $this->setName($link, $email);
+                    $this->setId($link, $email);
                     $this->setRole($link, $email);
                     
                     mysqli_stmt_close($stmt);
@@ -142,6 +167,7 @@ class Viewer implements User
                 }
                 
                 $this->setName($link, $email);
+                $this->setId($link, $email);
                 $this->setRole($link, $email);
                 
                 mysqli_stmt_close($stmt_check);

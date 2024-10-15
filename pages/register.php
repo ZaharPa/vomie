@@ -64,6 +64,7 @@ if (!empty($_POST)) {
         $curUser->regUser($link, $email, $password, $name);
         $_SESSION['role'] = $curUser->getRole();
         $_SESSION['name'] = $curUser->getName();
+        $_SESSION['id_user'] = $curUser->getid();
         
         if(isset($_SESSION['role']))
         {
