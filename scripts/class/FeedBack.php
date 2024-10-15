@@ -5,38 +5,37 @@ use scripts\interface\FeedBackInter;
 
 class FeedBack implements FeedBackInter
 {
-
-    public function viewRate($link, $id_movie, $id_user)
+    public function addRate($link, $id_movie, $id_user, $rate) : bool
+    {}
+    
+    public function editRate($link, $id_movie, $id_user, $rate) : bool
     {}
 
-    public function deleteComment($link, $id_comment)
+    public function addStatus($link, $id_movie, $id_user, $status) : bool
     {}
 
-    public function editRate($link, $id_movie, $id_user, $rate)
+    public function editStatus($link, $id_movie, $id_user, $status) : bool
+    {}
+    
+    public function deleteRateAndStatus($link, $id_movie, $id_user) : bool
+    {} 
+    
+    public function viewRate($link, $id_movie, $id_user) : array
+    {}
+    
+    public function viewAverageRate($link, $id_movie) : float
+    {}
+    
+    public function viewComment($link, $id_movie) : array
     {}
 
-    public function addStatus($link, $id_movie, $id_user, $status)
+    public function addComment($link, $id_movie, $id_user, $comment) : bool
     {}
 
-    public function editComment($link, $id_comment, $comment)
+    public function editComment($link, $id_comment, $comment) : bool
     {}
-
-    public function addRate($link, $id_movie, $id_user, $rate)
-    {}
-
-    public function editStatus($link, $id_movie, $id_user, $status)
-    {}
-
-    public function viewComment($link, $id_movie)
-    {}
-
-    public function deleteRateAndStatus($link, $id_movie, $id_user)
-    {}
-
-    public function addComment($link, $id_movie, $id_user, $comment)
-    {}
-
-    public function viewAverageRate($link, $id_movie)
+    
+    public function deleteComment($link, $id_comment) : bool
     {}
 }
 
