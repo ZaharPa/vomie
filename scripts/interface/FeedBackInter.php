@@ -5,9 +5,11 @@ interface FeedBackInter
 {
     public function addRate($link, int $id_movie, int $id_user, int $rate) : bool;
     public function editRate($link, int $id_movie, int $id_user, int $rate) : bool;
-    
+
     public function addStatus($link, int $id_movie, int $id_user, string $status) : bool;
     public function editStatus($link, int $id_movie, int $id_user, string $status) : bool;
+    
+    public function IsStatus($link, int $id_movie, int $id_user): bool;
     
     public function deleteRateAndStatus($link, int $id_movie, int $id_user) : bool;
     

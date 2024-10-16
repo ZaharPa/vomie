@@ -33,7 +33,7 @@ document.addEventListener('click', function(e) {
 function submitStatus() {
 	const formData = new FormData(statusForm);
 	
-	fetch('users-status.php', {
+	fetch('scripts/usersStatus.php', {
 		method: 'POST',
 		body: formData
 	})
