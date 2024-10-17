@@ -1,6 +1,7 @@
 <?php
 use scripts\Database;
 use scripts\class\Movie;
+use scripts\class\FeedBack;
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -8,6 +9,7 @@ if (isset($_GET['id'])) {
     $link = Database::getLink();
     $curMovie = new Movie();
     $movie = $curMovie->viewOneMovie($link, $id);
+    $statusObj = new FeedBack();
 
     if (isset($movie['id_movie'])) {
         $movieAddInfo = $curMovie->viewAddInfoForMovie($link, $id);
@@ -17,6 +19,7 @@ if (isset($_GET['id'])) {
         $movieCast = $curMovie->viewCastForMovie($link, $id);
         $firstPhoto = $moviePhoto[0];
         $imgSrc = $firstPhoto['path'] . $firstPhoto['photo'];
+        $status = $statusObj->viewStatus($link, $id, $id_user);
         
         if(isset($_GET['action'])) {
             if ($_GET['action'] === 'delete') {
@@ -58,7 +61,7 @@ if (isset($_GET['id'])) {
                 	<form id="statusForm" method="post">
                 		<input type="hidden" name="id_movie" value="<?=$id?>">
                 		<input type="hidden" name="id_user" value="<?=$id_user?>">
-                		<input type="hidden" name="status" id="status">
+                		<input type="hidden" name="status" id="status" value="<?=$status?>">
                 	</form>
                 <?php }?>
                 

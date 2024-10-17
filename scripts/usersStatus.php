@@ -2,11 +2,11 @@
 use scripts\class\FeedBack;
 use scripts\Database;
 
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 if (isset($_POST['id_movie'], $_POST['id_user'], $_POST['status'])) {
-    $id_movie = $_POST['id_movie'];
-    $id_user = $_POST['id_user'];
+    $id_movie = (int)$_POST['id_movie'];
+    $id_user = (int)$_POST['id_user'];
     $status = $_POST['status'];
     
     $validStatus = ['Watching', 'Completed', 'Postponed', 'Abondoned', 'Delete'];
@@ -17,7 +17,8 @@ if (isset($_POST['id_movie'], $_POST['id_user'], $_POST['status'])) {
     }
     
     $curUsersMovie = new FeedBack();
-    $link = new Database();
+    $db = new Database();
+    $link = $db->getLink();
     
     if ($status === 'Delete') {
         $curUsersMovie->editStatus($link, $id_movie, $id_user, NULL);

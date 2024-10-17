@@ -3,10 +3,21 @@ const dropdownList = document.getElementById('dropdown-list');
 const dropdownItems = document.querySelectorAll('.dropdown-item');
 const statusForm = document.getElementById('statusForm');
 const statusInput = document.getElementById('status');
+const currentStatus = statusInput.value;
 
 selectedOption.addEventListener('click', () => {
 	dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block';
 });
+
+if (currentStatus) {
+	dropdownItems.forEach(item => {
+		if (item.dataset.value === currentStatus) {
+			selectedOption.textContent = item.textContent;
+			selectedOption.dataset.value = item.dataset.value;
+			item.classList.add('active');
+		}
+	});
+}
 
 dropdownItems.forEach(item =>{
 	item.addEventListener('click', () => {

@@ -15,9 +15,6 @@ class FeedBack implements FeedBackInter
     public function addStatus($link, $id_movie, $id_user, $status) : bool
     {
         try {
-            $id_movie = (int)$id_movie;
-            $id_user = (int)$id_user;
-            
             $query = "INSERT INTO rate_user_movie(id_movie, id_user, status) VALUES (?, ?, ?)";
             $stmt = mysqli_prepare($link, $query);
             
@@ -49,10 +46,7 @@ class FeedBack implements FeedBackInter
     public function editStatus($link, $id_movie, $id_user, $status) : bool
     {
         try {
-            $id_movie = (int)$id_movie;
-            $id_user = (int)$id_user;
-            
-            $query = "UPDATE rate_user_movie SET status = WHERE id_movie = ? AND id_user = ?";
+            $query = "UPDATE rate_user_movie SET status = ? WHERE id_movie = ? AND id_user = ?";
             
             $stmt = mysqli_prepare($link, $query);
             
@@ -87,9 +81,6 @@ class FeedBack implements FeedBackInter
     public function IsStatus($link, $id_movie, $id_user) : bool
     {
         try {
-            $id_movie = (int)$id_movie;
-            $id_user = (int)$id_user;
-            
             $query = "SELECT COUNT(*) as count FROM rate_user_movie WHERE id_movie = ? AND id_user = ?";
             $stmt = mysqli_prepare($link, $query);
             
@@ -131,8 +122,40 @@ class FeedBack implements FeedBackInter
     public function viewAverageRate($link, $id_movie) : float
     {}
     
-    public function viewStatus($link, $id_movie, $id_user) : array
-    {   }
+    public function viewStatus($link, $id_movie, $id_user) : ?string
+    {
+        try {
+            $query = "SELECT status FROM rate_user_movie WHERE id_movie = ? AND id_user = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if(!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if(!mysqli_stmt_bind_param($stmt, 'ii', $id_movie, $id_user)) {
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_get_result($stmt);
+            
+            $row = mysqli_fetch_assoc($result);
+            
+            mysqli_stmt_close($stmt);
+            
+            return $row['status'] ?? NULL;       
+        } catch (Exception $e) {
+            error_log($e->getMessage() . " Query: " . $query);
+            
+            if (isset($stmt) && $stmt !== false)
+                mysqli_stmt_close($stmt);
+            
+            return NULL;
+        }
+    }
     
     public function viewComment($link, $id_movie) : array
     {}
