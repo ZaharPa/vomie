@@ -63,6 +63,16 @@ if (isset($_GET['id'])) {
                 		<input type="hidden" name="id_user" value="<?=$id_user?>">
                 		<input type="hidden" name="status" id="status" value="<?=$status?>">
                 	</form>
+                	
+                	<div class="rating-container">
+                		<div class="stars" id="stars">
+                			<span class="star" data-value="1">&#9733;</span>
+                			<span class="star" data-value="2">&#9733;</span>
+                			<span class="star" data-value="3">&#9733;</span>
+                			<span class="star" data-value="4">&#9733;</span>
+                			<span class="star" data-value="5">&#9733;</span>
+                		</div>
+                	</div>
                 <?php }?>
                 
                 <div class="movie-details">
@@ -135,8 +145,9 @@ if (isset($_GET['id'])) {
         	<span class="photo-close" onclick="closeModal()">&times;</span>
         	<img class="photo-content" id="modalImage">
         </div>
-		
+        
 		<script src="scripts/JavaScript/photoModal.js"></script>
+		<script src="scripts/JavaScript/rate.js"></script>
 		<script src="scripts/JavaScript/dropdownList.js"></script>
 <?php 
     }

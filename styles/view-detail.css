@@ -209,3 +209,30 @@
 #statusForm {
 	display: none;
 }
+
+.star {
+	font-size: 30px;
+	cursor: pointer;
+	color: lightgray;
+	transition: color 0.2s;
+}
+
+.star.full {
+	color: gold;
+}
+
+.star.active { 
+	color: gold;
+	position: relative;
+}
+
+.star.active::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	width:50%;
+	height: 100%;
+	background: gold;
+	z-index: 1;
+}
