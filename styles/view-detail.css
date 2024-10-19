@@ -211,9 +211,10 @@
 }
 
 .star {
-	font-size: 30px;
+	font-size: 40px;
 	cursor: pointer;
 	color: lightgray;
+	position: relative;
 	transition: color 0.2s;
 }
 
@@ -221,18 +222,20 @@
 	color: gold;
 }
 
-.star.active { 
-	color: gold;
+.star.half {
+	color: lightgray;
 	position: relative;
+	overflow: hidden;
 }
 
-.star.active::after {
-	content: '';
+.star.half::before {
+	content: '\2605';
 	position: absolute;
 	left: 0;
 	top: 0;
 	width:50%;
 	height: 100%;
-	background: gold;
+	color: gold;
+	overflow: hidden;
 	z-index: 1;
 }
