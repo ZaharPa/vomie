@@ -7,10 +7,70 @@ use scripts\interface\FeedBackInter;
 class FeedBack implements FeedBackInter
 {
     public function addRate($link, $id_movie, $id_user, $rate) : bool
-    {}
+    {
+        try {
+            $query = "INSERT INTO rate_user_movie(id_movie, id_user, rate) VALUES (?, ?, ?)";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if (!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            mysqli_stmt_bind_param($stmt, 'iid', $id_movie, $id_user, $rate);
+            $result = mysqli_stmt_execute($stmt);
+            
+            if ($result === false) {
+                throw new Exception("Error " . mysqli_stmt_error($stmt));
+            }
+            
+            mysqli_stmt_close($stmt);
+            return true;
+            
+        } catch (Exception $e) {
+            error_log($e->getMessage() . " Query: " . $query);
+            
+            if (isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return false;
+        }
+    }
     
     public function editRate($link, $id_movie, $id_user, $rate) : bool
-    {}
+    {
+        try {
+            $query = "UPDATE rate_user_movie SET rate = ? WHERE id_movie = ? AND id_user = ?";
+            
+            $stmt = mysqli_prepare($link, $query);
+            
+            if ($stmt === false) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if (!mysqli_stmt_bind_param($stmt, 'dii', $rate, $id_movie, $id_user)) {
+                throw new Exception("Error prepare parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_execute($stmt);
+            
+            if ($result === false) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            mysqli_stmt_close($stmt);
+            
+            return true;
+        } catch (Exception $e) {
+            error_log($e->getMessage() . " Query: " . $query);
+            
+            if(isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return false;
+        }
+    }
 
     public function addStatus($link, $id_movie, $id_user, $status) : bool
     {
@@ -116,8 +176,40 @@ class FeedBack implements FeedBackInter
     public function deleteRateAndStatus($link, $id_movie, $id_user) : bool
     {} 
     
-    public function viewRate($link, $id_movie, $id_user) : array
-    {}
+    public function viewRate($link, $id_movie, $id_user) : ?string
+    {
+        try {
+            $query = "SELECT rate FROM rate_user_movie WHERE id_movie = ? AND id_user = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if(!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if(!mysqli_stmt_bind_param($stmt, 'ii', $id_movie, $id_user)) {
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_get_result($stmt);
+            
+            $row = mysqli_fetch_assoc($result);
+            
+            mysqli_stmt_close($stmt);
+            
+            return $row['rate'] / 2 ?? NULL;
+        } catch (Exception $e) {
+            error_log($e->getMessage() . " Query: " . $query);
+            
+            if (isset($stmt) && $stmt !== false)
+                mysqli_stmt_close($stmt);
+                
+                return NULL;
+        }
+    }
     
     public function viewAverageRate($link, $id_movie) : float
     {}

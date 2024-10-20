@@ -9,7 +9,6 @@ if (isset($_GET['id'])) {
     $link = Database::getLink();
     $curMovie = new Movie();
     $movie = $curMovie->viewOneMovie($link, $id);
-    $statusObj = new FeedBack();
 
     if (isset($movie['id_movie'])) {
         $movieAddInfo = $curMovie->viewAddInfoForMovie($link, $id);
@@ -19,7 +18,10 @@ if (isset($_GET['id'])) {
         $movieCast = $curMovie->viewCastForMovie($link, $id);
         $firstPhoto = $moviePhoto[0];
         $imgSrc = $firstPhoto['path'] . $firstPhoto['photo'];
+        
+        $statusObj = new FeedBack();
         $status = $statusObj->viewStatus($link, $id, $id_user);
+        $rate = $statusObj->viewRate($link, $id, $id_user);
         
         if(isset($_GET['action'])) {
             if ($_GET['action'] === 'delete') {
@@ -59,8 +61,8 @@ if (isset($_GET['id'])) {
                 	</div>
                 	
                 	<form id="statusForm" method="post">
-                		<input type="hidden" name="id_movie" value="<?=$id?>">
-                		<input type="hidden" name="id_user" value="<?=$id_user?>">
+                		<input type="hidden" name="id_movie" id="id_movie" value="<?=$id?>">
+                		<input type="hidden" name="id_user" id="id_user" value="<?=$id_user?>">
                 		<input type="hidden" name="status" id="status" value="<?=$status?>">
                 	</form>
                 	
@@ -146,6 +148,7 @@ if (isset($_GET['id'])) {
         	<img class="photo-content" id="modalImage">
         </div>
         
+        <script> const startStars = <?=$rate?>;</script>
 		<script src="scripts/JavaScript/photoModal.js"></script>
 		<script src="scripts/JavaScript/rate.js"></script>
 		<script src="scripts/JavaScript/dropdownList.js"></script>

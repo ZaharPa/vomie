@@ -13,7 +13,7 @@ interface FeedBackInter
     
     public function deleteRateAndStatus($link, int $id_movie, int $id_user) : bool;
     
-    public function viewRate($link, int $id_movie, int $id_user) : array;
+    public function viewRate($link, int $id_movie, int $id_user) : ?string;
     public function viewAverageRate($link, int $id_movie) : float;
     
     public function viewStatus($link, int $id_movie, $id_user) : ?string;

@@ -42,11 +42,20 @@ document.addEventListener('click', function(e) {
 });
 
 function submitStatus() {
-	const formData = new FormData(statusForm);
-	
+	const idUser = parseInt(document.getElementById('id_user').value);
+	const idMovie = parseInt(document.getElementById('id_movie').value); 
+	const selectedStatus = document.getElementById('status').value;
+		
 	fetch('scripts/usersStatus.php', {
 		method: 'POST',
-		body: formData
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			id_user: idUser,
+			id_movie: idMovie,
+			status: selectedStatus
+		})
 	})
 	.then(response =>response.text())
 	.then(data => {
