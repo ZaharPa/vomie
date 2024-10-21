@@ -22,6 +22,7 @@ if (isset($_GET['id'])) {
         $statusObj = new FeedBack();
         $status = $statusObj->viewStatus($link, $id, $id_user);
         $rate = $statusObj->viewRate($link, $id, $id_user);
+        $comments = $statusObj->viewComment($link, $id);
         
         if(isset($_GET['action'])) {
             if ($_GET['action'] === 'delete') {
@@ -45,7 +46,7 @@ if (isset($_GET['id'])) {
 ?>
 
 	
-        <div class="movie-view">
+        <section class="movie-view">
             <div class="left-column">
                 <img src="<?=$imgSrc?>" class="poster">
                 <?php if (isset($_SESSION['role'])) {?>
@@ -75,6 +76,8 @@ if (isset($_GET['id'])) {
                 			<span class="star" data-value="5">&#9733;</span>
                 		</div>
                 	</div>
+                	
+                	<a href="#comment-section" class="comment-btn">Comment section</a>
                 <?php }?>
                 
                	<?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'){?>
@@ -138,7 +141,17 @@ if (isset($_GET['id'])) {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+        
+        <section id="comment-section">
+        	<form id="comForm"  method="POST">
+        		<input type="text" name="commentText" id="commentText">
+        		<input type="hidden" name="id_movie" id="id_movie" value="<?=$id?>">
+                <input type="hidden" name="id_user" id="id_user" value="<?=$id_user?>">
+                <input type="hidden" name="dateCom" id="dateCom" value="<?=date('Y-m-d')?>">
+                <button type="button" name="submitCom" id="submitCom">Submit</button>
+        	</form>
+        </section>
         
         <div id="photoModal" class="photo-modal">
         	<span class="photo-close" onclick="closeModal()">&times;</span>

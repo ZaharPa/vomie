@@ -250,7 +250,39 @@ class FeedBack implements FeedBackInter
     }
     
     public function viewComment($link, $id_movie) : array
-    {}
+    {
+        try {
+            $query = "SELECT * FROM comment WHERE id_movie = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if(!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if(!mysqli_stmt_bind_param($stmt, 'i', $id_movie)) {
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_get_result($stmt);
+            
+            $comments = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            
+            mysqli_stmt_close($stmt);
+            
+            return $comments;
+        } catch (Exception $e) {
+            error_log($e->getMessage() . " Query: " . $query);
+            
+            if (isset($stmt) && $stmt !== false)
+                mysqli_stmt_close($stmt);
+                
+                return NULL;
+        }
+    }
 
     public function addComment($link, $id_movie, $id_user, $comment) : bool
     {}
