@@ -24,13 +24,6 @@
 	margin-bottom: 20px;
 }
 
-.movie-view .movie-details {
-	background-color: #1a1a1a;
-	padding: 10px;
-	border-radius: 10px;
-	text-align: left;
-}
-
 .movie-view .movie-details p {
 	margin: 10px 0;
 }
@@ -119,7 +112,7 @@
 .movie-view .links a {
 	color: white;
 	text-decoration: none;
-	padding: 10px;
+	padding: 5px;
 	background-color: #611B70;
     border-radius: 5px;
     transition: background-color 0.3s ease;

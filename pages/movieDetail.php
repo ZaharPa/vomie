@@ -77,13 +77,6 @@ if (isset($_GET['id'])) {
                 	</div>
                 <?php }?>
                 
-                <div class="movie-details">
-                    <p><strong>Status movie:</strong> <?=$movie['status']?></p>
-                    <p><strong>Type:</strong> <?=$movie['type']?></p>
-                    <p><strong>Date release:</strong> <?=$movie['date']?></p>
-                    <p><strong>Duration:</strong> <?=$movie['duration']?></p>
-                </div>
-                
                	<?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'){?>
                		<p class="link-edit">
                			<a href="index.php?page=edit-movie&id=<?=$id?>">Edit Movie</a>
@@ -105,7 +98,11 @@ if (isset($_GET['id'])) {
                 </div>
         
                 <div class="link-section">
-                    <h3>Link:</h3>
+                 	<p><strong>Status movie:</strong> <?=$movie['status']?></p>
+                	<p><strong>Type:</strong> <?=$movie['type']?></p>
+                    <p><strong>Date release:</strong> <?=$movie['date']?></p>
+                    <p><strong>Duration:</strong> <?=$movie['duration']?></p>
+                    <strong>Link:</strong>
                     <div class="links">
                         <?php foreach ($movieLink as $link) { ?>
                             <a href="<?=$link['link']?>" target="_blank"><?=$link['name']?></a>
