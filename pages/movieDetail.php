@@ -144,12 +144,13 @@ if (isset($_GET['id'])) {
         </section>
         
         <section id="comment-section">
+        	<h2>Comment Section</h2>
         	<form id="comForm"  method="POST">
-        		<input type="text" name="commentText" id="commentText">
-        		<input type="hidden" name="id_movie" id="id_movie" value="<?=$id?>">
-                <input type="hidden" name="id_user" id="id_user" value="<?=$id_user?>">
-                <input type="hidden" name="dateCom" id="dateCom" value="<?=date('Y-m-d')?>">
-                <button type="button" name="submitCom" id="submitCom">Submit</button>
+        	    <h4>Send your comment</h4>
+        		<textarea class="commentText" id="commentText" placeholder="Input your comment here"></textarea>
+                <input type="hidden" class="dateCom" id="dateCom" value="<?=date('Y-m-d')?>">
+                <br>
+                <button type="button" class="submitCom" id="submitCom">Submit</button>
         	</form>
         </section>
         
@@ -162,6 +163,7 @@ if (isset($_GET['id'])) {
 		<script src="scripts/JavaScript/photoModal.js"></script>
 		<script src="scripts/JavaScript/rate.js"></script>
 		<script src="scripts/JavaScript/dropdownList.js"></script>
+		<script src="scripts/JavaScript/commentSection.js"></script>
 <?php 
     }
 }

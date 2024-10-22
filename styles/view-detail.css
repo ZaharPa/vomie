@@ -239,3 +239,51 @@
 	margin: 5px auto;
 	text-decoration: none;
 }
+
+#comment-section {
+	display: block;
+	margin: 5px auto;
+	width: 75%;
+	background-color: rgba(0, 0, 0, 0.5);
+	position: relative;
+	padding: 10px;
+	border-radius: 30px;
+}
+
+#comForm .commentText {
+	display: block;
+	width: 95%;
+	margin: 0 auto;
+	padding: 5px;
+	font-size: 16px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	resize: none;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+#comForm .commentText:focus {
+	border-color: #007bff;
+	outline: none;	
+}
+
+#comForm .submitCom {
+display: block;
+	margin: 0 auto;
+	padding: 6px;
+	width: 100px;
+	border-radius: 10px;
+	border: none;
+	background-color: #C4AEAD;
+	color: #252525;
+	font-size:16px;
+	cursor: pointer;
+	align-self: center;
+	font-weight: bold;
+}
+
+#comForm .submitCom:hover {
+	background-color: #960082;
+	color: white;
+}
