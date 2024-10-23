@@ -284,8 +284,36 @@ class FeedBack implements FeedBackInter
         }
     }
 
-    public function addComment($link, $id_movie, $id_user, $comment) : bool
-    {}
+    public function addComment($link, $id_movie, $id_user, $comment, $date) : bool
+    {
+        try {
+            $query = "INSERT INTO comment(comment, date, id_user, id_movie) VALUES (?, ?, ?, ?)";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if (!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            mysqli_stmt_bind_param($stmt, 'ssii', $comment, $date, $id_user, $id_movie);
+            $result = mysqli_stmt_execute($stmt);
+            
+            if ($result === false) {
+                throw new Exception("Error " . mysqli_stmt_error($stmt));
+            }
+            
+            mysqli_stmt_close($stmt);
+            return true;
+            
+        } catch (Exception $e) {
+            error_log($e->getMessage() . " Query: " . $query);
+            
+            if (isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return false;
+        }
+    }
 
     public function editComment($link, $id_comment, $comment) : bool
     {}
