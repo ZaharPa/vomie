@@ -22,7 +22,6 @@ if (isset($_GET['id'])) {
         $statusObj = new FeedBack();
         $status = $statusObj->viewStatus($link, $id, $id_user);
         $rate = $statusObj->viewRate($link, $id, $id_user);
-        $comments = $statusObj->viewComment($link, $id);
         
         if(isset($_GET['action'])) {
             if ($_GET['action'] === 'delete') {
@@ -43,6 +42,8 @@ if (isset($_GET['id'])) {
                 exit();
             }
         }
+        
+        
 ?>
 
 	
@@ -152,6 +153,9 @@ if (isset($_GET['id'])) {
                 <br>
                 <button type="button" class="submitCom" id="submitCom">Submit</button>
         	</form>
+        	<br>
+        	<div class="comments-list">
+        	</div>
         </section>
         
         <div id="photoModal" class="photo-modal">
