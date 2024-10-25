@@ -196,11 +196,12 @@ class FeedBack implements FeedBackInter
             
             $result = mysqli_stmt_get_result($stmt);
             
+            
             $row = mysqli_fetch_assoc($result);
             
             mysqli_stmt_close($stmt);
             
-            return $row['rate'] / 2 ?? NULL;
+            return $row['rate'] / 2;
         } catch (Exception $e) {
             error_log($e->getMessage() . " Query: " . $query);
             
@@ -252,7 +253,10 @@ class FeedBack implements FeedBackInter
     public function viewComment($link, $id_movie) : array
     {
         try {
-            $query = "SELECT * FROM comment WHERE id_movie = ?";
+            $query = "SELECT comment.*, user.name as name_user 
+                FROM comment
+                INNER JOIN user ON comment.id_user = user.id_user 
+                WHERE id_movie = ?";
             $stmt = mysqli_prepare($link, $query);
             
             if(!$stmt) {
@@ -319,6 +323,38 @@ class FeedBack implements FeedBackInter
     {}
     
     public function deleteComment($link, $id_comment) : bool
-    {}
+    {
+        try {            
+            $query = "DELETE FROM comment WHERE id_comment = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if (!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if (!mysqli_stmt_bind_param($stmt, 'i', $id_comment)) {
+                throw new Exception("Error prepare parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_execute($stmt);
+            
+            if (!$result) {
+                throw new Exception("Error executing statement: " . mysqli_stmt_error($stmt));
+            }
+            
+            mysqli_stmt_close($stmt);
+            
+            return true;
+            
+        } catch (Exception $e) {
+            error_log($e->getMessage() . "Query: " . $query);
+            
+            if(isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return false;
+        } 
+    }
 }
 

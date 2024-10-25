@@ -163,7 +163,10 @@ if (isset($_GET['id'])) {
         	<img class="photo-content" id="modalImage">
         </div>
         
-        <script> const startStars = <?=$rate?>;</script>
+        <script> 
+        	const startStars = <?=$rate?>;
+        	const role = <?=json_encode($_SESSION['role'])?>;
+        </script>
 		<script src="scripts/JavaScript/photoModal.js"></script>
 		<script src="scripts/JavaScript/rate.js"></script>
 		<script src="scripts/JavaScript/dropdownList.js"></script>

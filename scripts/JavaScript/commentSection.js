@@ -31,10 +31,16 @@ document.getElementById('submitCom').addEventListener('click', function() {
 	.then(response=>response.text())
 	.then(data=> {
 		console.log(data);
+		
+		commentForm.value = '';
+		
+		loadComments(id_movie);
 	})
 	.catch(error => {
 		console.error('Error: ', error);
 	});
+	
+
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -49,7 +55,7 @@ function loadComments(id_movie) {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({
-			id_movie: id_movie, 
+			id_movie: id_movie,
 			option: 'view'
 		})
 	})
@@ -65,9 +71,12 @@ function loadComments(id_movie) {
 				const commentDiv = document.createElement('div');
 				commentDiv.className = 'comment';
 				commentDiv.innerHTML = `
-				<h4>User ${comment.id_user}</h4>
+				<h4>${comment.name_user}</h4>
+				<small class="dateCom">${comment.date}</small>
 				<p>${comment.comment}</p>
-				<small>${comment.date}</small>`;
+				${role === 'admin' ? '<button type="button" class="delete-com" id="deleteCom">&times;</button>' : ''}
+				<input type="hidden" name="id_comment" id="id_comment" value="${comment.id_comment}">
+				`;
 				
 				commentsList.appendChild(commentDiv);
 			});
