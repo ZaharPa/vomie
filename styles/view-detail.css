@@ -268,8 +268,8 @@
 	outline: none;	
 }
 
-#comForm .submitCom {
-display: block;
+#comForm .submitCom, .comments-list .show-more-button {
+    display: block;
 	margin: 0 auto;
 	padding: 6px;
 	width: 100px;
@@ -283,7 +283,7 @@ display: block;
 	font-weight: bold;
 }
 
-#comForm .submitCom:hover {
+#comForm .submitCom:hover, .comments-list .show-more-button:hover {
 	background-color: #960082;
 	color: white;
 }
