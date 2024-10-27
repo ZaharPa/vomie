@@ -206,13 +206,91 @@ class Viewer implements User
     public function changeUserRole($link, string $email): bool
     {}
     
-    public function deleteUser($link, string $email) : bool
-    {}
-    
     public function changeUserName($link, string $email) : bool
     {}
     
     public function changeUserPassword($link, string $email) : bool
+    {}
+    
+    public function viewUser($link, int $id_user) : array 
+    {
+        try{            
+            $query = "SELECT * FROM user WHERE id_user = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if(!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if(!mysqli_stmt_bind_param($stmt, 'i', $id_user)) {
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_get_result($stmt);
+            
+            if (mysqli_num_rows($result) === 0) {
+                throw new Exception("Error " . mysqli_stmt_error($stmt));
+            }
+            
+            $user = mysqli_fetch_assoc($result);
+            
+            mysqli_stmt_close($stmt);
+            
+            return $user;
+        } catch(Exception $e) {
+            error_log($e->getMessage() . "Query: " . $query);
+            
+            if(isset($stmt) && $stmt !== false)
+                mysqli_stmt_close($stmt);
+                
+                return [];
+        }
+    }
+    
+    public function viewUsersMovie($link, int $id_user) : array
+    {
+        try{
+            $query = "SELECT * FROM rate_user_movie WHERE id_user = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if(!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if(!mysqli_stmt_bind_param($stmt, 'i', $id_user)) {
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_get_result($stmt);
+            
+            if (mysqli_num_rows($result) === 0) {
+                throw new Exception("Error " . mysqli_stmt_error($stmt));
+            }
+            
+            $user = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            
+            mysqli_stmt_close($stmt);
+            
+            return $user;
+        } catch(Exception $e) {
+            error_log($e->getMessage() . "Query: " . $query);
+            
+            if(isset($stmt) && $stmt !== false)
+                mysqli_stmt_close($stmt);
+                
+                return [];
+        }
+    }
+    
+    public function deleteUser($link, string $email) : bool
     {}
 }
 

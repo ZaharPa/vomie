@@ -19,6 +19,9 @@
 		<?php if ($title === 'movieDetail') {?>
 			<link rel="stylesheet" href="styles/view-detail.css" />
 		<?php }?>
+		<?php if ($title === 'profile') {?>
+			<link rel="stylesheet" href="styles/profile.css" />
+		<?php }?>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap">		
     	<?php if ($title === 'view-all') {?>
@@ -61,9 +64,9 @@
 				<?php } else {?>	
     				<ul class="user-menu">
         				<li class="user-menu-item">
-        					<img src="#" alt="User Avatar" class="avatar">
+        					<img alt="User Avatar" class="avatar">
         					<ul class="dropdown-menu">
-        						<li><a href='#'> My profile </a></li>
+        						<li><a href='index.php?page=profile'> My profile </a></li>
         						<li><a href='index.php?logOut'> Exit </a></li>
         					</ul>
         				</li>
