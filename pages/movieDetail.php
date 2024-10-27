@@ -22,6 +22,7 @@ if (isset($_GET['id'])) {
         $statusObj = new FeedBack();
         $status = $statusObj->viewStatus($link, $id, $id_user);
         $rate = $statusObj->viewRate($link, $id, $id_user);
+        $average_rating = $statusObj->viewAverageRate($link, $id);
         
         if(isset($_GET['action'])) {
             if ($_GET['action'] === 'delete') {
@@ -102,6 +103,7 @@ if (isset($_GET['id'])) {
                 </div>
         
                 <div class="link-section">
+                    <p><strong>Average rating:</strong> <?=$average_rating?></p>
                  	<p><strong>Status movie:</strong> <?=$movie['status']?></p>
                 	<p><strong>Type:</strong> <?=$movie['type']?></p>
                     <p><strong>Date release:</strong> <?=$movie['date']?></p>

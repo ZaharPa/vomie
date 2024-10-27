@@ -173,9 +173,6 @@ class FeedBack implements FeedBackInter
         return false;
     }
     
-    public function deleteRateAndStatus($link, $id_movie, $id_user) : bool
-    {} 
-    
     public function viewRate($link, $id_movie, $id_user) : ?string
     {
         try {
@@ -212,8 +209,41 @@ class FeedBack implements FeedBackInter
         }
     }
     
-    public function viewAverageRate($link, $id_movie) : float
-    {}
+    public function viewAverageRate($link, $id_movie) : ?float
+    {
+        try {
+            $query = "SELECT AVG(rate) as average_rating FROM rate_user_movie WHERE id_movie = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if(!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if(!mysqli_stmt_bind_param($stmt, 'i', $id_movie)) {
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_get_result($stmt);
+            
+            
+            $row = mysqli_fetch_assoc($result);
+            
+            mysqli_stmt_close($stmt);
+            
+            return $row['average_rating'];
+        } catch (Exception $e) {
+            error_log($e->getMessage() . " Query: " . $query);
+            
+            if (isset($stmt) && $stmt !== false)
+                mysqli_stmt_close($stmt);
+                
+                return NULL;
+        }
+    }
     
     public function viewStatus($link, $id_movie, $id_user) : ?string
     {
@@ -318,9 +348,6 @@ class FeedBack implements FeedBackInter
             return false;
         }
     }
-
-    public function editComment($link, $id_comment, $comment) : bool
-    {}
     
     public function deleteComment($link, $id_comment) : bool
     {
