@@ -38,7 +38,7 @@ function searchResult(data) {
 		data.forEach(movie => {
 			let movieItem = document.createElement('div');
 			movieItem.className = 'movie-item';
-			movieItem.innerHTML = `<strong>${movie.name}</strong> (${movie.date})`;
+			movieItem.innerHTML = `<strong><a href="index.php?page=movieDetail&id=${movie.id_movie}">${movie.name}</a></strong> (${movie.date})`;
 			resultDiv.appendChild(movieItem);
 		});
 	} else {
