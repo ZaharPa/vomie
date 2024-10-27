@@ -86,7 +86,7 @@ function loadComments(id_movie) {
 					<h4>${comment.name_user}</h4>
 					<small class="dateCom">${comment.date}</small>
 					<p>${comment.comment}</p>
-					${role === 'admin' ? `<button type="button" class="delete-com" data-id="${comment.id_comment}">&times;</button>` : ''}
+					${typeof role !== 'undefined' && role === 'admin' ? `<button type="button" class="delete-com" data-id="${comment.id_comment}">&times;</button>` : ''}
 				`;
 				
 				const deleteButton = commentDiv.querySelector('.delete-com');

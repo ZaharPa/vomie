@@ -5,12 +5,13 @@ use scripts\class\FeedBack;
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $id_user = $_SESSION['id_user'];
     $link = Database::getLink();
     $curMovie = new Movie();
     $movie = $curMovie->viewOneMovie($link, $id);
 
     if (isset($movie['id_movie'])) {
+        
+        
         $movieAddInfo = $curMovie->viewAddInfoForMovie($link, $id);
         $movieGenre = $curMovie->viewGenreForMovie($link, $id);;
         $movieLink = $curMovie->viewLinkForMovie($link, $id);
@@ -18,11 +19,15 @@ if (isset($_GET['id'])) {
         $movieCast = $curMovie->viewCastForMovie($link, $id);
         $firstPhoto = $moviePhoto[0];
         $imgSrc = $firstPhoto['path'] . $firstPhoto['photo'];
-        
         $statusObj = new FeedBack();
-        $status = $statusObj->viewStatus($link, $id, $id_user);
-        $rate = $statusObj->viewRate($link, $id, $id_user);
         $average_rating = $statusObj->viewAverageRate($link, $id);
+        
+        
+        if (isset($_SESSION['id_user'])) {
+            $id_user = $_SESSION['id_user'];
+            $status = $statusObj->viewStatus($link, $id, $id_user);
+            $rate = $statusObj->viewRate($link, $id, $id_user);
+        }
         
         if(isset($_GET['action'])) {
             if ($_GET['action'] === 'delete') {
@@ -51,7 +56,9 @@ if (isset($_GET['id'])) {
         <section class="movie-view">
             <div class="left-column">
                 <img src="<?=$imgSrc?>" class="poster">
-                <?php if (isset($_SESSION['role'])) {?>
+                <input type="hidden" name="id_movie" id="id_movie" value="<?=$id?>">
+
+                <?php if (isset($_SESSION['id_user'])) {?>
                 	<div class="custom-dropdown">
 						<div class="selected-option" id="selected-option">Select status</div>
 						<div class="dropdown-list" id="dropdown-list">
@@ -64,7 +71,6 @@ if (isset($_GET['id'])) {
                 	</div>
                 	
                 	<form id="statusForm" method="post">
-                		<input type="hidden" name="id_movie" id="id_movie" value="<?=$id?>">
                 		<input type="hidden" name="id_user" id="id_user" value="<?=$id_user?>">
                 		<input type="hidden" name="status" id="status" value="<?=$status?>">
                 	</form>
@@ -165,13 +171,16 @@ if (isset($_GET['id'])) {
         	<img class="photo-content" id="modalImage">
         </div>
         
-        <script> 
-        	const startStars = <?=$rate?>;
-        	const role = <?=json_encode($_SESSION['role'])?>;
-        </script>
+        <?php if (isset($_SESSION['id_user'])) {?>
+            <script> 
+            	const startStars = <?=$rate?>;
+            	const role = <?=json_encode($_SESSION['role'])?>;
+            </script>
+            <script src="scripts/JavaScript/rate.js"></script>
+			<script src="scripts/JavaScript/dropdownList.js"></script>
+        <?php } ?>
+        
 		<script src="scripts/JavaScript/photoModal.js"></script>
-		<script src="scripts/JavaScript/rate.js"></script>
-		<script src="scripts/JavaScript/dropdownList.js"></script>
 		<script src="scripts/JavaScript/commentSection.js"></script>
 <?php 
     }
