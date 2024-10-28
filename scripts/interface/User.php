@@ -23,7 +23,7 @@ interface User
     public function changeUserPassword($link, string $email) : bool;
     
     public function viewUser($link, int $id_user) : array;
-    public function viewUsersMovie($link, int $id_user) : array;
+    public function viewedMovieByUser($link, int $id_user) : array;
     
     public function deleteUser($link, string $email) : bool;
 }

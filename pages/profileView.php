@@ -1,14 +1,16 @@
 <?php
 use scripts\class\Viewer;
 use scripts\Database;
+use scripts\class\Movie;
 
 $curUser = new Viewer();
+$curMovie = new Movie();
 $link = Database::getLink();
 $id_user = $_SESSION['id_user'];
 
 $user = $curUser->viewUser($link, $id_user);
 $imgUser = $user['path'] . $user['photo'];
-$userMovies = $curUser->viewUsersMovie($link, $id_user);
+$userMovies = $curUser->viewedMovieByUser($link, $id_user);
 ?>
 
 <section class="profile-view">
@@ -23,13 +25,23 @@ $userMovies = $curUser->viewUsersMovie($link, $id_user);
 			<a href="#">Change Password</a>
 		</p>
 	</div>
-	<div class="middle-section">
+	<div class="middle-column">
 		<h3>Yours movie</h3>
 		<div class="users-movie">
-			<?php foreach ($userMovies as $movie) {
-			var_dump($movie);?>
-			
-			<?php }?>
+			<?php foreach ($userMovies as $usersMovie) { 
+			    $movie = $curMovie->viewOneMovie($link, $usersMovie['id_movie']);
+			    $moviePhoto = $curMovie->viewPhotoForMovie($link, $usersMovie['id_movie']);
+			    $firstPhoto = $moviePhoto[0];
+			    $imgSrc = $firstPhoto['path'] . $firstPhoto['photo'];
+			?>
+				<div class="movie">
+					<img src="<?=$imgSrc?>" class="moviePhoto">
+					<span><?=$movie['name']?></span>
+					<span><?=$movie['type']?></span>
+					<span><?=$usersMovie['status']?></span>
+					<span><?=$usersMovie['rate']?></span>
+				</div>
+			<?php } ?>
 		</div>
 	</div>
 	<div class="right-column">

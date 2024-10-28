@@ -1,3 +1,113 @@
 .profile-view {
 	margin-top: 50px;
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+}
+
+.left-column, .middle-column, .right-column {
+	padding: 20px;
+	flex-grow: 1;
+}
+
+.left-column {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 20%;
+}
+
+.left-column img.user-photo {
+	width: 100%;
+	border-radius: 5%;
+	margin-bottom: 10px;
+}
+
+.left-column h4 {
+	font-size: 20px;
+	margin-bottom: 15px;
+}
+
+.left-column p a {
+	color: #E0C2FF;
+	display: block;
+	margin: 5px 0;
+}
+
+.middle-column {
+	width: 60%;
+}
+
+.middle-column h3 {
+	font-size: 24px;
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.middle-column .users-movie {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	font-size: 14px;
+}
+
+.middle-column .users-movie .movie {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: rgba(0, 0, 0, 0.6);
+	padding: 10px;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	width: 100%;
+}
+
+.middle-column .users-movie .movie img.moviePhoto {
+	height: 60px;
+	border-radius: 4px;
+	margin-right: 10px;
+	object-fit: cover;
+}
+
+.middle-column .users-movie .movie span{
+	flex: 1;
+	font-size: 16px;
+	margin-right: 5px;
+}
+
+.right-column {
+	width: 20%;
+}
+
+.right-column .black-back {
+	background-color: rgba(0, 0, 0, 0.8);
+	padding: 15px;
+	border-radius: 12px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.right-column h4 {
+	font-size: 18px;
+	margin-bottom: 15px;
+}
+
+.right-column .black-back p {
+	margin: 5px 0;
+}
+
+.right-column .black-back button {
+	display: block;
+	background-color: #5A0C81;
+	font-size: 14px;
+    color: white;
+    border: none;
+    padding: 8px;
+    margin: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.right-column .black-back button:hover {
+	background-color: #A61777;
 }

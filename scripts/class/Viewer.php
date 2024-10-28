@@ -251,7 +251,7 @@ class Viewer implements User
         }
     }
     
-    public function viewUsersMovie($link, int $id_user) : array
+    public function viewedMovieByUser($link, int $id_user) : array
     {
         try{
             $query = "SELECT * FROM rate_user_movie WHERE id_user = ?";
@@ -275,11 +275,11 @@ class Viewer implements User
                 throw new Exception("Error " . mysqli_stmt_error($stmt));
             }
             
-            $user = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            $usersMovie = mysqli_fetch_all($result, MYSQLI_ASSOC);
             
             mysqli_stmt_close($stmt);
             
-            return $user;
+            return $usersMovie;
         } catch(Exception $e) {
             error_log($e->getMessage() . "Query: " . $query);
             
