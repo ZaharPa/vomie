@@ -13,18 +13,17 @@ $imgUser = $user['path'] . $user['photo'];
 $userMovies = $curUser->viewedMovieByUser($link, $id_user);
 ?>
 
+<input type="hidden" name="id_user" id="id_user" value="<?=$id_user?>">
+
 <section class="profile-view">
 	<div class="left-column">
 		<img src="<?=$imgUser?>" class="user-photo">
 		<h4><?=$user['name']?></h4>
-		<p>
-			<a href="#">Change Name</a>
-			<br>
-			<a href="#">Change Photo</a>
-			<br>
-			<a href="#">Change Password</a>
-		</p>
+		<button id="changeName">Change Name</button>
+		<button id="changePhoto">Change Photo</button>
+		<button id="changePass">Change Password</button>
 	</div>
+	
 	<div class="middle-column">
 		<h3>Yours movie</h3>
 		<div class="users-movie">
@@ -44,13 +43,14 @@ $userMovies = $curUser->viewedMovieByUser($link, $id_user);
 			<?php } ?>
 		</div>
 	</div>
+	
 	<div class="right-column">
 		<div class="black-back">
 			<h4>Statistic</h4>
-			<p>watching - <?php ?></p>
-			<p>completed - <?php ?></p>
-			<p>postponed - <?php ?></p>
-			<p>abonded - <?php ?></p>
+			<p>watching - <?=$curUser->countStatusMovie($link, $id_user, 'Watching')?></p>
+			<p>completed - <?=$curUser->countStatusMovie($link, $id_user, 'Completed')?></p>
+			<p>postponed - <?=$curUser->countStatusMovie($link, $id_user, 'Postponed')?></p>
+			<p>abonded - <?=$curUser->countStatusMovie($link, $id_user, 'Abonded')?></p>
 		</div>
 		
 		<div class="black-back">
@@ -62,3 +62,14 @@ $userMovies = $curUser->viewedMovieByUser($link, $id_user);
 		</div>
 	</div>
 </section>
+
+<div id="nameModal" class="modal">
+	<div class="modal-content">
+		<span class="close">&times;</span>
+		<h3>Change Name</h3>
+		<input type="text" id="newName" placeholder="Enter new name">
+		<button id="submitName">OK</button>
+	</div>
+</div>
+
+<script src="scripts/JavaScript/changeDataUser.js"></script>

@@ -290,6 +290,78 @@ class Viewer implements User
         }
     }
     
+    public function countStatusMovie($link, int $id_user, string $status) : ?int
+    {
+        try{    
+            $total_status = 0;
+            
+            $query = "SELECT COUNT(*) as total_status FROM rate_user_movie WHERE id_user = ? AND status = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if(!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if(!mysqli_stmt_bind_param($stmt, 'is', $id_user, $status)) {
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            mysqli_stmt_bind_result($stmt, $total_status);
+            mysqli_stmt_fetch($stmt);
+            
+            mysqli_stmt_close($stmt);
+            
+            return $total_status;
+        } catch(Exception $e) {
+            error_log($e->getMessage() . "Query: " . $query);
+            
+            if(isset($stmt) && $stmt !== false)
+                mysqli_stmt_close($stmt);
+                
+                return 0;
+        }
+    }
+    
+    public function updateName($link, int $id_user, string $newName) : bool
+    {
+        try {            
+            $query = "UPDATE user SET name = ? WHERE id_user = ?";
+            
+            $stmt = mysqli_prepare($link, $query);
+            
+            if ($stmt === false) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if (!mysqli_stmt_bind_param($stmt, 'si', $newName, $id_user)) {
+                throw new Exception("Error prepare parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_execute($stmt);
+            
+            if ($result === false) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            mysqli_stmt_close($stmt);
+            
+            return true;
+        } catch (Exception $e) {
+            error_log($e->getMessage() . " Query: " . $query);
+            
+            
+            if(isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return false;
+        }
+    }
+    
     public function deleteUser($link, string $email) : bool
     {}
 }
