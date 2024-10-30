@@ -197,21 +197,6 @@ class Viewer implements User
         }
     }
     
-    public function changeProfilePhoto($link, string $email, string $path, string $photoName): bool
-    {}
-    
-    public function setNameImage($link, string $email): void
-    {}
-    
-    public function changeUserRole($link, string $email): bool
-    {}
-    
-    public function changeUserName($link, string $email) : bool
-    {}
-    
-    public function changeUserPassword($link, string $email) : bool
-    {}
-    
     public function viewUser($link, int $id_user) : array 
     {
         try{            
@@ -350,6 +335,66 @@ class Viewer implements User
             mysqli_stmt_close($stmt);
             
             return true;
+        } catch (Exception $e) {
+            error_log($e->getMessage() . " Query: " . $query);
+            
+            
+            if(isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return false;
+        }
+    }
+    
+    public function updatePass($link, int $id_user, string $newPass, string $oldPass) : bool
+    {
+        try {
+            $query = "SELECT password FROM user WHERE id_user = ?";
+            $stmt = mysqli_prepare($link, $query);
+            if (!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            mysqli_stmt_bind_param($stmt, 'i', $id_user);
+            mysqli_stmt_execute($stmt);
+            
+            $result = mysqli_stmt_get_result($stmt);
+            
+            if (!$result) {
+                throw new Exception("Error compiling query: " . mysqli_error($link));
+            }
+            
+            if ($result && mysqli_num_rows($result) > 0) {
+                $row = mysqli_fetch_array($result);
+                $passHash = $row['password'];
+                
+                if (password_verify($oldPass, $passHash)) {
+                   
+                    $query = "UPDATE user SET password = ? WHERE id_user = ?";
+                    
+                    $stmt = mysqli_prepare($link, $query);
+                    
+                    if ($stmt === false) {
+                        throw new Exception("Error prepare query: " . mysqli_error($link));
+                    }
+                    
+                    if (!mysqli_stmt_bind_param($stmt, 'si', $newPass, $id_user)) {
+                        throw new Exception("Error prepare parameters: " . mysqli_stmt_error($stmt));
+                    }
+                    
+                    $result = mysqli_stmt_execute($stmt);
+                    
+                    if ($result === false) {
+                        throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+                    }
+                    
+                    mysqli_stmt_close($stmt);
+                    
+                    return true;
+                }
+            }
+            return false;
         } catch (Exception $e) {
             error_log($e->getMessage() . " Query: " . $query);
             

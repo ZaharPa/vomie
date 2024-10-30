@@ -117,3 +117,49 @@
 .right-column .black-back button:hover {
 	background-color: #A61777;
 }
+
+.user-change {
+	color: white;
+	background-color: #5E1655;
+	height: 200px;
+	border: none;
+}
+
+.user-change .close {
+	color: white;
+}
+
+.user-change .close:hover, .user-change .close:focus {
+	color: #FF3F3F;
+}
+
+.user-change input {
+	padding: 10px;
+	border-radius: 25px;
+	margin-bottom: 20px;
+	background-color: #E4E0E0;
+	color: black;
+	font-size: 16px;
+	outline: none;
+}
+
+.user-change button {
+	border-radius: 10px;
+	border: none;
+	background-color: #C4AEAD;
+	color: #252525;
+	cursor: pointer;
+	font-size:18px;
+	font-weight: bold;
+	font-family: 'Kalam', sans-serif;
+	padding: 6px 20px;
+}
+
+.user-change button:hover {
+	background-color: #C61E6A;
+	color: white;
+}
+
+.pass {
+	height: 300px;
+}

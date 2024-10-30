@@ -64,11 +64,28 @@ $userMovies = $curUser->viewedMovieByUser($link, $id_user);
 </section>
 
 <div id="nameModal" class="modal">
-	<div class="modal-content">
+	<div class="modal-content user-change">
 		<span class="close">&times;</span>
-		<h3>Change Name</h3>
+		<h2>Change Name</h2>
 		<input type="text" id="newName" placeholder="Enter new name">
-		<button id="submitName">OK</button>
+		<br>
+		<button id="submitName">Edit</button>
+	</div>
+</div>
+
+<div id="passModal" class="modal">
+	<div class="modal-content user-change pass">
+		<span class="close">&times;</span>
+		<h2>Change Password</h2>
+		<p>
+    		<label for="oldPass">Old password</label>
+    		<input type="text" id="oldPass" name="oldPass">
+		</p>
+		<p>
+    		<label for="newPass">New password</label>
+    		<input type="text" id="newPass" name="newPass">
+		</p>
+		<button id="submitPass">Edit</button>
 	</div>
 </div>
 

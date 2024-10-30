@@ -15,18 +15,13 @@ interface User
     public function loginUser($link, string $email, string $password): bool;
     public function regUser($link, string $email, string $password, string $name): bool;
     
-    public function changeProfilePhoto($link, string $email, string $path, string $photoName): bool;
-    public function setNameImage($link, string $email): void;
-    public function changeUserRole($link, string $email): bool;
-    public function changeUserName($link, string $email) : bool;
-    public function changeUserPassword($link, string $email) : bool;
-    
     public function viewUser($link, int $id_user) : array;
     public function viewedMovieByUser($link, int $id_user) : array;
     
     public function countStatusMovie ($link, int $id_user, string $status) : ?int;
-    
+        
     public function updateName($link, int $id_user, string $newName) : bool;
+    public function updatePass($link, int $id_user, string $newPass, string $oldPass) : bool;
     
     public function deleteUser($link, string $email) : bool;
 }
