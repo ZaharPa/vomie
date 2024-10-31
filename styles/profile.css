@@ -163,3 +163,38 @@
 .pass {
 	height: 300px;
 }
+
+.photo {
+	height: 600px;
+}
+
+.upload-container {
+	margin: 30px auto;
+	height: 400px;
+	background-color: #C4AEAD;
+	border-radius: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+
+.file-upload-label {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+.file-input {
+	display: none;
+}
+
+#preview-user {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	border-radius: 10px;
+}

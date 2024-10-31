@@ -370,7 +370,9 @@ class Viewer implements User
                 $passHash = $row['password'];
                 
                 if (password_verify($oldPass, $passHash)) {
-                   
+                    
+                    $hash_pass = $this->hash_pass_user($newPass);
+                    
                     $query = "UPDATE user SET password = ? WHERE id_user = ?";
                     
                     $stmt = mysqli_prepare($link, $query);
@@ -379,7 +381,7 @@ class Viewer implements User
                         throw new Exception("Error prepare query: " . mysqli_error($link));
                     }
                     
-                    if (!mysqli_stmt_bind_param($stmt, 'si', $newPass, $id_user)) {
+                    if (!mysqli_stmt_bind_param($stmt, 'si', $hash_pass, $id_user)) {
                         throw new Exception("Error prepare parameters: " . mysqli_stmt_error($stmt));
                     }
                     
@@ -395,6 +397,42 @@ class Viewer implements User
                 }
             }
             return false;
+        } catch (Exception $e) {
+            error_log($e->getMessage() . " Query: " . $query);
+            
+            
+            if(isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            return false;
+        }
+    }
+    
+    public function updatePhoto($link, int $id_user, string $path, string $photo) : bool
+    {
+        try {
+            $query = "UPDATE user SET path = ?, photo = ? WHERE id_user = ?";
+            
+            $stmt = mysqli_prepare($link, $query);
+            
+            if ($stmt === false) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if (!mysqli_stmt_bind_param($stmt, 'ssi', $path, $photo, $id_user)) {
+                throw new Exception("Error prepare parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_execute($stmt);
+            
+            if ($result === false) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            mysqli_stmt_close($stmt);
+            
+            return true;
         } catch (Exception $e) {
             error_log($e->getMessage() . " Query: " . $query);
             

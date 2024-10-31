@@ -13,6 +13,8 @@ $option = $data['option'] ?? NULL;
 $newName = $data['newName'] ?? NULL;
 $oldPass = $data['oldPass'] ?? NULL;
 $newPass = $data['newPass'] ?? NULL;
+$fileData = $data['filedata'] ?? NULL;
+$originalFileName = $data['filename'] ?? NULL;
 
 $link = Database::getLink();
 $curUser = new Viewer();
@@ -36,4 +38,28 @@ switch ($option) {
                 echo json_encode(["status" => "error", "message" => "Failed to update password"]);
             }
         }
+        break;
+    case 'photo':
+        $allowedExtensions = ['jpeg', 'jpg', 'png'];
+        $extension = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
+        
+        if (!in_array($extension, $allowedExtensions)) {
+            echo json_encode(["status" => "error", "message" => "Invalid file"]);
+            exit;
+        }
+        
+        $newFileName = $id_user . '.' . $extension;
+        $path = 'images/userPhoto/';
+        $uploadPath = '../' . $path . $newFileName;
+        
+        $fileContent = base64_decode($fileData);
+        
+        $updated = $curUser->updatePhoto($link, $id_user, $path, $newFileName);
+        
+        if($updated && file_put_contents($uploadPath, $fileContent)) {
+            echo json_encode(["status" => "success", "message" => "Photo update successefully"]);
+        } else {
+            echo json_encode(["status" => "error", "message" => "Failed to update photo"]);
+        }
+        break;
 }

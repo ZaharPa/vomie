@@ -89,4 +89,19 @@ $userMovies = $curUser->viewedMovieByUser($link, $id_user);
 	</div>
 </div>
 
+<div id="photoModal" class="modal">
+	<div class="modal-content user-change photo">
+		<span class="close">&times;</span>
+		<h2>Change Photo</h2>
+		<div class="upload-container">
+        	<label for="file-input-user" class="file-upload-label">
+            	<input type="file" class="file-input" name="photoUser" id="file-input-user" accept="image/*" required />
+                <img id="preview-user" src="styles/black-plus.png" alt="Upload Image" />
+            </label>
+   		</div>
+		<button id="submitPhoto">Edit</button>
+	</div>
+</div>
+
+<script src="scripts/JavaScript/previewPhoto.js"></script>
 <script src="scripts/JavaScript/changeDataUser.js"></script>

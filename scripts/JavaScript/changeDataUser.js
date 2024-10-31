@@ -6,6 +6,7 @@ document.querySelectorAll('.close').forEach(function(closeButton) {
 	closeButton.onclick = function() {
 		document.getElementById('nameModal').style.display = 'none';
 		document.getElementById('passModal').style.display = 'none';
+		document.getElementById('photoModal').style.display = 'none';
 	};
 });
 
@@ -83,3 +84,51 @@ document.getElementById('submitPass').onclick = function() {
 		console.log("Error: ", error);
 	});
 }
+
+document.getElementById('changePhoto').onclick = function() {
+	document.getElementById('photoModal').style.display = 'flex';
+};
+
+document.getElementById('submitPhoto').onclick = function() {
+	const id_user = document.getElementById('id_user').value;
+	const fileInput = document.getElementById('file-input-user');
+	const file = fileInput.files[0];
+	
+	if (file) {
+		const reader = new FileReader;
+		
+		reader.onload = function(event) {
+			const base64Image = event.target.result.split(",")[1];
+			
+			const data = {
+				filename: file.name,
+				filedata: base64Image, 
+				id_user: id_user, 
+				option: 'photo'
+			};
+		
+			fetch('scripts/changeUser.php', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data)
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.status === "success") {
+					alert("Photo update successfully");
+					document.getElementById('photoModal').style.display = 'none';
+					location.reload();
+				} else {
+					alert("Error: " + data.message);
+				}
+			})
+			.catch(error => {
+				console.log("Error: ", error);
+			});
+		};
+		
+		reader.readAsDataURL(file);
+	}
+};
