@@ -14,7 +14,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 20%;
+	width: 15%;
 }
 
 .left-column img.user-photo {
@@ -41,7 +41,7 @@
 }
 
 .middle-column {
-	width: 70%;
+	width: 65%;
 }
 
 .middle-column h3 {
@@ -82,7 +82,7 @@
 }
 
 .right-column {
-	width: 10%;
+	width: 20%;
 }
 
 .right-column .black-back {
@@ -197,4 +197,70 @@
 	height: 100%;
 	object-fit: contain;
 	border-radius: 10px;
+}
+
+
+.year-slider {
+	position: relative;
+	padding: 10px 0;
+}
+
+#slider {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+year-values {
+	display: flex;
+	justify-content: space-between;
+}
+
+.year-values input {
+	width: 40px;
+	background-color: #4E3254;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 12px;
+	padding: 5px;
+	margin: 5px;
+}
+
+.ui-slider-range {
+	background: #4E3254;
+}
+
+.ui-slider-handle {
+	background: #6A4A78;
+	border: 1px solid #FFF;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+}
+
+.filter-options {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+.filter-option {
+	background-color: #611B70;
+	padding: 5px 10px;
+	border-radius: 20px;
+	color: white;
+	cursor: pointer;
+	font-size: 14px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	transition: background-color 0.3s ease;
+}
+
+.filter-option:hover {
+	background-color: #7C3668;
+}
+
+.filter-option.active {
+    background-color: #7C3668;
 }

@@ -54,12 +54,52 @@ $userMovies = $curUser->viewedMovieByUser($link, $id_user);
 		</div>
 		
 		<div class="black-back">
-			<h4>Sort</h4>
-			<button>rate</button>
-			<button>year</button>
-			<button>genre</button>
-			<button>type</button>
-		</div>
+            <h3>Sort</h3>
+            <button class="rate-btn">Rate</button>
+            
+			<div class="filter-section" data-filter="genre">
+                <h4>Genre</h4>
+                <div class="filter-options">
+                    <span class="filter-option" data-genre="horror">horror</span>
+                    <span class="filter-option" data-genre="drama">drama</span>
+                    <span class="filter-option" data-genre="science">science</span>
+                    <span class="filter-option" data-genre="comedy">comedy</span>
+                    <span class="filter-option" data-genre="action">action</span>
+                    <span class="filter-option" data-genre="documentary">documentary</span>
+                    <span class="filter-option" data-genre="fantasy">fantasy</span>
+                    <span class="filter-option" data-genre="musical">musical</span>
+                    <span class="filter-option" data-genre="sports">sports</span>
+                    <span class="filter-option" data-genre="romance">romance</span>
+                    <span class="filter-option" data-genre="thriller">thriller</span>
+                    <span class="filter-option" data-genre="spy">spy</span>
+                    <span class="filter-option" data-genre="crime">crime</span>
+                </div>
+            </div>
+            
+			<div class="filter-section" data-filter="type">
+                <h4>Type</h4>
+                <div class="filter-options">
+                    <span class="filter-option" data-type="movie">movie</span>
+                    <span class="filter-option" data-type="serial">serial</span>
+                    <span class="filter-option" data-type="cartoon movie">cartoon movie</span>
+                    <span class="filter-option" data-type="cartoon serials">cartoon series</span>
+                    <span class="filter-option" data-type="anime">anime</span>
+                </div>
+            </div>
+            
+            <div class="filter-section year-slider">
+                <h4>Year</h4>
+                <div id="slider"></div>
+                <div class="year-values">
+                    <input type="number" id="year-min" value="1900" readonly>
+                    <input type="number" id="year-max" value="2025" readonly>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <button id="clear-filters">Clear</button>
+            </div>
+        </div>
 	</div>
 </section>
 
@@ -104,4 +144,6 @@ $userMovies = $curUser->viewedMovieByUser($link, $id_user);
 </div>
 
 <script src="scripts/JavaScript/previewPhoto.js"></script>
+<script src="scripts/JavaScript/filterOptions.js"></script>
+<script src="scripts/JavaScript/slider.js"></script>
 <script src="scripts/JavaScript/changeDataUser.js"></script>

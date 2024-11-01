@@ -9,7 +9,9 @@ $(document).ready(function() {
             $("#year-max").val(ui.values[1]);
         },
         stop: function(event, ui) {
-            applyFilters();
+			if (typeof applyFilters !== 'undefined') {
+           	 	applyFilters();
+			}
         }
     });
     
