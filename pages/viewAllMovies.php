@@ -47,7 +47,7 @@
          </div>
      	
      	<div class="filters">
-    		<div class="filter-section">
+			<div class="filter-section" data-filter="genre">
      			<button class="filter-toggle">Genre</button>
      			<div class="filter-options">
      				<span class="filter-option" data-genre="horror">horror</span>
@@ -66,7 +66,7 @@
      			</div>
      		</div>
      		
-     		<div class="filter-section">
+			<div class="filter-section" data-filter="type">
      			<button class="filter-toggle">Type</button>
      			<div class="filter-options">
      				<span class="filter-option" data-type="movie">movie</span>
@@ -77,7 +77,7 @@
      			</div>
      		</div>
      		
-     		<div class="filter-section">
+			<div class="filter-section year-slider" data-filter="year">
      			<button class="filter-toggle">Year</button>
      			<div class="year-slider">
      				<div id="slider"></div>
