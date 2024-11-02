@@ -10,10 +10,11 @@ function handleFilterClick(filterType) {
 				if (typeof applyFilters !== 'undefined') {
 			 	 	applyFilters();
 				}
+				if (typeof applyFiltersUser !== 'undefined') {
+					applyFiltersUser();
+				}
 			});
 		});
-	} else {
-		console.log(123);
 	};
 }
 
@@ -29,12 +30,16 @@ function clearFilters() {
 	if (typeof applyFilters !== 'undefined') {
  	 	applyFilters();
 	}
+	if (typeof applyFiltersUser !== 'undefined') {
+		applyFiltersUser();
+	}
 }
 
 document.getElementById('clear-filters').addEventListener('click', clearFilters);
 
 document.addEventListener("DOMContentLoaded", function() {
     handleFilterClick('genre');
+	handleFilterClick('status');
     handleFilterClick('type');
     handleFilterClick('year');
 });

@@ -42,8 +42,9 @@ $userMovies = $curUser->viewedMovieByUser($link, $id_user);
 				</div>
 			<?php } ?>
 		</div>
+			<?php var_dump($userMovies);?>
+		
 	</div>
-	
 	<div class="right-column">
 		<div class="black-back">
 			<h4>Statistic</h4>
@@ -57,22 +58,13 @@ $userMovies = $curUser->viewedMovieByUser($link, $id_user);
             <h3>Sort</h3>
             <button class="rate-btn">Rate</button>
             
-			<div class="filter-section" data-filter="genre">
-                <h4>Genre</h4>
+			<div class="filter-section" data-filter="status">
+                <h4>Status</h4>
                 <div class="filter-options">
-                    <span class="filter-option" data-genre="horror">horror</span>
-                    <span class="filter-option" data-genre="drama">drama</span>
-                    <span class="filter-option" data-genre="science">science</span>
-                    <span class="filter-option" data-genre="comedy">comedy</span>
-                    <span class="filter-option" data-genre="action">action</span>
-                    <span class="filter-option" data-genre="documentary">documentary</span>
-                    <span class="filter-option" data-genre="fantasy">fantasy</span>
-                    <span class="filter-option" data-genre="musical">musical</span>
-                    <span class="filter-option" data-genre="sports">sports</span>
-                    <span class="filter-option" data-genre="romance">romance</span>
-                    <span class="filter-option" data-genre="thriller">thriller</span>
-                    <span class="filter-option" data-genre="spy">spy</span>
-                    <span class="filter-option" data-genre="crime">crime</span>
+                    <span class="filter-option" data-type="Watching">Watching</span>
+                    <span class="filter-option" data-type="Completed">Completed</span>
+                    <span class="filter-option" data-type="Postponed">Postponed</span>
+                    <span class="filter-option" data-type="Abonded">Abonded</span>
                 </div>
             </div>
             
@@ -146,4 +138,5 @@ $userMovies = $curUser->viewedMovieByUser($link, $id_user);
 <script src="scripts/JavaScript/previewPhoto.js"></script>
 <script src="scripts/JavaScript/filterOptions.js"></script>
 <script src="scripts/JavaScript/slider.js"></script>
+<script src="scripts/JavaScript/filterUser.js"></script>
 <script src="scripts/JavaScript/changeDataUser.js"></script>

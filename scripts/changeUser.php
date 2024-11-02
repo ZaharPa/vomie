@@ -10,11 +10,19 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 $id_user = isset($data['id_user']) ? (int)$data['id_user'] : NULL;
 $option = $data['option'] ?? NULL;
+
 $newName = $data['newName'] ?? NULL;
+
 $oldPass = $data['oldPass'] ?? NULL;
 $newPass = $data['newPass'] ?? NULL;
+
 $fileData = $data['filedata'] ?? NULL;
 $originalFileName = $data['filename'] ?? NULL;
+
+$type = $data['type'] ?? '';
+$status = $data['status'] ?? '';
+$yearMin = isset($data['year_min']) ? (int)$data['year_min'] : 1900;
+$yearMax =  isset($data['year_max']) ? (int)$data['year_max'] : 2025;
 
 $link = Database::getLink();
 $curUser = new Viewer();
@@ -61,5 +69,8 @@ switch ($option) {
         } else {
             echo json_encode(["status" => "error", "message" => "Failed to update photo"]);
         }
+        break;
+    case 'filter':
+
         break;
 }

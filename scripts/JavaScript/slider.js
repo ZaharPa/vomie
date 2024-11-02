@@ -12,6 +12,9 @@ $(document).ready(function() {
 			if (typeof applyFilters !== 'undefined') {
            	 	applyFilters();
 			}
+			if (typeof applyFiltersUser !== 'undefined') {
+			    applyFiltersUser();
+			}
         }
     });
     
