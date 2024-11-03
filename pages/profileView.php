@@ -26,7 +26,7 @@ $userMovies = $curUser->viewedMovieByUser($link, $id_user);
 	
 	<div class="middle-column">
 		<h3>Yours movie</h3>
-		<div class="users-movie">
+		<div class="users-movie" id="users-movie">
 			<?php foreach ($userMovies as $usersMovie) { 
 			    $movie = $curMovie->viewOneMovie($link, $usersMovie['id_movie']);
 			    $moviePhoto = $curMovie->viewPhotoForMovie($link, $usersMovie['id_movie']);
@@ -42,7 +42,6 @@ $userMovies = $curUser->viewedMovieByUser($link, $id_user);
 				</div>
 			<?php } ?>
 		</div>
-			<?php var_dump($userMovies);?>
 		
 	</div>
 	<div class="right-column">
@@ -61,10 +60,10 @@ $userMovies = $curUser->viewedMovieByUser($link, $id_user);
 			<div class="filter-section" data-filter="status">
                 <h4>Status</h4>
                 <div class="filter-options">
-                    <span class="filter-option" data-type="Watching">Watching</span>
-                    <span class="filter-option" data-type="Completed">Completed</span>
-                    <span class="filter-option" data-type="Postponed">Postponed</span>
-                    <span class="filter-option" data-type="Abonded">Abonded</span>
+                    <span class="filter-option" data-status="Watching">Watching</span>
+                    <span class="filter-option" data-status="Completed">Completed</span>
+                    <span class="filter-option" data-status="Postponed">Postponed</span>
+                    <span class="filter-option" data-status="Abonded">Abonded</span>
                 </div>
             </div>
             

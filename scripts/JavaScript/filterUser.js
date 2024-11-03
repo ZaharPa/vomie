@@ -1,16 +1,18 @@
 function applyFiltersUser() {
+	const id_user = document.getElementById('id_user').value;
 	const yearMin = $("#year-min").val();
  	const yearMax = $("#year-max").val();
 	    
 	const selectedStatus = document.querySelector('.filter-option[data-status].active')?.getAttribute('data-status');
 	const selectedtype = document.querySelector('.filter-option[data-type].active')?.getAttribute('data-type');
 
-	fetch('scripts/filterUser.php', {
+	fetch('scripts/changeUser.php', {
 	    method: 'POST',
 	    headers: {
 	        'Content-Type': 'application/json',
 	    },
 	    body: JSON.stringify({
+			id_user: id_user,
 	        status: selectedStatus,
 	        type: selectedtype,
 	        year_min: yearMin,
@@ -20,12 +22,18 @@ function applyFiltersUser() {
  	})
 	.then(response => response.json())
 	.then(data => {
-	   displayUserMovies(data.movies);
-	});
+		console.log(data);
+		if (data.error) {
+			console.error(data.error);
+		} else {
+	   		displayUserMovies(data.movies);
+		}
+	}) 
+	.catch(error => console.error("Error fetching movies: ", error));
 }
 
 function displayUserMovies(movies) {
-	const movieList = document.getElementById('movie-list');
+	const movieList = document.getElementById('users-movie');
 	movieList.innerHTML = '';
 		
 	movies.forEach(movie => {
@@ -33,7 +41,7 @@ function displayUserMovies(movies) {
 		movieDiv.classList.add('movie');
 	
 		const img = document.createElement('img');
-		img.src = movie.photoPath;
+		img.src = movie.path + movie.photo;
 		img.classList.add('moviePhoto');
 		movieDiv.appendChild(img);
 			      
@@ -42,7 +50,7 @@ function displayUserMovies(movies) {
 		movieDiv.appendChild(nameSpan);
 			
 		const typeSpan = document.createElement('span');
-		typeSpan.textContent = movie.status;
+		typeSpan.textContent = movie.type;
 		movieDiv.appendChild(typeSpan);
 		
 		const statusSpan = document.createElement('span');

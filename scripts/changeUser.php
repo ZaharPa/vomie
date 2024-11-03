@@ -37,6 +37,7 @@ switch ($option) {
             }
         }
         break;
+        
     case 'pass':
         if ($id_user && $oldPass && $newPass) {
             $updated = $curUser->updatePass($link, $id_user, $newPass, $oldPass);
@@ -47,6 +48,7 @@ switch ($option) {
             }
         }
         break;
+        
     case 'photo':
         $allowedExtensions = ['jpeg', 'jpg', 'png'];
         $extension = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
@@ -70,7 +72,68 @@ switch ($option) {
             echo json_encode(["status" => "error", "message" => "Failed to update photo"]);
         }
         break;
+        
     case 'filter':
+        try {
+            $query = "SELECT m.id_movie, m.name, m.type, u.status, u.rate,
+                      (SELECT p.path FROM photo_movie p WHERE p.id_movie = m.id_movie LIMIT 1) AS path,
+                      (SELECT p.photo FROM photo_movie p WHERE p.id_movie = m.id_movie LIMIT 1) AS photo
+                      FROM rate_user_movie u
+                      JOIN movie m ON u.id_movie = m.id_movie
+                      WHERE u.id_user = ?";
+            
+            $params = [$id_user];
+            $typesQuery = "i";
+            
+            if (!empty($status)) {
+                $query .= " AND u.status = ?";
+                $params[] = $status;
+                $typesQuery .= "s";
+            }
+            
+            if (!empty($type)) {
+                $query .= " AND m.type = ?";
+                $params[] = $type;
+                $typesQuery .= "s";
+            }
+            
+            if ($yearMin !== 1900 || $yearMax !== 2025) {
+                $query .= " AND YEAR(m.date) BETWEEN ? and ?";
+                $params[] = $yearMin;
+                $params[] = $yearMax;
+                $typesQuery .= "ii";
+            }
+            
+            $stmt = mysqli_prepare($link, $query);
 
+            if (!$stmt)
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+                
+            if (!mysqli_stmt_bind_param($stmt, $typesQuery, ...$params)) 
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+              
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+                
+            if(!$result)
+                throw new Exception("Error getting result: " . mysqli_error($link));
+                    
+            $listMovies = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                    
+            mysqli_stmt_close($stmt);
+            
+            echo json_encode(['movies' => $listMovies]);
+            
+        } catch(Exception $e) {
+            error_log($e->getMessage());
+            
+            
+            if (isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            echo json_encode(['error' => "Error filter"]);
+        }
+        
         break;
 }
