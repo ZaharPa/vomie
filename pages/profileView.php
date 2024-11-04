@@ -55,8 +55,12 @@ $userMovies = $curUser->viewedMovieByUser($link, $id_user);
 		
 		<div class="black-back">
             <h3>Sort</h3>
-            <button class="rate-btn">Rate</button>
-            
+            <button class="rate-btn" id="sortRate">Rate</button>
+            <button class="rate-btn" id="sortName">Name</button>
+        </div>
+        
+        <div class="black-back">
+        	<h3>Filter</h3>
 			<div class="filter-section" data-filter="status">
                 <h4>Status</h4>
                 <div class="filter-options">

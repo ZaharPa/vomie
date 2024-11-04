@@ -24,6 +24,9 @@ $status = $data['status'] ?? '';
 $yearMin = isset($data['year_min']) ? (int)$data['year_min'] : 1900;
 $yearMax =  isset($data['year_max']) ? (int)$data['year_max'] : 2025;
 
+$sort = $data['sort'] ?? NULL;
+$direction = $data['direction'] ?? NULL;
+
 $link = Database::getLink();
 $curUser = new Viewer();
 switch ($option) {
@@ -135,5 +138,53 @@ switch ($option) {
             echo json_encode(['error' => "Error filter"]);
         }
         
+        break;
+    case 'sort':
+        try {
+            $query = "SELECT m.id_movie, m.name, m.type, u.status, u.rate,
+                      (SELECT p.path FROM photo_movie p WHERE p.id_movie = m.id_movie LIMIT 1) AS path,
+                      (SELECT p.photo FROM photo_movie p WHERE p.id_movie = m.id_movie LIMIT 1) AS photo
+                      FROM rate_user_movie u
+                      JOIN movie m ON u.id_movie = m.id_movie
+                      WHERE u.id_user = ?";
+            
+            if ($sort === 'rate') {
+                $query .= " ORDER BY u.rate";
+            } else if ($sort === 'name') {
+                $query .= " ORDER BY m.name";
+            }
+            
+            $query .= " " . $direction;
+            
+            $stmt = mysqli_prepare($link, $query);
+            
+            if (!$stmt)
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+                
+            if (!mysqli_stmt_bind_param($stmt, 'i', $id_user))
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+                    
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+                    
+            if(!$result)
+                throw new Exception("Error getting result: " . mysqli_error($link));
+                        
+            $listMovies = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                        
+            mysqli_stmt_close($stmt);
+                        
+            echo json_encode(['movies' => $listMovies]);
+                        
+        } catch(Exception $e) {
+            error_log($e->getMessage());
+            
+            
+            if (isset($stmt) && $stmt !== false) {
+                mysqli_stmt_close($stmt);
+            }
+            
+            echo json_encode(['error' => "Error filter"]);
+        }
         break;
 }

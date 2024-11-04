@@ -64,3 +64,57 @@ function displayUserMovies(movies) {
 		movieList.appendChild(movieDiv);
 	});
 }
+
+let rateDirection = 'DESC'
+document.getElementById('sortRate').onclick = function() {
+	const id_user = document.getElementById('id_user').value;
+	
+	fetch('scripts/changeUser.php', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			id_user: id_user, 
+			sort: 'rate', 
+			direction: rateDirection,
+			option: 'sort'
+		})
+	})
+	.then(response => response.json())
+	.then(data => {
+		displayUserMovies(data.movies);
+		
+		rateDirection = (rateDirection === 'ASC') ? 'DESC' : 'ASC';
+	})
+	.catch(error => {
+		console.log("Error: ", error);
+	});
+}
+
+let nameDirection = 'ASC'
+document.getElementById('sortName').onclick = function() {
+	const id_user = document.getElementById('id_user').value;
+	
+	fetch('scripts/changeUser.php', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			id_user: id_user, 
+			sort: 'name', 
+			direction: nameDirection,
+			option: 'sort'
+		})
+	})
+	.then(response => response.json())
+	.then(data => {
+		displayUserMovies(data.movies);
+		
+		nameDirection = (nameDirection === 'ASC') ? 'DESC' : 'ASC';
+	})
+	.catch(error => {
+		console.log("Error: ", error);
+	});
+}
