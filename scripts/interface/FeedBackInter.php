@@ -20,5 +20,6 @@ interface FeedBackInter
     public function addComment($link, int $id_movie, int $id_user, string $comment, string $date) : bool;
     public function deleteComment($link, int $id_comment) : bool;
     
+    public function viewAllComments($link) : array;
 }
 

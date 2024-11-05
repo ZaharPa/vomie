@@ -39,6 +39,9 @@ switch($page) {
     case 'profile':
         include 'pages/profileView.php';
         break;
+    case 'comments':
+        include 'pages/comments.php';
+        break;
     default:
         include 'pages/main.php';
         break;

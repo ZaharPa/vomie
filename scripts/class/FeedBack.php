@@ -383,5 +383,30 @@ class FeedBack implements FeedBackInter
             return false;
         } 
     }
+    
+    public function viewAllComments($link) : array
+    {
+        try {
+            $query = "SELECT c.comment, c.date, u.name AS user_name, m.name AS movie_name 
+                      FROM comment c 
+                      LEFT JOIN user u ON c.id_user = u.id_user
+                      LEFT JOIN movie m ON c.id_movie = m.id_movie
+                      ORDER BY date DESC, id_comment DESC";
+            $result = mysqli_query($link, $query);
+            
+            if (!$result)
+                throw new Exception("Error " . mysqli_error($link));
+                
+            $comments = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                
+            mysqli_free_result($result);
+                
+            return $comments;
+        } catch (Exception $e){
+            error_log($e->getMessage() . "Query: " .$query);
+            
+            return [];
+        }
+    }
 }
 
