@@ -1,0 +1,85 @@
+.comment-page {
+	padding: 20px;
+	margin: 0 auto;
+}
+
+.header-label {
+	margin-top: 50px;
+}
+
+.comments-block {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	justify-content: center;
+}
+
+.comments {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 200px;
+	height: 150px;
+	background-color: rgba(31, 27, 46, 0.9);
+	padding: 15px;
+	border-radius: 10px;
+}
+
+.comments h5 {
+	color: #B5B2C2;
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.comments span {
+	display: block;
+	font-size: 14px;
+	color: #A09DAD;
+	margin: 2px 0;
+}
+
+.comments a {
+	color: #C778DD;
+	font-weight: bold;
+}
+
+.comments a:hover {
+	color: #E69AFF;
+}
+
+.comments span.comment {
+	color: #E0DEE6;
+	margin-top: 5px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.comments .date {
+	color: #7A758D;
+	font-size: 12px;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+}
+
+.pagination a {
+	padding: 10px 20px;
+	background-color: #6A4A78;
+	border: 1px solid #9C6A9F;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	margin: 0 5px;
+	transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+	background-color: #9C6A9F;
+}

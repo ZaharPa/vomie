@@ -19,6 +19,9 @@
 		<?php if ($title === 'movieDetail') {?>
 			<link rel="stylesheet" href="styles/view-detail.css" />
 		<?php }?>
+		<?php if ($title === 'comments') {?>
+			<link rel="stylesheet" href="styles/comments.css" />
+		<?php }?>
 		<?php if ($title === 'profile') {?>
 			<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

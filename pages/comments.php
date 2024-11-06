@@ -7,7 +7,7 @@
     
     $comments = $curComments->viewAllComments($link);
     
-    $itemPerPage = 24;
+    $itemPerPage = 12;
     $totalItems = count($comments);
     $totalPages = ceil($totalItems / $itemPerPage);
     
@@ -18,19 +18,24 @@
 ?>
 
 <section class="comment-page">
-	<div class="comments">
-		<?php  for ($i = $startIndex; $i < $endIndex; $i++) { ?>
-			<h5><?=$comments[$i]['user_name']?></h5>
-			<span><?=$comments[$i]['date']?></span>
-			<span><?=$comments[$i]['comment']?></span>
-			<span><?=$comments[$i]['movie_name']?></span>			
-		<?php }?>
-	</div>
-	<div class="pagination">
-     	<?php
+	<h2 class="header-label">Last comments</h2>
+	<div class="comments-block">
+    	<?php  for ($i = $startIndex; $i < $endIndex; $i++) { ?>
+    		<div class="comments">
+    			<h5><?=$comments[$i]['user_name']?></h5>
+    			<span class="date"><?=$comments[$i]['date']?></span>
+    			<span class="comment"><?=$comments[$i]['comment']?></span>
+    			<a href="index.php?page=movieDetail&id=<?=$comments[$i]['id_movie']?>"><?=$comments[$i]['movie_name']?></a>			
+    		</div>
+    	<?php }?>
+    </div>
+    
+    <div class="pagination">
+        <?php
             for ($i = 1; $i <= $totalPages; $i++){
-       	        echo "<a href='?page=home&number=$i'>$i</a> ";
+           	    echo "<a href='?page=comments&number=$i'>$i</a> ";
             }
         ?>
     </div>
 </section>
+
