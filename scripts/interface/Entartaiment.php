@@ -35,4 +35,6 @@ interface Entartaiment
     public function viewLinkForMovie($link, $id) : array;
     public function viewPhotoForMovie($link, $id) : array;
     public function viewCastForMovie($link, $id) : array;
+    
+    public function viewMovieForSlider($link) : array;
 }

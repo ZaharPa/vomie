@@ -1027,4 +1027,34 @@ class Movie implements Entartaiment
                 return [];
         }
     }
+    
+    public function viewMovieForSlider($link) : array
+    {
+        try {
+            $query = "SELECT m.id_movie, m.name, m.description, m.date, rm.avg_rate
+                      FROM movie m 
+                      JOIN (
+                          SELECT id_movie, AVG(rate) AS avg_rate
+                          FROM rate_user_movie
+                          GROUP BY id_movie
+                          HAVING avg_rate > 7
+                      ) AS rm on m.id_movie = rm.id_movie                        
+                      ORDER BY m.date DESC
+                      LIMIT 10";
+            $result = mysqli_query($link, $query);
+            
+            if (!$result)
+                throw new Exception("Error " . mysqli_error($link));
+                
+                $movies = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                
+                mysqli_free_result($result);
+                
+                return $movies;
+        } catch (Exception $e){
+            error_log($e->getMessage() . "Query: " .$query);
+            
+            return [];
+        }
+    }
 }
