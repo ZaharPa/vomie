@@ -37,4 +37,5 @@ interface Entartaiment
     public function viewCastForMovie($link, $id) : array;
     
     public function viewMovieForSlider($link) : array;
+    public function viewMovieByGenre($link, string $genre) : array;
 }

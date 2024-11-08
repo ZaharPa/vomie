@@ -1057,4 +1057,45 @@ class Movie implements Entartaiment
             return [];
         }
     }
+    
+    public function viewMovieByGenre($link, string $genre) : array
+    {
+        try{
+            $query = "SELECT m.* FROM movie m 
+                      JOIN genre_movie g ON m.id_movie = g.id_movie
+                      WHERE g.genre = ?";
+            $stmt = mysqli_prepare($link, $query);
+            
+            if(!$stmt) {
+                throw new Exception("Error prepare query: " . mysqli_error($link));
+            }
+            
+            if(!mysqli_stmt_bind_param($stmt, 's', $genre)) {
+                throw new Exception("Error binding parameters: " . mysqli_stmt_error($stmt));
+            }
+            
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Error executing query: " . mysqli_stmt_error($stmt));
+            }
+            
+            $result = mysqli_stmt_get_result($stmt);
+            
+            if (mysqli_num_rows($result) === 0) {
+                throw new Exception("Error " . mysqli_stmt_error($stmt));
+            }
+            
+            $movie = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            
+            mysqli_stmt_close($stmt);
+            
+            return $movie;
+        } catch(Exception $e) {
+            error_log($e->getMessage() . "Query: " . $query);
+            
+            if(isset($stmt) && $stmt !== false)
+                mysqli_stmt_close($stmt);
+                
+                return [];
+        }
+    }
 }
