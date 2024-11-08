@@ -1,3 +1,7 @@
+<?php
+    use scripts\class\Viewer;
+    use scripts\Database;
+?>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -78,10 +82,15 @@
     					<a href="index.php?page=login">Login</a>
     					<a href="index.php?page=register">Register</a>
     				</div>
-				<?php } else {?>	
+				<?php } else {
+				    $curUser = new Viewer();
+				    $link = Database::getLink();
+				    $user = $curUser->viewUser($link, $_SESSION['id_user']);
+				    $imgUser = $user['path'] . $user['photo'];
+				?>	
     				<ul class="user-menu">
         				<li class="user-menu-item">
-        					<img alt="User Avatar" class="avatar">
+        					<img src="<?=$imgUser?>" alt="User Avatar" class="avatar">
         					<ul class="dropdown-menu">
         						<li><a href='index.php?page=profile'> My profile </a></li>
         						<li><a href='index.php?logOut'> Exit </a></li>

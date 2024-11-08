@@ -24,6 +24,10 @@
 	align-items: center;
 }
 
+.user-menu-item {
+	left: -20px;
+}
+
 .menu-item, .user-menu-item {
 	position: relative;
 	margin-right: 20px;
@@ -144,7 +148,7 @@
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
-	margin-left: 20px;	
+	margin-left: 30px;	
 }
 
 .log-reg a {
