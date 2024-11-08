@@ -34,6 +34,9 @@ function applyFiltersUser() {
 
 function displayUserMovies(movies) {
 	const movieList = document.getElementById('users-movie');
+	
+	document.querySelector('.pagination').style.display = 'none';
+	
 	movieList.innerHTML = '';
 		
 	movies.forEach(movie => {

@@ -1,16 +1,25 @@
 <?php
-use scripts\class\Viewer;
-use scripts\Database;
-use scripts\class\Movie;
-
-$curUser = new Viewer();
-$curMovie = new Movie();
-$link = Database::getLink();
-$id_user = $_SESSION['id_user'];
-
-$user = $curUser->viewUser($link, $id_user);
-$imgUser = $user['path'] . $user['photo'];
-$userMovies = $curUser->viewedMovieByUser($link, $id_user);
+    use scripts\class\Viewer;
+    use scripts\Database;
+    use scripts\class\Movie;
+    
+    $curUser = new Viewer();
+    $curMovie = new Movie();
+    $link = Database::getLink();
+    $id_user = $_SESSION['id_user'];
+    
+    $user = $curUser->viewUser($link, $id_user);
+    $imgUser = $user['path'] . $user['photo'];
+    $userMovies = $curUser->viewedMovieByUser($link, $id_user);
+    
+    $itemPerPage = 20;
+    $totalItems = count($userMovies);
+    $totalPages = ceil($totalItems / $itemPerPage);
+    
+    $number = isset($_GET['number']) ? (int)$_GET['number'] : 1;
+    
+    $startIndex = ($number - 1) * $itemPerPage;
+    $endIndex = min($startIndex + $itemPerPage, $totalItems);
 ?>
 
 <input type="hidden" name="id_user" id="id_user" value="<?=$id_user?>">
@@ -27,9 +36,9 @@ $userMovies = $curUser->viewedMovieByUser($link, $id_user);
 	<div class="middle-column">
 		<h3>Yours movie</h3>
 		<div class="users-movie" id="users-movie">
-			<?php foreach ($userMovies as $usersMovie) { 
-			    $movie = $curMovie->viewOneMovie($link, $usersMovie['id_movie']);
-			    $moviePhoto = $curMovie->viewPhotoForMovie($link, $usersMovie['id_movie']);
+			<?php  for ($i = $startIndex; $i < $endIndex; $i++) { 
+			    $movie = $curMovie->viewOneMovie($link, $userMovies[$i]['id_movie']);
+			    $moviePhoto = $curMovie->viewPhotoForMovie($link, $userMovies[$i]['id_movie']);
 			    $firstPhoto = $moviePhoto[0];
 			    $imgSrc = $firstPhoto['path'] . $firstPhoto['photo'];
 			?>
@@ -37,13 +46,21 @@ $userMovies = $curUser->viewedMovieByUser($link, $id_user);
 					<img src="<?=$imgSrc?>" class="moviePhoto">
 					<span><?=$movie['name']?></span>
 					<span><?=$movie['type']?></span>
-					<span><?=$usersMovie['status']?></span>
-					<span><?=$usersMovie['rate']?></span>
+					<span><?=$userMovies[$i]['status']?></span>
+					<span><?=$userMovies[$i]['rate']?></span>
 				</div>
 			<?php } ?>
 		</div>
 		
+		<div class="pagination">
+     		<?php
+        	for ($i = 1; $i <= $totalPages; $i++){
+        	   echo "<a href='?page=profile&number=$i'>$i</a> ";
+        	}
+        	?>
+        </div>	
 	</div>
+	
 	<div class="right-column">
 		<div class="black-back">
 			<h4>Statistic</h4>

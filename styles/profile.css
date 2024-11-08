@@ -264,3 +264,23 @@ year-values {
 .filter-option.active {
     background-color: #7C3668;
 }
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+}
+
+.pagination a {
+	padding: 10px 20px;
+	background-color: #77128B;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	margin: 0 5px;
+	transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+	background-color: #9C6A9F;
+}
