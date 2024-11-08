@@ -9,13 +9,26 @@
 ?>
 
 <section class="home-section">
-	<button class="prev-btn">&#10094;</button>
-	<div class="slider-content">
-		<?php foreach ($movieSlider as $movie) {?>
-			<h2 class="movie-title"><?=$movie['name']?></h2>
-			<span class="movie-rate"><?=$movie['avg_rate']?></span>
-			<p class="movie-description"><?=$movie['description']?></p>
-		<?php }?>
+	<h2>Last movie</h2>
+	<div class="slider">
+    	<button class="prev-btn">&#10094;</button>
+    	<div class="slider-content">
+    		<?php foreach ($movieSlider as $movie) {
+    		    $moviePhoto = $curMovie->viewPhotoForMovie($link, $movie['id_movie']);
+    		    $firstPhoto = isset($moviePhoto[1]) ? $moviePhoto[1] : $moviePhoto[0];
+    		    $imgSrc = $firstPhoto['path'] . $firstPhoto['photo'];
+    		    ?>
+    			<div class="slide" style="background-image: url('<?=$imgSrc?>');">
+    				<div class="slide-text">
+            			<h2 class="movie-title"><?=$movie['name']?></h2>
+            			<span class="movie-rate">Rate - <?=$movie['avg_rate']?></span>
+            			<p class="movie-description"><?=$movie['description']?></p>
+        			</div>
+    			</div>
+    		<?php }?>
+    	</div>
+    	<button class="next-btn">&#10095;</button>
 	</div>
-	<button class="next-btn">&#10095;</button>
 </section>
+
+<script src="scripts/JavaScript/sliderMovie.js"></script>
