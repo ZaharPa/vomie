@@ -10,32 +10,44 @@
 		<meta http-equiv="pragma" content="no-cache">
 		<link rel="stylesheet" href="styles/main.css" />
 		<link rel="stylesheet" href="styles/header.css" />
-		<?php if ($title === 'add-movie') {?>
-			<link rel="stylesheet" href="styles/add-movie.css" />
-		<?php }?>
-		<?php if ($title === 'edit-movie') {?>
-			<link rel="stylesheet" href="styles/add-movie.css" />
-		<?php }?>
-		<?php if ($title === 'movieDetail') {?>
-			<link rel="stylesheet" href="styles/view-detail.css" />
-		<?php }?>
-		<?php if ($title === 'comments') {?>
-			<link rel="stylesheet" href="styles/comments.css" />
-		<?php }?>
-		<?php if ($title === 'profile') {?>
-			<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-			<link rel="stylesheet" href="styles/profile.css" />
-		<?php }?>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap">		
-    	<?php if ($title === 'view-all') {?>
-    		<link rel="stylesheet" href="styles/views-all.css" />
-        	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    	<?php }?>
+    	
+		<?php switch ($title) {
+		    case 'main': ?>
+		    	<link rel="stylesheet" href="styles/home.css" />
+		    <?php break;
+		    
+            case 'add-movie': ?>
+		    	<link rel="stylesheet" href="styles/add-movie.css" />
+		    <?php break;
+		    
+            case 'edit-movie': ?>
+		    	<link rel="stylesheet" href="styles/add-movie.css" />
+		    <?php break;
+		    
+            case 'movieDetail': ?>
+		    	<link rel="stylesheet" href="styles/view-detail.css" />
+		    <?php break;
+		    
+            case 'comments': ?>
+		    	<link rel="stylesheet" href="styles/comments.css" />
+		    <?php break;
+		    
+            case 'profile': ?>
+		    	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+				<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+				<link rel="stylesheet" href="styles/profile.css" />
+		    <?php break;
+		    
+            case 'view-all': ?>
+		    	<link rel="stylesheet" href="styles/views-all.css" />
+        		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+				<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+		    <?php break;
+		} ?>	
 	</head>
 	<body>
 		<nav class="navbar">
