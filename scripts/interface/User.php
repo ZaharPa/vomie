@@ -23,6 +23,4 @@ interface User
     public function updateName($link, int $id_user, string $newName) : bool;
     public function updatePass($link, int $id_user, string $newPass, string $oldPass) : bool;
     public function updatePhoto($link, int $id_user, string $path, string $photo) : bool;
-    
-    public function deleteUser($link, string $email) : bool;
 }
