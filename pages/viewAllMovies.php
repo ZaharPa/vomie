@@ -1,14 +1,15 @@
 <?php
     use scripts\Database;
     use scripts\class\Movie;
+use scripts\class\MovieDetail;
 
     $link = Database::getLink();
     $curMovie = new Movie();
+    $curInfoMovie = new MovieDetail();
     
     $movies = $curMovie->viewsAllMovie($link);
-    
-    $photoMovie = $curMovie->viewPhotosMovie($link);
-    
+    $photoMovie = $curInfoMovie->viewPhotosMovie($link);
+
     $itemPerPage = 24;
     $totalItems = count($movies);
     $totalPages = ceil($totalItems / $itemPerPage);

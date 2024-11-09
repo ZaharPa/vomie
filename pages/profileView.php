@@ -2,9 +2,11 @@
     use scripts\class\Viewer;
     use scripts\Database;
     use scripts\class\Movie;
+use scripts\class\MovieDetail;
     
     $curUser = new Viewer();
     $curMovie = new Movie();
+    $curInfoMovie = new MovieDetail();
     $link = Database::getLink();
     $id_user = $_SESSION['id_user'];
     
@@ -38,7 +40,7 @@
 		<div class="users-movie" id="users-movie">
 			<?php  for ($i = $startIndex; $i < $endIndex; $i++) { 
 			    $movie = $curMovie->viewOneMovie($link, $userMovies[$i]['id_movie']);
-			    $moviePhoto = $curMovie->viewPhotoForMovie($link, $userMovies[$i]['id_movie']);
+			    $moviePhoto = $curInfoMovie->viewPhotoForMovie($link, $userMovies[$i]['id_movie']);
 			    $firstPhoto = $moviePhoto[0];
 			    $imgSrc = $firstPhoto['path'] . $firstPhoto['photo'];
 			?>

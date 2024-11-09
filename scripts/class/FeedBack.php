@@ -198,7 +198,7 @@ class FeedBack implements FeedBackInter
             
             mysqli_stmt_close($stmt);
             
-            return $row['rate'] / 2;
+            return isset($row['rate']) ? $row['rate'] / 2 : 0;
         } catch (Exception $e) {
             error_log($e->getMessage() . " Query: " . $query);
             

@@ -2,21 +2,20 @@
 use scripts\Database;
 use scripts\class\Movie;
 use scripts\class\FeedBack;
+use scripts\class\MovieDetail;
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $link = Database::getLink();
     $curMovie = new Movie();
+    $curInfoMovie = new MovieDetail();
     $movie = $curMovie->viewOneMovie($link, $id);
 
     if (isset($movie['id_movie'])) {
-        
-        
-        $movieAddInfo = $curMovie->viewAddInfoForMovie($link, $id);
-        $movieGenre = $curMovie->viewGenreForMovie($link, $id);;
-        $movieLink = $curMovie->viewLinkForMovie($link, $id);
-        $moviePhoto = $curMovie->viewPhotoForMovie($link, $id);;
-        $movieCast = $curMovie->viewCastForMovie($link, $id);
+        $movieGenre = $curInfoMovie->viewGenreForMovie($link, $id);;
+        $movieLink = $curInfoMovie->viewLinkForMovie($link, $id);
+        $moviePhoto = $curInfoMovie->viewPhotoForMovie($link, $id);;
+        $movieCast = $curInfoMovie->viewCastForMovie($link, $id);
         $firstPhoto = $moviePhoto[0];
         $imgSrc = $firstPhoto['path'] . $firstPhoto['photo'];
         $statusObj = new FeedBack();
@@ -33,16 +32,16 @@ if (isset($_GET['id'])) {
             if ($_GET['action'] === 'delete') {
                 $curMovie->deleteMovie($link, $id);
                 if (!empty($movieGenre))
-                    $curMovie->deleteGenre($link, $id);
+                    $curInfoMovie->deleteGenre($link, $id);
                 
                 if (!empty($movieLink))
-                    $curMovie->deleteLink($link, $id);
+                    $curInfoMovie->deleteLink($link, $id);
                 
                 if (!empty($moviePhoto))
-                    $curMovie->deletePhoto($link, $id);
+                    $curInfoMovie->deletePhoto($link, $id);
                 
                 if (!empty($movieCast))
-                    $curMovie->deleteCast($link, $id);
+                    $curInfoMovie->deleteCast($link, $id);
                 
                 header('Location: index.php');
                 exit();

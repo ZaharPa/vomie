@@ -1,6 +1,7 @@
 <?php
 use scripts\class\Movie;
 use scripts\Database;
+use scripts\class\MovieDetail;
 
 ob_start();
 
@@ -394,6 +395,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin')
     if (!empty($_POST))
     {
         $curMovie = new Movie();
+        $curInfoMovie = new MovieDetail();
         $link = Database::getLink();
         $titleMovie = htmlspecialchars($_POST['title'], ENT_QUOTES, 'UTF-8');
         $descriptionMovie = htmlspecialchars($_POST['description'], ENT_QUOTES, 'UTF-8');
@@ -409,7 +411,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin')
                 $selectGenres = $_POST['genres'];
                 if(!empty($selectGenres)) {
                     foreach ($selectGenres as $genre)
-                        $curMovie->addGenre($link, $id_movie, $genre);
+                        $curInfoMovie->addGenre($link, $id_movie, $genre);
                 }
             }
             
@@ -426,7 +428,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin')
                             $newFileName = $id_movie . '_' . $titleMovie  . '_' . $i . '.' . $fileExtension;
                             $path = 'images/moviePhoto/';
                             
-                            if ($curMovie->addPhoto($link, $id_movie, $path, $newFileName) === true) {
+                            if ($curInfoMovie->addPhoto($link, $id_movie, $path, $newFileName) === true) {
                                 move_uploaded_file($_FILES["photos"]["tmp_name"][$i], $path . $newFileName);
                             } else {
                                 echo '<script type="text/javascript">',
@@ -458,7 +460,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin')
                                  $newFileName = $id_movie . '_' . $nameCast[$i]  . '_' . $i . '.' . $fileExtension;
                                  $path = 'images/castPhoto/';
 
-                                 if ($curMovie->addCast($link, $id_movie, $nameCast[$i], $roleCast[$i], $path, $newFileName) === true) {
+                                 if ($curInfoMovie->addCast($link, $id_movie, $nameCast[$i], $roleCast[$i], $path, $newFileName) === true) {
                                      move_uploaded_file($_FILES["photosCast"]["tmp_name"][$i], $path . $newFileName);
                                  } else {
                                  echo '<script type="text/javascript">',
@@ -471,7 +473,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin')
                              '</script>';
                              }
                          } else {
-                         $curMovie->addCast($link, $id_movie, $nameCast[$i], $roleCast[$i]);
+                            $curInfoMovie->addCast($link, $id_movie, $nameCast[$i], $roleCast[$i]);
                          }
                      }
                  }
@@ -484,7 +486,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin')
                 
                 for ($i = 0; $i < $totalLink; $i++) {
                     if (!empty($_POST['nameLink'][$i]) && !empty($_POST['linkMovie'][$i]))
-                        $curMovie->addLink($link, $id_movie, $nameLink[$i], $linkMovie[$i]);
+                        $curInfoMovie->addLink($link, $id_movie, $nameLink[$i], $linkMovie[$i]);
                 }
             }
             

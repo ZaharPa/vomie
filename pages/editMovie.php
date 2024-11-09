@@ -1,18 +1,20 @@
 <?php
 use scripts\Database;
 use scripts\class\Movie;
+use scripts\class\MovieDetail;
 
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
     if(isset($_GET['id'])) {
         $id = $_GET['id'];
         $link = Database::getLink();
         $curMovie = new Movie();
+        $curInfoMovie = new MovieDetail();
         
         $movie = $curMovie->viewOneMovie($link, $id);
-        $movieGenre = $curMovie->viewGenreForMovie($link, $id);;
-        $movieLink = $curMovie->viewLinkForMovie($link, $id);
-        $moviePhoto = $curMovie->viewPhotoForMovie($link, $id);;
-        $movieCast = $curMovie->viewCastForMovie($link, $id);
+        $movieGenre = $curInfoMovie->viewGenreForMovie($link, $id);;
+        $movieLink = $curInfoMovie->viewLinkForMovie($link, $id);
+        $moviePhoto = $curInfoMovie->viewPhotoForMovie($link, $id);;
+        $movieCast = $curInfoMovie->viewCastForMovie($link, $id);
         
         if (!empty($_POST)) {
             $titleMovie = htmlspecialchars($_POST['title'], ENT_QUOTES, 'UTF-8');
@@ -28,12 +30,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                 if (isset($_POST['genres'])) {
                     $selectedGenres = $_POST['genres'];
                     if (!empty($selectedGenres)) {
-                            $curMovie->editGenre($link, $id, $selectedGenres);
+                        $curInfoMovie->editGenre($link, $id, $selectedGenres);
                     }
                 }
                 
                 if (isset($_FILES['photos'])) {
-                    $curMovie->editPhoto($link, $id, $_FILES['photos'], $titleMovie);
+                    $curInfoMovie->editPhoto($link, $id, $_FILES['photos'], $titleMovie);
                 } 
               
                 if (!empty(array_filter($_POST['nameCast'])) && !empty(array_filter($_POST['roleCast']))) {
@@ -55,7 +57,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                                             $newFileName = $id . '_' . $nameCast[$i]  . '_' . $i . '.' . $fileExtension;
                                             $path = 'images/castPhoto/';
                                             
-                                            if ($curMovie->addCast($link, $id, $nameCast[$i], $roleCast[$i], $path, $newFileName) === true) {
+                                            if ($curInfoMovie->addCast($link, $id, $nameCast[$i], $roleCast[$i], $path, $newFileName) === true) {
                                                 move_uploaded_file($_FILES["photosCast"]["tmp_name"][$i], $path . $newFileName);
                                             }   
                                         } 
@@ -76,7 +78,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                                     move_uploaded_file($_FILES["photosCast"]["tmp_name"][$i], $path . $newFileName);
                                 }
                             }
-                            $curMovie->editCast($link, $id, $idCast[$i], $nameCast[$i], $roleCast[$i], $existingPhoto);
+                            $curInfoMovie->editCast($link, $id, $idCast[$i], $nameCast[$i], $roleCast[$i], $existingPhoto);
                         }
                     }
                 }
@@ -89,7 +91,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                     
                     for ($i = 0; $i < $totalLink; $i++) {
                         if (!empty($_POST['nameLink'][$i]) && !empty($_POST['linkMovie'][$i]))
-                            $curMovie->editLink($link, $idLink[$i], $nameLink[$i], $linkMovie[$i]);
+                            $curInfoMovie->editLink($link, $idLink[$i], $nameLink[$i], $linkMovie[$i]);
                     }
                 }
                 

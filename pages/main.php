@@ -1,9 +1,11 @@
 <?php
     use scripts\Database;
     use scripts\class\Movie;
+use scripts\class\MovieDetail;
     
     $link = Database::getLink();
     $curMovie = new Movie();
+    $curInfoMovie = new MovieDetail();
     
     $movieSlider = $curMovie->viewMovieForSlider($link);
 ?>
@@ -14,7 +16,7 @@
     	<button class="prev-btn">&#10094;</button>
     	<div class="slider-content">
     		<?php foreach ($movieSlider as $movie) {
-    		    $moviePhoto = $curMovie->viewPhotoForMovie($link, $movie['id_movie']);
+    		    $moviePhoto = $curInfoMovie->viewPhotoForMovie($link, $movie['id_movie']);
     		    $firstPhoto = isset($moviePhoto[1]) ? $moviePhoto[1] : $moviePhoto[0];
     		    $imgSrc = $firstPhoto['path'] . $firstPhoto['photo'];
     		    ?>
@@ -33,9 +35,9 @@
 	<h3>Drama</h3>
 	<div class="genre">
 		<?php 
-		    $moviesGenre = $curMovie->viewMovieByGenre($link, 'drama');
+		  $moviesGenre = $curMovie->viewMovieByGenre($link, 'drama');
 		    foreach ($moviesGenre as $movie) {
-		        $moviePhoto = $curMovie->viewPhotoForMovie($link, $movie['id_movie']);
+		        $moviePhoto = $curInfoMovie->viewPhotoForMovie($link, $movie['id_movie']);
 		        $firstPhoto = $moviePhoto[0];
 		        $imgSrc = $firstPhoto['path'] . $firstPhoto['photo'];
 		?>
@@ -51,9 +53,9 @@
 	<h3>Romance</h3>
 	<div class="genre">
 		<?php 
-		    $moviesGenre = $curMovie->viewMovieByGenre($link, 'romance');
+		  $moviesGenre = $curMovie->viewMovieByGenre($link, 'romance');
 		    foreach ($moviesGenre as $movie) {
-		        $moviePhoto = $curMovie->viewPhotoForMovie($link, $movie['id_movie']);
+		        $moviePhoto = $curInfoMovie->viewPhotoForMovie($link, $movie['id_movie']);
 		        $firstPhoto = $moviePhoto[0];
 		        $imgSrc = $firstPhoto['path'] . $firstPhoto['photo'];
 		?>
