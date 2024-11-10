@@ -7,6 +7,7 @@
 - **User Interaction**: Users can rate and comment on movies, building a community for discussion and recommendations.
 - **User Profiles**: Registration, authentication, and profile views allow for a personalized user experience.
 - **Modular Architecture**: Multiple interfaces support flexibility and easy expansion of functionality.
+- **Mobile-Responsive Design**: CSS is optimized for mobile devices, ensuring a seamless user experience across different screen sizes.
 
 ## Tech Stack
 - **Frontend**: HTML and CSS for the interface, JavaScript for interactivity.
@@ -72,3 +73,6 @@ profile page
 
 ![movieDetail](https://github.com/user-attachments/assets/9140c633-57c3-47fc-a7d7-9ecc9f15a092)
 view movie detail page 
+
+![allMovie](https://github.com/user-attachments/assets/7a48de50-fb73-467f-8a64-e1f49ce61ab9)
+view all movie page on mobile
