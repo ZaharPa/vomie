@@ -56,18 +56,21 @@
 	<body>
 		<nav class="navbar">
 			<div class="logo">vomie</div>
-    			<ul class="menu">
-    				<li class="menu-item">
-    					<a href="index.php" class="menu-link">home</a>
-    					<ul class="dropdown-menu">
-    						<li><a href='index.php?page=view-all'> View all movies </a></li>
-    						<li><a href='index.php?page=comments'>Comments</a></li>
-    						<?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') { ?>
+			<button class="mobile-btn" id="mobile-btn">&#9776;</button>
+			
+    		<ul class="menu" id="menu">
+    			<li class="menu-item">
+    				<a href="index.php" class="menu-link">home</a>
+   					<ul class="dropdown-menu mobile">
+    					<li><a href='index.php?page=view-all'> View all movies </a></li>
+    					<li><a href='index.php?page=comments'>Comments</a></li>
+    					<?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') { ?>
     						<li><a href='index.php?page=add-movie'> Add Movie </a></li>
-    						<?php }?>
-    					</ul>
-    				</li>
-    			</ul>
+    					<?php }?>
+    				</ul>
+    			</li>
+   			</ul>
+   			
 			<div class="right-section">
 				<div class="search-container">
 					<input type="text" placeholder="Search" id="search-input-header" class="search-input-header">

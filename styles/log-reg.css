@@ -98,3 +98,40 @@ html:has(div.container-reg-log), body:has(.container-reg-log) {
 	background-color: #960082;
 	color: white;
 }
+
+@media (max-width: 768px) {
+	html, body {
+		overflow-x: hidden;
+		box-sizing: border-box;
+	}
+	
+	.logo {
+		font-size: 24px;
+	}
+	
+	.reg-log {
+		width: 90%;
+	}
+	
+	.reg-log h2 {
+		font-size: 24px;
+	}
+	
+	.reg-log label {
+		font-size: 22px;
+	}
+	
+	.reg-log input, .reg-log button {
+		font-size: 20px;
+	}
+	
+	.right {
+		margin-right: 30px;
+	}
+	
+	.container-reg-log {
+		width: 90%;
+		max-width: 100%;
+		margin: auto;
+	}
+}

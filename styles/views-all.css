@@ -208,3 +208,81 @@
 .views-all .pagination a:hover {
 	background-color: #9C6A9F;
 }
+
+@media (max-width: 768px) {
+    .views-all {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .views-all .movie-section {
+        display: block;
+        margin: 0 10px;
+    }
+
+    .views-all .container {
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .views-all .search-bar input {
+        padding: 12px;
+        margin-top: 20px;
+        font-size: 14px;
+    }
+
+    .views-all .movie-item {
+        padding: 8px;
+    }
+
+    .views-all .filters {
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .views-all .filter-section {
+        padding: 15px;
+    }
+
+    .views-all .filter-toggle {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .views-all .filter-options {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .views-all .year-values {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .views-all .filter-option {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    .views-all .movie-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .views-all .movie-card {
+        padding: 10px;
+    }
+
+    .views-all .pagination {
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    .views-all .pagination a {
+        margin: 5px 0;
+        padding: 8px 16px;
+    }
+}

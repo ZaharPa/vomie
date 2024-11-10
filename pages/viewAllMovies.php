@@ -97,7 +97,7 @@ use scripts\class\MovieDetail;
      	<div class="pagination">
      		<?php
         	for ($i = 1; $i <= $totalPages; $i++){
-        	   echo "<a href='?page=home&number=$i'>$i</a> ";
+        	   echo "<a href='?page=view-all&number=$i'>$i</a> ";
         	}
         	?>
         </div>

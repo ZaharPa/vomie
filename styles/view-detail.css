@@ -340,3 +340,160 @@
 	background-color: rgba(65, 101, 65, 0.6);
 	color: black;
 }
+
+@media (max-width: 768px) {
+    .movie-view {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin: 20px;
+    }
+
+    .movie-view h3 {
+        font-size: 20px;
+        margin-left: 7px;
+    }
+
+    .movie-view .left-column {
+        text-align: center;
+        margin-right: 0;
+    }
+
+    .movie-view .poster {
+        width: 80%;
+        margin: 0 auto;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .movie-view .movie-title {
+        font-size: 28px;
+        margin-bottom: 5px;
+    }
+
+    .movie-view .genre {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .movie-view .description {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .movie-view .photos-section {
+        margin-top: 20px;
+    }
+
+    .movie-view .photos-movie {
+        display: block;
+        gap: 10px;
+        overflow-x: scroll;
+    }
+
+    .movie-view .photos {
+        height: 150px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .movie-view .cast-section {
+        margin-top: 20px;
+    }
+
+    .movie-view .cast-movie {
+        display: block;
+        gap: 10px;
+    }
+
+    .movie-view .caster {
+        text-align: center;
+    }
+
+    .movie-view .cast-photo {
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-bottom: 5px;
+    }
+
+    .movie-view .link-section {
+        background-color: #1a1a1a;
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .movie-view .links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .movie-view .links a {
+        padding: 8px;
+        background-color: #611B70;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+        transition: background-color 0.3s ease;
+    }
+    
+    .movie-view .right-column {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 15px;
+   	 }
+
+    .movie-view .bottom-section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .photo-modal {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        z-index: 101;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .star {
+        font-size: 30px;
+    }
+
+    .comment-btn {
+        width: 90%;
+        margin: 5px auto;
+    }
+
+    #comForm .commentText {
+        font-size: 14px;
+    }
+
+    .submitCom, .comments-list .show-more-button {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .comment {
+        font-size: 14px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: black;
+    }
+
+    .comment h4 {
+        font-size: 14px;
+    }
+
+    .comment small {
+        font-size: 8px;
+    }
+}
