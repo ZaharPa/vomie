@@ -62,7 +62,10 @@
     
     Below is the visual representation of the database schema:
    ![database](https://github.com/user-attachments/assets/deee91fa-5875-45ed-ad67-dbe906ccffdc)
-   
+
+## Design  
+[Figma](https://www.figma.com/design/fww6LBdisHbn9tbVRzZ1jF/vomie?node-id=0-1&t=gTiUjyKdEsY1smn1-1)
+
 ## Screenshots
 Below are some screenshots showing the functionality and appearance of the platform:
 ![home](https://github.com/user-attachments/assets/dd218340-a518-40a0-b6c1-d78b3af0dc15)
